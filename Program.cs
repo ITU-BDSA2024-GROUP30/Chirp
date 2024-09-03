@@ -1,9 +1,10 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
 using System.Text.RegularExpressions;
 
 StreamReader input = new("chirp_cli_db.csv"); //reads from file
 StreamWriter output = File.AppendText("chirp_cli_db.csv"); //writes to file
-
+    
 List<string> cheeps = []; //list of Cheeps to print
 var nextLine = input.ReadLine(); //first line from file; unused on purpose
 while ((nextLine = input.ReadLine()) != null) { //while there is a nextLine, add to list of Cheeps
@@ -13,12 +14,12 @@ while ((nextLine = input.ReadLine()) != null) { //while there is a nextLine, add
 if (args[0]=="read") { //if prompted to 'read' Cheeps
         read();
 } else if (args[0]=="cheep"){
-    var authorname = Environment.UserName; // We can get UserName or UserDomainName
+    var authorname = Environment.UserName; // UserName or UserDomainName for device name
     var cheepString = String.Join(" ", args[1..]);
     var currentTimestamp = DateTimeOffset.Now; //only gets the current time.
     long unixTimestamp = currentTimestamp.ToUnixTimeSeconds();
-
-    //join authorname, cheepString and timestamp
+    
+    //below joins authorname, cheepString and timestamp
     cheepString = authorname + ",\"" + cheepString + "\"," + unixTimestamp.ToString();
     output.WriteLine(cheepString); //add new Cheep to file
     cheeps.Add(cheepString);  //add new Cheep to list
@@ -35,6 +36,7 @@ void read() {
         long timestamp = long.Parse(columns[^1]);
         //Makes timestamp readable
         DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(timestamp);
+        time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
         string formattedDate = time.ToString("MM/dd/yy HH:mm:ss");
 
         Console.WriteLine($"{author} @ {formattedDate}: {message} ");
