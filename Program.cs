@@ -12,6 +12,7 @@ using System;
 
 //void Main(string[] args){}
 
+
 if (args[0]=="read") { //if prompted to 'read' Cheeps
     Parsing.readFromFile("chirp_cli_db.csv");
 } else if (args[0]=="cheep"){
