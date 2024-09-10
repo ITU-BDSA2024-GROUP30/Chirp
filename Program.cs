@@ -1,45 +1,68 @@
 ﻿using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
+using CsvHelper;
+using CsvHelper.Configuration;
+using System.ComponentModel.DataAnnotations.Schema;
+using CsvHelper.Configuration.Attributes;
+using System;
 
-StreamReader input = new("chirp_cli_db.csv"); //reads from file
-StreamWriter output = File.AppendText("chirp_cli_db.csv"); //writes to file
-    
-List<string> cheeps = []; //list of Cheeps to print
-var nextLine = input.ReadLine(); //first line from file; unused on purpose
-while ((nextLine = input.ReadLine()) != null) { //while there is a nextLine, add to list of Cheeps
-   cheeps.Add(nextLine);
-}
+// method for verifying file path. 
+//public void makeFileReader(string fileName){}
+
+//void Main(string[] args){}
 
 if (args[0]=="read") { //if prompted to 'read' Cheeps
-        read();
+    Parsing.readFromFile("chirp_cli_db.csv");
 } else if (args[0]=="cheep"){
-    var authorname = Environment.UserName; // UserName or UserDomainName for device name
-    var cheepString = String.Join(" ", args[1..]);
-    var currentTimestamp = DateTimeOffset.Now; //only gets the current time.
-    long unixTimestamp = currentTimestamp.ToUnixTimeSeconds();
-    
-    //below joins authorname, cheepString and timestamp
-    cheepString = authorname + ",\"" + cheepString + "\"," + unixTimestamp.ToString();
-    output.WriteLine(cheepString); //add new Cheep to file
-    cheeps.Add(cheepString);  //add new Cheep to list
-    output.Close(); //close StreamWriter
-    read();
+    Parsing.cheep(args);
 }
+    
 
-void read() {
-    foreach (var cheep in cheeps) {
-        var columns = cheep.Split(","); //Splits cheep by comma
+public class Parsing{
+    [Name("Author")][Index(0)]
+    public required string Author { get; set; }
+    [Name("Message")][Index(1)]
+    public required string Message { get; set; }
+    [Name("Timestamp")][Index(2)]
+    public required long Timestamp { get; set; }
 
-        string author = columns[0];
-        string message = string.Join(",", columns[1..^1]).Trim('"');
-        long timestamp = long.Parse(columns[^1]);
-        //Makes timestamp readable
-        DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(timestamp);
-        time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
-        string formattedDate = time.ToString("MM/dd/yy HH:mm:ss");
+    public static void cheep(string[] args){ // rename "cheep" to ex. formattedMessage (so it becomes more readable)
+        storeToFile(args, "chirp_cli_db.csv");
+        readFromFile("chirp_cli_db.csv");
+    }
 
-        Console.WriteLine($"{author} @ {formattedDate}: {message} ");
-        Thread.Sleep(1000); //creates delay between each Cheep
+    public static void readFromFile(string file){ //write this properly
+        List<Parsing> cheepList;
+        using (var reader = new StreamReader(file))
+        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) {
+                var records = csv.GetRecords<Parsing>();
+                cheepList = records.ToList();
+        }
+
+        foreach (var cheep in cheepList) {
+            DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
+            time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
+            string formattedDate = time.ToString("MM/dd/yy HH:mm:ss");
+
+            Console.WriteLine($"{cheep.Author} @ {formattedDate}: {cheep.Message}");
+            Thread.Sleep(100); //creates delay between each Cheep
+        }    
+    }
+
+    
+    public static void storeToFile(string[] args, string file){ //write this out properly
+        var author = Environment.UserName; // UserName or UserDomainName for device name
+        var message = String.Join(" ",args[1..]);
+        var currentTimestamp = DateTimeOffset.Now; //only gets the current time.
+        long timestamp = currentTimestamp.ToUnixTimeSeconds();
+
+        var hello = new Parsing { Author = author, Message = message, Timestamp = timestamp };
+
+        using (var writer = new StreamWriter(file, true))
+        using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) {
+            writer.Write("\n");
+            csv.WriteRecord(hello);
+        }
     }
 }
