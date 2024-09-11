@@ -9,29 +9,49 @@ using System;
 
 namespace SimpleDB;
  
-
-interface IDatabaseRepository<T>
-    {
-    public IEnumerable<T> Read(int? limit = null);
-    public void Store(T record);
-    }
-
 sealed class CSVDatabase<T> : IDatabaseRepository<T>
 {
     //skal have de to metoder med.. skal laves om og bruges her mener jeg..
-    IEnumerable<T> Read();
+    
+    public string Author { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public long Timestamp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-    Store(T record);
+    public IEnumerable<T> Read(int limit, string file) {
+        IEnumerable<Cheep> cheepList; 
+        using (var reader = new StreamReader(file))
+        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture)) {
+            var records = csv.GetRecords<Cheep>();
+            cheepList = records.ToList();
+        }
+        return (IEnumerable<T>) cheepList; 
+    }
+    public void Store(T record, string file){
+
+        using (var writer = new StreamWriter(file, true))
+        using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) {
+            writer.Write("\n");
+            csv.WriteRecord(record);
+        }
+    }
+    /*public record Cheep{
+       [Name("Author")][Index(0)]
+        public required string Author { get; set; }
+        [Name("Message")][Index(1)]
+        public required string Message { get; set; }
+        [Name("Timestamp")][Index(2)]
+        public required long Timestamp { get; set; }
+
+        //public static void cheep(string[] args){ // rename "cheep" to ex. formattedMessage (so it becomes more readable)
+        //    storeToFile(args, "chirp_cli_db.csv");
+        //    readFromFile("chirp_cli_db.csv");
+        //}
+    }*/
+}
     
 
-}
-
-//public record Cheep(string Author, string Message, long Timestamp);
-//IDatabaseRepository<Cheep> database = new CSVDatabase<Cheep>();
-
-//var cheepTest1 = new Cheep("Henri", "Hello MAMA!", DateTimeOffset.UtcNow.ToUnixTimeSeconds());
-//database.Store(cheepTest1);
-
+    //Store(T record);
+    
 
 //1. alt hvad der er i Program.cs nu skal refaktoriseres herind(e)
 //2. går udfra program.cs skal bare have en main run methode så?
