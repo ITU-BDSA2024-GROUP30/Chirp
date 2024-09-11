@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using CsvHelper.Configuration.Attributes;
 using System;
 using SimpleDB;
+using System.Collections;
 
 // method for verifying file path. 
 //public void makeFileReader(string fileName){}
@@ -19,7 +20,12 @@ if (args[0]=="read") { //if prompted to 'read' Cheeps
     if (args.Length > 1){
         int argument = Int32.Parse(args[1]);
         IDatabaseRepository<Cheep> csvDB = new SimpleDB.CSVDatabase<Cheep>();
-        foreach (var cheep in csvDB.Read(argument, "chirp_cli_db.csv")) {
+
+        var cheepsToPrint = new List<IEnumerable<Cheep>>();
+        cheepsToPrint.Add(csvDB.Read(argument, "chirp_cli_db.csv"));
+        
+        for (int i = 0; i < argument ; i++){
+            Cheep cheep = (Cheep) cheepsToPrint[i]; //ElementAt(i);
             DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
             time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
             string formattedDate = time.ToString("MM/dd/yy HH:mm:ss");
@@ -27,6 +33,17 @@ if (args[0]=="read") { //if prompted to 'read' Cheeps
             Console.WriteLine($"{cheep.Author} @ {formattedDate}: {cheep.Message}");
             Thread.Sleep(100); //creates delay between each Cheep
         }
+
+        /*foreach (var cheep in csvDB.Read(argument, "chirp_cli_db.csv")) {
+            DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
+            time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
+            string formattedDate = time.ToString("MM/dd/yy HH:mm:ss");
+    
+            Console.WriteLine($"{cheep.Author} @ {formattedDate}: {cheep.Message}");
+            Thread.Sleep(100); //creates delay between each Cheep
+        }*/
+    } else {
+        
     }
     
 } else if (args[0]=="cheep"){
