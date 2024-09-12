@@ -1,31 +1,14 @@
-﻿using System.Globalization;
-using System.IO;
-using System.Text.RegularExpressions;
-using CsvHelper;
-using CsvHelper.Configuration;
-using System.ComponentModel.DataAnnotations.Schema;
-using CsvHelper.Configuration.Attributes;
-using System;
-using SimpleDB;
-using System.Collections;
-
-// method for verifying file path. 
-//public void makeFileReader(string fileName){}
-
-//void Main(string[] args){}
-
+﻿using CsvHelper.Configuration.Attributes;
 
 if (args[0]=="read") { //if prompted to 'read' Cheeps
-    //Parsing.readFromFile("chirp_cli_db.csv");
+    IDatabaseRepository<Cheep> csvDB = new SimpleDB.CSVDatabase<Cheep>();
+    //ovenstående - skift til var eller lign? I stedet for IDatabase....
+        
     if (args.Length > 1){
         int argument = Int32.Parse(args[1]);
-        IDatabaseRepository<Cheep> csvDB = new SimpleDB.CSVDatabase<Cheep>();
-
-        var cheepsToPrint = new List<IEnumerable<Cheep>>();
-        cheepsToPrint.Add(csvDB.Read(argument, "chirp_cli_db.csv"));
-        
+        var cheepList = csvDB.Read(argument, "chirp_cli_db.csv");
         for (int i = 0; i < argument ; i++){
-            Cheep cheep = (Cheep) cheepsToPrint[i]; //ElementAt(i);
+            Cheep cheep = cheepList.ElementAt(i);
             DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
             time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
             string formattedDate = time.ToString("MM/dd/yy HH:mm:ss");
@@ -33,24 +16,39 @@ if (args[0]=="read") { //if prompted to 'read' Cheeps
             Console.WriteLine($"{cheep.Author} @ {formattedDate}: {cheep.Message}");
             Thread.Sleep(100); //creates delay between each Cheep
         }
+    } else {
+        var argument = 100; //we need to change this. what limit to give,
+        //when there is none given from user input?
 
-        /*foreach (var cheep in csvDB.Read(argument, "chirp_cli_db.csv")) {
+        var cheepList = csvDB.Read(argument, "chirp_cli_db.csv");
+        foreach (Cheep cheep in cheepList) {
             DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
             time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
             string formattedDate = time.ToString("MM/dd/yy HH:mm:ss");
     
             Console.WriteLine($"{cheep.Author} @ {formattedDate}: {cheep.Message}");
             Thread.Sleep(100); //creates delay between each Cheep
-        }*/
-    } else {
-        
+        }
     }
     
 } else if (args[0]=="cheep"){
     IDatabaseRepository<Cheep> csvDB = new SimpleDB.CSVDatabase<Cheep>();
     var cheepers = makeCheep(args[1..]);
     csvDB.Store(cheepers, "chirp_cli_db.csv");
-    //Parsing.cheep(args);
+
+    //below is code duplication, can we simplify it?
+    var argument = 100; //we need to change this. what limit to give,
+        //when there is none given from user input?
+
+    var cheepList = csvDB.Read(argument, "chirp_cli_db.csv");
+    foreach (Cheep cheep in cheepList) {
+        DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
+        time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
+        string formattedDate = time.ToString("MM/dd/yy HH:mm:ss");
+    
+        Console.WriteLine($"{cheep.Author} @ {formattedDate}: {cheep.Message}");
+        Thread.Sleep(100); //creates delay between each Cheep
+    }
 }
 
 Cheep makeCheep(string[] record){
@@ -70,19 +68,5 @@ public record Cheep() {
     [Name("Message")][Index(1)]
     public required string Message { get; set; }
     [Name("Timestamp")][Index(2)]
-    public required long Timestamp { get; set; }
-    //public static void cheep(string[] args){ // rename "cheep" to ex. formattedMessage (so it becomes more readable)
-    //    storeToFile(args, "chirp_cli_db.csv");
-    //    readFromFile("chirp_cli_db.csv");
-    //}
-    
+    public required long Timestamp { get; set; }    
 }
-
-
-
-/* public record Cheep(string Author, string Message, long Timestamp);
-IDatabaseRepository<Cheep> databaseTest = new CSVDatabase<Cheep>();
-
-var cheepTest1 = new Cheep("Henri", "Hello MAMA!", DateTimeOffset.UtcNow.ToUnixTimeSeconds());
-databaseTest.Store(cheepTest1);
-cheepTest1.Read(); */
