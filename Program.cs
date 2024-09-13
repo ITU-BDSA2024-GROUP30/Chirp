@@ -1,10 +1,9 @@
 ﻿using Chirp.Cli.SimpleDB;
-//using CsvHelper;
 using CsvHelper.Configuration.Attributes;
-namespace Chirp.Cli.Client;
+namespace Chirp.Cli;
 
 public class Program : UserInterface{
-    public void Main(string []args){
+    public static void Main(string []args){
         if (args[0]=="read") { //if prompted to 'read' Cheeps
             var limit = Int32.Parse(args[1]);
             var csvD = new CSVDatabase<Cheep>();
@@ -15,7 +14,7 @@ public class Program : UserInterface{
             var cheepers = MakeCheep(args[1..]);
             csvDB.Store(cheepers, "chirp_cli_db.csv");
 
-        //below is code duplication, can we simplify it?
+            //below is code duplication, can we simplify it?
             var argument = 100; //we need to change this. what limit to give,
             //when there is none given from user input?
 

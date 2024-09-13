@@ -1,8 +1,7 @@
-using static Chirp.Cli.Client.Program;
-
-namespace Chirp.Cli.Client;
+using static Chirp.Cli.Program;
+namespace Chirp.Cli;
 public class UserInterface {
-    public void PrintMessages(IEnumerable<Cheep> cheeps){
+    public static void PrintMessages(IEnumerable<Cheep> cheeps){
        foreach (Cheep cheep in cheeps) {
             DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
             time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
