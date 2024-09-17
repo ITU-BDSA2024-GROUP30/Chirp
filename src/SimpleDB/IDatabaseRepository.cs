@@ -1,4 +1,6 @@
 using System.Collections;
+using Chirp.Cli;
+//namespace Chirp.Cli.SimpleDB;
 interface IDatabaseRepository<T> {
     
     public void Store(T record, string file);

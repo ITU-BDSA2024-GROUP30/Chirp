@@ -4,9 +4,6 @@ using CommandLine;
 
 namespace Chirp.Cli;
 
-public interface IProgram {
-
-}
 
 public static class Program 
 {
@@ -26,16 +23,17 @@ public static class Program
         // this is the part that actually parses the code. 
         Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
         {
-            IDatabaseRepository<Cheep> csvDB = new CSVDatabase<Cheep>();
+            var csvDB = new CSVDatabase<Cheep>();
+            //IDatabaseRepository<Cheep> csvDB = new CSVDatabase<Cheep>();
 
             // for cheeping
             if (o.WantToCheep.Count() != 0) {
                 var cheepers = MakeCheep(o.WantToCheep);
-                csvDB.Store(cheepers, "chirp_cli_db.csv");
+                csvDB.Store(cheepers, "../../data/chirp_cli_db.csv");
             }
 
             // Code for reading:
-            var cheeps = csvDB.Read(o.WantToReadCheeps, "chirp_cli_db.csv");  //changed csvD to csvDB to test something.
+            var cheeps = csvDB.Read(o.WantToReadCheeps, "../../data/chirp_cli_db.csv");  //changed csvD to csvDB to test something.
             UserInterface.PrintMessages(cheeps);
         });  
     }

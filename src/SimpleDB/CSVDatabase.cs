@@ -1,8 +1,10 @@
 ﻿using System.Globalization;
 using CsvHelper;
+using Chirp.Cli;
+
 namespace Chirp.Cli.SimpleDB;
  
-sealed class CSVDatabase<T> : IDatabaseRepository<T> {
+public sealed class CSVDatabase<T> : IDatabaseRepository<T> {
     //public string Author { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     //public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     //public long Timestamp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
