@@ -1,6 +1,6 @@
 using static Chirp.Cli.Program;
 namespace Chirp.Cli;
-public class UserInterface {
+public static class UserInterface {
     public static void PrintMessages(IEnumerable<Cheep> cheeps){
        foreach (Cheep cheep in cheeps) {
             DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);

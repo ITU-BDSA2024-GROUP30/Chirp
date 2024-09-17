@@ -1,36 +1,46 @@
 ﻿using Chirp.Cli.SimpleDB;
 using CsvHelper.Configuration.Attributes;
+using CommandLine;
+
 namespace Chirp.Cli;
 
-public class Program : UserInterface{
-    public static void Main(string []args){
-        if (args[0]=="read") { //if prompted to 'read' Cheeps
-            var limit = Int32.Parse(args[1]);
-            var csvD = new CSVDatabase<Cheep>();
-            var cheeps = csvD.Read(limit, "chirp_cli_db.csv");
-            PrintMessages(cheeps);
-        } else if (args[0]=="cheep"){
-            IDatabaseRepository<Cheep> csvDB = new CSVDatabase<Cheep>();
-            var cheepers = MakeCheep(args[1..]);
-            csvDB.Store(cheepers, "chirp_cli_db.csv");
+public interface IProgram {
 
-            //below is code duplication, can we simplify it?
-            var argument = 100; //we need to change this. what limit to give,
-            //when there is none given from user input?
+}
 
-            var cheepList = csvDB.Read(argument, "chirp_cli_db.csv");
-            foreach (Cheep cheep in cheepList) {
-                DateTimeOffset time = DateTimeOffset.FromUnixTimeSeconds(cheep.Timestamp);
-                time = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(time, "Central Europe Standard Time");
-                string formattedDate = time.ToString("MM/dd/yy HH:mm:ss");
+public static class Program 
+{
+    // This Options class is where we write in all the commands we can call on our chirp application. 
+    // At the moment it contains information for "read" and "cheep" 
+    // (the names )
+    public class Options{
+        [Option('r', "read", Default = 100, Required = false, HelpText = "Read a cheep from the old cheeps")]
+        public int WantToReadCheeps { get; set; } // named option of type scalar (it has one value connected to it)
         
-                Console.WriteLine($"{cheep.Author} @ {formattedDate}: {cheep.Message}");
-                Thread.Sleep(100); //creates delay between each Cheep
+        [Option('c', "cheep", Required = false, HelpText = "Write your own cheep and have it added to the list of cheeps")]
+        public IEnumerable<string> WantToCheep { get; set; } = []; // named option of type sequence (it has a whole sequence/list connected to it.)
+    }
+    public static void Main(string []args)
+    {   
+        // this is the part that actually parses the code. 
+        Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
+        {
+            IDatabaseRepository<Cheep> csvDB = new CSVDatabase<Cheep>();
+
+            // for cheeping
+            if (o.WantToCheep.Count() != 0) {
+                var cheepers = MakeCheep(o.WantToCheep);
+                csvDB.Store(cheepers, "chirp_cli_db.csv");
             }
-        }    
+
+            // Code for reading:
+            var cheeps = csvDB.Read(o.WantToReadCheeps, "chirp_cli_db.csv");  //changed csvD to csvDB to test something.
+            UserInterface.PrintMessages(cheeps);
+        });  
     }
 
-    static Cheep MakeCheep(string[] record){
+    static Cheep MakeCheep(IEnumerable<string> record) // changing string[] record to an IEnumerable
+    {
         var author = Environment.UserName; // UserName or UserDomainName for device name
         var message = String.Join(" ", record);
         var currentTimestamp = DateTimeOffset.Now; //only gets the current time.
@@ -41,7 +51,8 @@ public class Program : UserInterface{
         return recordCheep;
     }
 
-    public record Cheep() {
+    public record Cheep() 
+    {
         [Name("Author")][Index(0)]
         public required string Author { get; set; }
         [Name("Message")][Index(1)]
@@ -50,5 +61,5 @@ public class Program : UserInterface{
         public required long Timestamp { get; set; }    
     }
 
-
 }
+
