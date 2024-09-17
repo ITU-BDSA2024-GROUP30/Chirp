@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: echo ${{ github.sha }} > Program.cs
       - name: Test
-        run: cat Test.csproj
+        run: cat Program.cs
       - name: Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
