@@ -1,6 +1,9 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Chirp by Group 30
+run-name: ${{ github.actor }} is testing out GitHub Actions for Chirp by Group 30 🚀
 on: [push]
+
+permissions: write-all
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -16,4 +19,17 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      
+      - name: Build
+        run: echo ${{ github.sha }} > Program.cs
+      - name: Test
+        run: cat Test.csproj
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ./src
+            ./Test
+            ./data
 
