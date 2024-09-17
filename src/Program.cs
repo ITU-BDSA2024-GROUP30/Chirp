@@ -20,6 +20,7 @@ public static class Program
         [Option('c', "cheep", Required = false, HelpText = "Write your own cheep and have it added to the list of cheeps")]
         public IEnumerable<string> WantToCheep { get; set; } = []; // named option of type sequence (it has a whole sequence/list connected to it.)
     }
+    // This is our main method 
     public static void Main(string []args)
     {   
         // this is the part that actually parses the code. 
