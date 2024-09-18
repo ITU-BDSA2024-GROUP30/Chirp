@@ -1,15 +1,15 @@
 name: Release of Chirp
 run-name: ${{ github.actor }} is publishing a new version of Chirp by Group 30
 
-on: push 
+on: push
   #push:
-  #  branches: [ $default-branch ]
+    #branches: [ $default-branch ]
   #pull_request:
-  #  branches: [ $default-branch ]
+    #branches: [ $default-branch ]
   #schedule:
-  #  - cron: 00 00 * * 1
+    #- cron: 00 00 * * 1
   #release:
-  #  types: [published]
+    #types: [published]
 
 permissions: write-all
 
@@ -21,7 +21,7 @@ jobs:
         kind: ['linux', 'windows', 'macOS']
         include:
           - kind: linux
-            os: linux-1.2.3
+            os: ubuntu-latest
             target: linux-x64
           - kind: windows
             os: windows-latest
@@ -39,6 +39,8 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."-
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
