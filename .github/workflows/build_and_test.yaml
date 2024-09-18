@@ -49,6 +49,7 @@ jobs:
       - name: Build
         shell: bash
         run: |
+          tag=$(git describe --tags --abbrev=0)
           release_name="App-$tag-${{ matrix.target }}"
 
           dotnet publish /src/Chirp.CLI.Client/Program.cs --framework netcoreapp8.0 --runtime "${{ matrix.target }}" -c Release -o "$release_name"
