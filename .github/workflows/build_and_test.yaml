@@ -8,8 +8,8 @@ on:
     #branches: [ $default-branch ]
   schedule:
     - cron: 00 00 * * 1
-  #release:
-    #types: [published]
+  release:
+    types: [published]
 
 permissions:
   contents: write
