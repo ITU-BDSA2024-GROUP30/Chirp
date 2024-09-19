@@ -11,5 +11,6 @@
     <PackageReference Include="CsvHelper" Version="33.0.1"/>
     <PackageReference Include="CommandLineParser" Version="2.9.1"/>
     <ProjectReference Include="..\SimpleDB\SimpleDB.csproj" />
+    <MyBuildAction Include="..\data\chirp_cli_db.csv"/>
   </ItemGroup>
 </Project>

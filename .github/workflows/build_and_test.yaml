@@ -1,13 +1,13 @@
 name: Release of Chirp
 run-name: ${{ github.actor }} is publishing a new version of Chirp by Group 30
 
-on: push
+on: 
   #push:
     #branches: [ $default-branch ]
   #pull_request:
     #branches: [ $default-branch ]
-  #schedule:
-    #- cron: 00 00 * * 1
+  schedule:
+    - cron: 00 00 * * 1
   #release:
     #types: [published]
 
