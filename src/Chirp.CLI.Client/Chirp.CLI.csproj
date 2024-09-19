@@ -13,7 +13,6 @@
     <ProjectReference Include="..\SimpleDB\SimpleDB.csproj" />
     <None Include="$(MSBuildThisFileDirectory)..\data\chirp_cli_db.csv">
       <Link>chirp_cli_db.csv</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 </Project>
