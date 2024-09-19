@@ -52,8 +52,8 @@ jobs:
           tag=$(git describe --tags --abbrev=0 --always )
           release_name="Chirp-$tag-${{ matrix.target }}"
 
-          dotnet publish src/Chirp.CLI.Client/Chirp.CLI.csproj --framework netcoreapp8.0 --runtime "${{ matrix.target }}" -c Release -o "$release_name"
-
+          dotnet publish src/Chirp.CLI.Client/Chirp.CLI.csproj --runtime "${{ matrix.target }}" -c Release --self-contained true -o "$release_name"
+               
           if [ "${{ matrix.target }}" == "win-x64" ]; then
             7z a -tzip "${release_name}.zip" "./${release_name}/*"
           else
@@ -64,6 +64,6 @@ jobs:
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
-          files: "Chirp*" 
+          files: "Chirp-*" 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

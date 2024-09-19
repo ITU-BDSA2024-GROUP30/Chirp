@@ -7,6 +7,7 @@ namespace Chirp.Cli;
 
 public static class Program 
 {
+    static string File = Path.Combine(Directory.GetCurrentDirectory(), "../data/chirp_cli_db.csv");
     // This Options class is where we write in all the commands we can call on our chirp application. 
     // At the moment it contains information for "read" and "cheep" 
     // (the names )
@@ -29,11 +30,11 @@ public static class Program
             // for cheeping
             if (o.WantToCheep.Count() != 0) {
                 var cheepers = MakeCheep(o.WantToCheep);
-                csvDB.Store(cheepers, "./chirp_cli_db.csv");
+                csvDB.Store(cheepers, File);
             }
 
             // Code for reading:
-            var cheeps = csvDB.Read(o.WantToReadCheeps, "./chirp_cli_db.csv");  //changed csvD to csvDB to test something.
+            var cheeps = csvDB.Read(o.WantToReadCheeps, File);  //changed csvD to csvDB to test something.
             UserInterface.PrintMessages(cheeps);
         });  
     }
