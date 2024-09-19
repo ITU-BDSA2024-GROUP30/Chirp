@@ -29,11 +29,11 @@ public static class Program
             // for cheeping
             if (o.WantToCheep.Count() != 0) {
                 var cheepers = MakeCheep(o.WantToCheep);
-                csvDB.Store(cheepers, "../data/chirp_cli_db.csv");
+                csvDB.Store(cheepers, "./chirp_cli_db.csv");
             }
 
             // Code for reading:
-            var cheeps = csvDB.Read(o.WantToReadCheeps, "../data/chirp_cli_db.csv");  //changed csvD to csvDB to test something.
+            var cheeps = csvDB.Read(o.WantToReadCheeps, "./chirp_cli_db.csv");  //changed csvD to csvDB to test something.
             UserInterface.PrintMessages(cheeps);
         });  
     }

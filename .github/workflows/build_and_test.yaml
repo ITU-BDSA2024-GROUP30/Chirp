@@ -50,7 +50,7 @@ jobs:
         shell: bash
         run: |
           tag=$(git describe --tags --abbrev=0 --always )
-          release_name="App-$tag-${{ matrix.target }}"
+          release_name="Chirp-$tag-${{ matrix.target }}"
 
           dotnet publish src/Chirp.CLI.Client/Chirp.CLI.csproj --framework netcoreapp8.0 --runtime "${{ matrix.target }}" -c Release -o "$release_name"
 
@@ -64,6 +64,6 @@ jobs:
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
-          files: "App*"
+          files: "Chirp*" 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
