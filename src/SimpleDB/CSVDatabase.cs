@@ -8,15 +8,15 @@ namespace Chirp.Cli.SimpleDB;
 public sealed class CSVDatabase<T> : IDatabaseRepository<T> {
     private CSVDatabase() { }
     
-    private static CSVDatabase<T> _instance;
+    private static CSVDatabase<T> csvInstance = null!;
 
     public static CSVDatabase<T> getInstance()
     {
-        if (_instance == null)
+        if (csvInstance == null)
         {
-            _instance = new CSVDatabase<T>();
+            csvInstance = new CSVDatabase<T>();
         }
-        return _instance;
+        return csvInstance;
     }
     public IEnumerable<T> Read(int limit, string file) {
         IEnumerable<T> List; 

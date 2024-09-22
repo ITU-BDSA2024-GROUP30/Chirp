@@ -24,32 +24,21 @@ public static class Program
         Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
         {
             var csvDB = CSVDatabase<Cheep>.getInstance();
-            var csvDB2 = CSVDatabase<Cheep>.getInstance();
-
-            if (csvDB == csvDB2)
-            {
-                Console.WriteLine("The two instances are the same");
-            }
-            else
-            {
-                Console.WriteLine("The two instances are NOT the same (at all)");
-            }
             
-            /*
             //IDatabaseRepository<Cheep> csvDB = new CSVDatabase<Cheep>();
 
             // for cheeping
             if (o.WantToCheep.Count() != 0) {
                 var cheepers = MakeCheep(o.WantToCheep);
-                csvDB.Store(cheepers, "../../../../../data/chirp_cli_db.csv"); // The path to the file changes depending   
+                csvDB.Store(cheepers, "../../data/chirp_cli_db.csv"); // The path to the file changes depending   
                                                                                   // on normal run or in a solution.
                                                                                   // normal "../../data/chirp_cli_db.csv"
                                                                                   // solution "../../../../../data/chirp_cli_db.csv"
             }
 
             // Code for reading:
-            var cheeps = csvDB.Read(o.WantToReadCheeps, "../../../../../data/chirp_cli_db.csv");  
-            UserInterface.PrintMessages(cheeps); */
+            var cheeps = csvDB.Read(o.WantToReadCheeps, "../../data/chirp_cli_db.csv");  
+            UserInterface.PrintMessages(cheeps); 
         });  
     }
 
