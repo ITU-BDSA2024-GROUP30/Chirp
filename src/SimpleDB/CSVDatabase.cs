@@ -1,14 +1,23 @@
 ﻿using System.Globalization;
 using CsvHelper;
 using Chirp.Cli;
+using CsvHelper.Configuration.Attributes;
 
 namespace Chirp.Cli.SimpleDB;
  
 public sealed class CSVDatabase<T> : IDatabaseRepository<T> {
-    //public string Author { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    //public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    //public long Timestamp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    private CSVDatabase() { }
+    
+    private static CSVDatabase<T> _instance;
 
+    public static CSVDatabase<T> getInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new CSVDatabase<T>();
+        }
+        return _instance;
+    }
     public IEnumerable<T> Read(int limit, string file) {
         IEnumerable<T> List; 
         using (var reader = new StreamReader(file))
@@ -24,4 +33,5 @@ public sealed class CSVDatabase<T> : IDatabaseRepository<T> {
         writer.Write("\n");
         csv.WriteRecord(record);
     }
+    
 }
