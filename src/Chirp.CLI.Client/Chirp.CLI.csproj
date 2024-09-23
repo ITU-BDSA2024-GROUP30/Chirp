@@ -6,14 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="33.0.1"/>
     <PackageReference Include="CommandLineParser" Version="2.9.1"/>
     <ProjectReference Include="..\SimpleDB\SimpleDB.csproj" />
-    <None Include="$(MSBuildThisFileDirectory)..\data\chirp_cli_db.csv">
-      <Link>chirp_cli_db.csv</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>
