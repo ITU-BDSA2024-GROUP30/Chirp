@@ -23,18 +23,22 @@ public static class Program
         // this is the part that actually parses the code. 
         Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(o =>
         {
-            var csvDB = new CSVDatabase<Cheep>();
+            var csvDB = CSVDatabase<Cheep>.getInstance();
+            
             //IDatabaseRepository<Cheep> csvDB = new CSVDatabase<Cheep>();
 
             // for cheeping
             if (o.WantToCheep.Count() != 0) {
                 var cheepers = MakeCheep(o.WantToCheep);
-                csvDB.Store(cheepers, "../../data/chirp_cli_db.csv");
+                csvDB.Store(cheepers, "../../data/chirp_cli_db.csv"); // The path to the file changes depending   
+                                                                                  // on normal run or in a solution.
+                                                                                  // normal "../../data/chirp_cli_db.csv"
+                                                                                  // solution "../../../../../data/chirp_cli_db.csv"
             }
 
             // Code for reading:
-            var cheeps = csvDB.Read(o.WantToReadCheeps, "../../data/chirp_cli_db.csv");  //changed csvD to csvDB to test something.
-            UserInterface.PrintMessages(cheeps);
+            var cheeps = csvDB.Read(o.WantToReadCheeps, "../../data/chirp_cli_db.csv");  
+            UserInterface.PrintMessages(cheeps); 
         });  
     }
 
