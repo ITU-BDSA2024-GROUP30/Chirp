@@ -48,11 +48,10 @@ jobs:
           tag=$(git describe --tags --abbrev=0 --always )
           release_name="Chirp-$tag-${{ matrix.target }}"
 
-          dotnet publish src/Chirp.CLI.Client/Chirp.CLI.csproj --runtime "${{ matrix.target }}" -c Release --self-contained true -o "$release_name"
+          dotnet publish src/Chirp.CLI.Client/Chirp.CLI.csproj "${{ matrix.target }}" -c Release --self-contained true -o "$release_name"
                
           if [ "${{ matrix.target }}" == "win-x64" ]; then
             7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.CLI.exe"
-            #på mac og linux er det ikke en exe fil, bare chirp.cli
           else
             7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.CLI"
           fi
