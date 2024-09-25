@@ -4,7 +4,6 @@ using CommandLine;
 
 namespace Chirp.Cli;
 
-
 public static class Program 
 {
     // This Options class is where we write in all the commands we can call on our chirp application. 
