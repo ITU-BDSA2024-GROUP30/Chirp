@@ -4,7 +4,7 @@ run-name: ${{ github.actor }} is publishing a new version of Chirp by Group 30
 on: 
   push:
     tags:
-      -"*.*.*" #pattern som release tag matcher
+      - '*.*.*' #pattern som release tag matcher
   workflow_dispatch:
 
 permissions:
