@@ -1,15 +1,13 @@
 name: Release of Chirp
 run-name: ${{ github.actor }} is publishing a new version of Chirp by Group 30
 
-on: push
-  #push:
-    #branches: [ $default-branch ]
-  #pull_request:
-    #branches: [ $default-branch ]
+on: 
+  push:
+    tags:
+      -"*.*.*" #pattern som release tag matcher
   #schedule:
     #- cron: 00 00 * * 1
-  #release:
-    #types: [published]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -30,8 +28,8 @@ jobs:
           - kind: macOS
             os: macos-latest
             target: osx-x64
-    runs-on: ${{ matrix.os }}
-    
+    runs-on: ubuntu_latest
+   
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -55,9 +53,10 @@ jobs:
           dotnet publish src/Chirp.CLI.Client/Chirp.CLI.csproj --runtime "${{ matrix.target }}" -c Release --self-contained true -o "$release_name"
                
           if [ "${{ matrix.target }}" == "win-x64" ]; then
-            7z a -tzip "${release_name}.zip" "./${release_name}/*"
+            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.CLI.exe"
+            #på mac og linux er det ikke en exe fil, bare chirp.cli
           else
-            tar czvf "${release_name}.tar.gz" "$release_name"
+            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.CLI"
           fi
           
           rm -r "$release_name"
