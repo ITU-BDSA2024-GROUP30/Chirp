@@ -58,6 +58,8 @@ jobs:
           fi
           
           rm -r "$release_name"
+      - name: Test
+        run: dotnet test 
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
