@@ -1,4 +1,13 @@
+# EditorConfig is awesome: https://EditorConfig.org
+root = true
+
 [*]
+indent_style = tab
+indent_size = 2
+// end_of_line = crlf
+// charset = utf-8
+trim_trailing_whitespace = true
+// insert_final_newline = false
 cpp_indent_braces=false
 cpp_indent_multi_line_relative_to=innermost_parenthesis
 cpp_indent_within_parentheses=indent
