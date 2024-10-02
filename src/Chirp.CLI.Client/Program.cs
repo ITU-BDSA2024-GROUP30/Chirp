@@ -38,9 +38,6 @@ public static class Program
                                                                           // normal "../../data/chirp_cli_db.csv"
                                                                           // solution "../../../../../data/chirp_cli_db.csv"
             }
-            else { 
-                
-            }
 
             // Code for reading:
             var cheeps = csvDB.Read(o.WantToReadCheeps, "../../src/data/chirp_cli_db.csv");
