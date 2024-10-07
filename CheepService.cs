@@ -1,3 +1,8 @@
+using System.Data;
+using Microsoft.Data.Sqlite;
+//using Chirp.Database;
+
+//namespace Chirp.Cheeps;
 public record CheepViewModel(string Author, string Message, string Timestamp);
 
 public interface ICheepService
@@ -9,19 +14,23 @@ public interface ICheepService
 public class CheepService : ICheepService
 {
     // These would normally be loaded from a database for example
-    private static readonly List<CheepViewModel> _cheeps = new()
-        {
-            new CheepViewModel("Helge", "Hello, BDSA students!", UnixTimeStampToDateTimeString(1690892208)),
-            new CheepViewModel("Adrian", "Hej, velkommen til kurset.", UnixTimeStampToDateTimeString(1690895308)),
-        };
+    private static readonly List<CheepViewModel> _cheeps = new();
 
     public List<CheepViewModel> GetCheeps()
     {
-        var something = new DBFacade();
-        something.connectingToSql();
+
+        var cheepDB = new DBFacade();
+        var list = cheepDB.DatabaseConnection();
+
+        foreach (CheepViewModel cheep in list)
+        {
+            _cheeps.Add(cheep);
+        }
+
         return _cheeps;
     }
 
+    // sorts cheep after the string author.
     public List<CheepViewModel> GetCheepsFromAuthor(string author)
     {
         // filter by the provided author name
