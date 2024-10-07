@@ -17,6 +17,8 @@ public class CheepService : ICheepService
 
     public List<CheepViewModel> GetCheeps()
     {
+        var something = new DBFacade();
+        something.connectingToSql();
         return _cheeps;
     }
 
