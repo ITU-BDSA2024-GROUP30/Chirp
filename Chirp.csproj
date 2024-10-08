@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.8" />
+    <EmbeddedResource Include="data/**/*" />
   </ItemGroup>
 
 </Project>
