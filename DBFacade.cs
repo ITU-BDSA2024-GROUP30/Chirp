@@ -1,5 +1,9 @@
 using System.Data;
 using Microsoft.Data.Sqlite;
+using System.IO;
+using Microsoft.VisualBasic;
+using Microsoft.Extensions.FileProviders;
+using System.Reflection;
 
 //namespace Chirp.Database;
 
@@ -10,13 +14,50 @@ public interface IDBFacade
 
 public class DBFacade : IDBFacade
 {
+    private string SqlDBFilePath = "data/chirp.db";
+    private Boolean cheepdataExists = false;
+    //private string sqlQuery = "";
+    public DBFacade()
+    {
+        if (!Directory.Exists("data"))
+        {
+            Directory.CreateDirectory("data");
+            File.Create(SqlDBFilePath);
+        }
+    }
+
+    public void FillDatase(string sqlFile, SqliteConnection connection)
+    {
+        try
+        {
+            var embeddedProvider = new EmbeddedFileProvider(Assembly.GetExecutingAssembly());
+            using var readerSomething = embeddedProvider.GetFileInfo(sqlFile).CreateReadStream();
+            using var sr = new StreamReader(readerSomething);
+            var query = sr.ReadToEnd();
+
+            using var command1 = new SqliteCommand(query, connection);
+            command1.ExecuteNonQuery();
+            Console.WriteLine("Table 'authors' created successfully. From file: " + sqlFile);
+        }
+        catch (SqliteException e)
+        {
+            Console.WriteLine("!!!!!!!!!!!!" + e.Message);
+        }
+    }
     public List<CheepViewModel> DatabaseConnection()
     {
         var cheepList = new List<CheepViewModel>();
 
-        using (var connection = new SqliteConnection("Data Source=/tmp/chirp.db"))
+        using (var connection = new SqliteConnection("Data Source=data/chirp.db"))
         {
             connection.Open();
+            // Add a statement to check what is in the data base already.
+            if (!cheepdataExists)
+            {
+                FillDatase("data/schema.sql", connection);
+                FillDatase("data/dump.sql", connection);
+                cheepdataExists = true;
+            }
 
             var sqlQuery = "SELECT message.*, user.* FROM message, user WHERE message.author_id = user.user_id ORDER BY message.pub_date asc";
 
@@ -46,7 +87,7 @@ public class DBFacade : IDBFacade
         return dateTime.ToString("MM/dd/yy H:mm:ss");
     }
 
-    private static string FromAuthorIdToUserName(string author) // 10
+    private static string FromAuthorIdToUserName(string author)
     {
         using (var connection = new SqliteConnection("Data Source=/tmp/chirp.db"))
         {
