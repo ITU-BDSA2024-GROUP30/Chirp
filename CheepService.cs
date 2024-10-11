@@ -1,25 +1,25 @@
 using System.Data;
 
-public record CheepViewModel(string Author, string Message, string Timestamp);
+public record CheepObject(string Author, string Message, string Timestamp);
 
 public interface ICheepService
 {
-    public List<CheepViewModel> GetCheeps();
-    public List<CheepViewModel> GetCheepsFromAuthor(string author);
+    public List<CheepObject> GetCheeps();
+    public List<CheepObject> GetCheepsFromAuthor(string author);
 }
 
 public class CheepService : ICheepService
 {
     // These would normally be loaded from a database for example
-    private static readonly List<CheepViewModel> _cheeps = new();
+    private static readonly List<CheepObject> _cheeps = new();
 
-    public List<CheepViewModel> GetCheeps()
+    public List<CheepObject> GetCheeps()
     {
 
         var cheepDB = new DBFacade();
         var list = cheepDB.DatabaseConnection();
 
-        foreach (CheepViewModel cheep in list)
+        foreach (CheepObject cheep in list)
         {
             _cheeps.Add(cheep);
         }
@@ -28,7 +28,7 @@ public class CheepService : ICheepService
     }
 
     // sorts cheep after the string author.
-    public List<CheepViewModel> GetCheepsFromAuthor(string author)
+    public List<CheepObject> GetCheepsFromAuthor(string author)
     {
         // filter by the provided author name
         return _cheeps.Where(x => x.Author == author).ToList();

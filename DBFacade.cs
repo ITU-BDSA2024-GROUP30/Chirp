@@ -1,22 +1,17 @@
 using System.Data;
 using Microsoft.Data.Sqlite;
-using System.IO;
-using Microsoft.VisualBasic;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 
-//namespace Chirp.Database;
-
 public interface IDBFacade
 {
-    public List<CheepViewModel> DatabaseConnection();
+    public List<CheepObject> DatabaseConnection();
 }
 
 public class DBFacade : IDBFacade
 {
     private string SqlDBFilePath = "data/chirp.db";
     private Boolean cheepdataExists = false;
-    //private string sqlQuery = "";
     public DBFacade()
     {
         if (!Directory.Exists("data"))
@@ -44,14 +39,18 @@ public class DBFacade : IDBFacade
             Console.WriteLine("!!!!!!!!!!!!" + e.Message);
         }
     }
-    public List<CheepViewModel> DatabaseConnection()
+    // This method should either be renamed or refactored such that
+    // it only does one thing.
+    public List<CheepObject> DatabaseConnection()
     {
-        var cheepList = new List<CheepViewModel>();
+        var cheepList = new List<CheepObject>();
 
         using (var connection = new SqliteConnection("Data Source=data/chirp.db"))
         {
             connection.Open();
             // Add a statement to check what is in the data base already.
+            // This is a ductape solution. It ensure we fill the chirp.db 
+            // file noce, instead on every GET request.
             if (!cheepdataExists)
             {
                 FillDatase("data/schema.sql", connection);
@@ -73,7 +72,7 @@ public class DBFacade : IDBFacade
                 string message = dataRecord.GetString(2);
                 double timestamp = dataRecord.GetDouble(3);
 
-                cheepList.Add(new CheepViewModel(author, message, UnixTimeStampToDateTimeString(timestamp)));
+                cheepList.Add(new CheepObject(author, message, UnixTimeStampToDateTimeString(timestamp)));
             }
         }
         return cheepList;
@@ -95,7 +94,8 @@ public class DBFacade : IDBFacade
 
             var sqlQuery = "SELECT user.*, message.* FROM user, message WHERE user.user_id = " + author;
             //var username = "SELECT user_id FROM user JOIN message ON user.user_id = message.author_id WHERE user_id = " + author;
-            //var username2 = "SELECT user_id FROM user WHERE user_id = " + author;
+            // Below code might actually work. I changed SELECT user_id to SELECT user.*
+            //var username2 = "SELECT user.* FROM user WHERE user_id = " + author;
 
             var command = connection.CreateCommand();
             command.CommandText = sqlQuery;
