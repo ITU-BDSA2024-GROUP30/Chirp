@@ -26,18 +26,18 @@ public class DBFacade : IDBFacade
         }
     }
 
-    public void FillDatase(string sqlFile, SqliteConnection connection)
+    public void FillDatase(string sqlFileName, SqliteConnection connection)
     {
         try
         {
             var embeddedProvider = new EmbeddedFileProvider(Assembly.GetExecutingAssembly());
-            using var readerSomething = embeddedProvider.GetFileInfo(sqlFile).CreateReadStream();
+            using var readerSomething = embeddedProvider.GetFileInfo(sqlFileName).CreateReadStream();
             using var sr = new StreamReader(readerSomething);
             var query = sr.ReadToEnd();
 
             using var command1 = new SqliteCommand(query, connection);
             command1.ExecuteNonQuery();
-            Console.WriteLine("Table 'authors' created successfully. From file: " + sqlFile);
+            Console.WriteLine("Table 'authors' created successfully. From file: " + sqlFileName);
         }
         catch (SqliteException e)
         {
