@@ -110,33 +110,4 @@ public class DBFacade : IDBFacade
         }
         return "";
     }
-
-
-
-    //command.CommandText = sqlQuery;
-
-    /*
-    using var reader = command.ExecuteReader();
-    while (reader.Read())
-    {
-
-        var dataRecord = (IDataRecord)reader;
-        for (int i = 0; i < dataRecord.FieldCount; i++)
-        {
-            Console.WriteLine($"{dataRecord.GetName(i)}: {dataRecord[i]}");
-            Console.WriteLine(i);
-        }
-
-        // Retrieves all columns in an array together, instead of individually.
-        Object[] values = new Object[reader.FieldCount];
-        int fieldCount = reader.GetValues(values);
-        for (int i = 0; i < fieldCount; i++)
-        {
-            Console.WriteLine($"{reader.GetName(i)}: {values[i]}");
-            Console.WriteLine(i);
-        }
-
-        //var count = reader.GetString(0);
-        //Console.WriteLine($"Hello, there is a total of {count} messages in the database!");
-    } */
 }
