@@ -21,7 +21,7 @@ public class DBFacade : IDBFacade
         }
     }
 
-    public void FillDatase(string sqlFileName, SqliteConnection connection)
+    public void FillDatabase(string sqlFileName, SqliteConnection connection)
     {
         try
         {
@@ -53,8 +53,8 @@ public class DBFacade : IDBFacade
             // file noce, instead on every GET request.
             if (!cheepdataExists)
             {
-                FillDatase("data/schema.sql", connection);
-                FillDatase("data/dump.sql", connection);
+                FillDatabase("data/schema.sql", connection);
+                FillDatabase("data/dump.sql", connection);
                 cheepdataExists = true;
             }
 
@@ -88,7 +88,7 @@ public class DBFacade : IDBFacade
 
     private static string FromAuthorIdToUserName(string author)
     {
-        using (var connection = new SqliteConnection("Data Source=/tmp/chirp.db"))
+        using (var connection = new SqliteConnection("Data Source=data/chirp.db"))
         {
             connection.Open();
 
