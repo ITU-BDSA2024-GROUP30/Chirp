@@ -2,6 +2,9 @@ using System.Data;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Chirp.EFCore;
+using Microsoft.VisualBasic;
 
 public interface IDBFacade
 {
@@ -10,6 +13,7 @@ public interface IDBFacade
 
 public class DBFacade : IDBFacade
 {
+    
     private string SqlDBFilePath = "data/chirp.db";
     private Boolean cheepdataExists = false;
     public DBFacade()
@@ -41,7 +45,7 @@ public class DBFacade : IDBFacade
     }
     // This method should either be renamed or refactored such that
     // it only does one thing.
-    public List<CheepObject> DatabaseConnection()
+    public async List<CheepObject> DatabaseConnection()
     {
         var cheepList = new List<CheepObject>();
 
@@ -58,12 +62,17 @@ public class DBFacade : IDBFacade
                 cheepdataExists = true;
             }
 
-            var sqlQuery = "SELECT message.*, user.* FROM message, user WHERE message.author_id = user.user_id ORDER BY message.pub_date asc";
+            var context = new AppDBContext(); 
+            var authorQuery = context.Authors.Select(author => author.user_id);
+            var query = context.Cheeps.Select(message => new{message.text, message.author_id}).Where(message => message.author_id == authorQuery).OrderBy(message => message.pub_date.asc);
+            var result = await query.ToListAsync();
 
-            var command = connection.CreateCommand();
-            command.CommandText = sqlQuery;
+            //"SELECT message.*, user.* FROM message, user WHERE message.author_id = user.user_id ORDER BY message.pub_date asc";
+            
+            //var command = connection.CreateCommand();
+            //command.CommandText = Query;
 
-            using var reader = command.ExecuteReader();
+            using var reader = result.ExecuteReader();
 
             while (reader.Read())
             {
@@ -92,13 +101,17 @@ public class DBFacade : IDBFacade
         {
             connection.Open();
 
-            var sqlQuery = "SELECT user.*, message.* FROM user, message WHERE user.user_id = " + author;
+            var context = new AppDBContext(); 
+            var query = context.Cheeps.Select(message, user => message.*, user.*).Where(user => user.user_id = author);
+            var result = await query.ToListAsync();
+
+            //var sqlQuery = "SELECT user.*, message.* FROM user, message WHERE user.user_id = " + author;
             //var username = "SELECT user_id FROM user JOIN message ON user.user_id = message.author_id WHERE user_id = " + author;
             // Below code might actually work. I changed SELECT user_id to SELECT user.*
             //var username2 = "SELECT user.* FROM user WHERE user_id = " + author;
 
             var command = connection.CreateCommand();
-            command.CommandText = sqlQuery;
+            command.CommandText = query;
 
             using var reader1 = command.ExecuteReader();
 
