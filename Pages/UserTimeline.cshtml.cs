@@ -18,9 +18,5 @@ public class UserTimelineModel : PageModel
         Cheeps = _service.GetCheepsFromAuthor(author);
         return Page();
     }
-		private IActionResult GetPagedData (int pagenumber = 1, int pageSize = 10)
-		{
-
-			
-		}
+		
 }

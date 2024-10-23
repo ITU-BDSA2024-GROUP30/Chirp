@@ -5,7 +5,8 @@ public record CheepObject(string Author, string Message, string Timestamp);
 public interface ICheepService
 {
     public List<CheepObject> GetCheeps();
-    public List<CheepObject> GetCheepsFromAuthor(string author);
+  Task<List<CheepObject>> GetCheeps(int current);
+  public List<CheepObject> GetCheepsFromAuthor(string author);
 }
 
 public class CheepService : ICheepService
@@ -13,8 +14,9 @@ public class CheepService : ICheepService
     // These would normally be loaded from a database for example
     private static readonly List<CheepObject> _cheeps = new();
 
-    public List<CheepObject> GetCheeps()
+    public List<CheepObject> GetCheeps( int current)
     {
+
 
         var cheepDB = new DBFacade();
         var list = cheepDB.DatabaseConnection();
