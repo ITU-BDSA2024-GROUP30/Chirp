@@ -10,17 +10,17 @@ public interface IDBFacade
 
 public class DBFacade : IDBFacade
 {
-    private string DBFilePath = Path.Combine(Path.GetTempPath(), "/data"); //enten /data eller bare data
+    private string DBFilePath = Path.Combine(Path.GetTempPath(), "data"); //enten /data eller bare data
             
     // previously: SqlDBFilePath = "data/chirp.db";
     private Boolean cheepdataExists = false;
     public DBFacade()
     {
-        if (!Directory.Exists(DBFilePath))
-        {
+        //if (!Directory.Exists(DBFilePath))
+        //{
             Directory.CreateDirectory(DBFilePath);
             File.Create(Path.Combine(DBFilePath + "/chirp.db"));
-        }
+        //}
     }
 
     public void FillDatabase(string sqlFileName, SqliteConnection connection)
