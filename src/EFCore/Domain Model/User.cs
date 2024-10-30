@@ -6,7 +6,7 @@ namespace Chirp.EFCore;
 public class User
 {
     public required int UserId { get; set; }
-    public required string UserName { get; set; }
+    public required string Name { get; set; }
 
     public required ICollection<Message> Messages { get; set; }
     //public required string email { get; set; }
