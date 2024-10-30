@@ -16,7 +16,7 @@ public class DBFacade : IDBFacade
     private Boolean cheepdataExists = false;
     public DBFacade()
     {
-        if (!Directory.Exists("data"))
+        if (!Directory.Exists(DBFilePath))
         {
             Directory.CreateDirectory(DBFilePath);
             File.Create(Path.Combine(DBFilePath + "/chirp.db"));
