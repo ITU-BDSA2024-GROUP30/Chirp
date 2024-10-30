@@ -62,7 +62,7 @@ public class DBFacade : IDBFacade
                 cheepdataExists = true;
             }
 
-            var context = new AppDBContext(); 
+            var context = new ChirpDBContext(); 
             var authorQuery = context.Authors.Select(author => author.user_id);
             var query = context.Cheeps.Select(message => new{message.text, message.author_id}).Where(message => message.author_id == authorQuery).OrderBy(message => message.pub_date.asc);
             var result = await query.ToListAsync();
@@ -101,7 +101,7 @@ public class DBFacade : IDBFacade
         {
             connection.Open();
 
-            var context = new AppDBContext(); 
+            var context = new ChirpDBContext(); 
             var query = context.Cheeps.Select(message, user => message.*, user.*).Where(user => user.user_id = author);
             var result = await query.ToListAsync();
 
