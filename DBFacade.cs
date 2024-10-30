@@ -11,7 +11,7 @@ public interface IDBFacade
 public class DBFacade : IDBFacade
 {
     private static string DBFilePath = Path.Combine(Path.GetTempPath(), "data"); //enten /data eller bare data
-    private static string DBFilePathWithFile = Path.Combine(DBFilePath + "chirp.db");        
+    private static string DBFilePathWithFile = Path.Combine(DBFilePath + "/chirp.db");        
     // previously: SqlDBFilePath = "data/chirp.db";
     private Boolean cheepdataExists = false;
     public DBFacade()
