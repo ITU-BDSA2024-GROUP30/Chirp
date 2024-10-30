@@ -10,8 +10,8 @@ public interface IDBFacade
 
 public class DBFacade : IDBFacade
 {
-    private string DBFilePath = Path.Combine(Path.GetTempPath(), "data"); //enten /data eller bare data
-            
+    private static string DBFilePath = Path.Combine(Path.GetTempPath(), "data"); //enten /data eller bare data
+    private string DBFilePathWithFile = Path.Combine(DBFilePath + "chirp.db");        
     // previously: SqlDBFilePath = "data/chirp.db";
     private Boolean cheepdataExists = false;
     public DBFacade()
@@ -19,7 +19,7 @@ public class DBFacade : IDBFacade
         //if (!Directory.Exists(DBFilePath))
         //{
             Directory.CreateDirectory(DBFilePath);
-            File.Create(Path.Combine(DBFilePath + "/chirp.db"));
+            File.Create(Path.Combine(DBFilePathWithFile));
         //}
     }
 
@@ -47,7 +47,7 @@ public class DBFacade : IDBFacade
     {
         var cheepList = new List<CheepObject>();
 
-        using (var connection = new SqliteConnection("Data Source=data/chirp.db"))
+        using (var connection = new SqliteConnection(DBFilePathWithFile))
         {
             connection.Open();
             // Add a statement to check what is in the data base already.
@@ -88,9 +88,9 @@ public class DBFacade : IDBFacade
         return dateTime.ToString("MM/dd/yy H:mm:ss");
     }
 
-    private static string FromAuthorIdToUserName(string author)
+    private string FromAuthorIdToUserName(string author)
     {
-        using (var connection = new SqliteConnection("Data Source=data/chirp.db"))
+        using (var connection = new SqliteConnection(DBFilePathWithFile))
         {
             connection.Open();
 
