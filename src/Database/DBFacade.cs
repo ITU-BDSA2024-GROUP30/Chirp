@@ -20,11 +20,11 @@ public class DBFacade : IDBFacade
     private Boolean cheepdataExists = false;
     public DBFacade()
     {
-        /*if (!Directory.Exists("data"))
-        //{
+        //if (!Directory.Exists("data"))
+        {
             Directory.CreateDirectory("data");
             File.Create(DBFilePath);
-        */}
+        }
     }
 
     public void FillDatabase(string FileName)
@@ -36,7 +36,8 @@ public class DBFacade : IDBFacade
             using var sr = new StreamReader(readerSomething);
             var query = sr.ReadToEnd();
 
-            using (var context = new ChirpDBContext("Data Source=" + DBFilePathWithFile))
+            //using (var context = new ChirpDBContext("Data Source=" + DBFilePathWithFile)) //Denne er den nye og rigtige
+            using (var connection = new ChirpDBContext("Data Source=" + DBFilePathWithFile))
             {
                 context.Database.ExecuteSqlRaw(query);
             }
