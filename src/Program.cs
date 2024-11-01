@@ -6,13 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Load database connection via configuration
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.ChirpDbContext<AppDBContext>(options => options.UseSqlite(connectionString));
+builder.Services.ChirpDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<ICheepService, CheepService>();
-builder.Services.AddScoped<IChatService, ChatService>();
-builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+//builder.Services.AddScoped<IChatService, ChatService>();
+//builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
 
 var app = builder.Build();

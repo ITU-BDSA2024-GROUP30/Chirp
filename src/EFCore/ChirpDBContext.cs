@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.EFCore;
 
-public class ChirpDBContext : DbContext {
+public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
+{
     public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) {}
     public ChirpDBContext() {
 
