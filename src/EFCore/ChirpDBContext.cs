@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.EFCore;
 
-public class AppDBContext : DbContext {
+public class ChirpDBContext : DbContext {
     public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) {}
     public ChirpDBContext() {
         
