@@ -13,16 +13,18 @@ public interface IDBFacade
 
 public class DBFacade : IDBFacade
 {
-    
-    private string DBFilePath = "data/chirp.db";
+
+    private static string DBFilePath = Path.Combine(Path.GetTempPath(), "data"); //enten /data eller bare data
+    private static string DBFilePathWithFile = Path.Combine(DBFilePath + "/chirp.db");
+    // previously: DBFilePath = "data/chirp.db";
     private Boolean cheepdataExists = false;
     public DBFacade()
     {
-        if (!Directory.Exists("data"))
-        {
+        /*if (!Directory.Exists("data"))
+        //{
             Directory.CreateDirectory("data");
             File.Create(DBFilePath);
-        }
+        */}
     }
 
     public void FillDatabase(string FileName)
@@ -34,7 +36,7 @@ public class DBFacade : IDBFacade
             using var sr = new StreamReader(readerSomething);
             var query = sr.ReadToEnd();
 
-            using (var context = new ChirpDBContext())
+            using (var context = new ChirpDBContext("Data Source=" + DBFilePathWithFile))
             {
                 context.Database.ExecuteSqlRaw(query);
             }
@@ -51,7 +53,7 @@ public class DBFacade : IDBFacade
     {
         var cheepList = new List<CheepObject>();
 
-        using (var context = new ChirpDBContext())
+        using (var context = new ChirpDBContext("Data Source=" + DBFilePathWithFile))
         {
             // Add a statement to check what is in the data base already.
             // This is a ductape solution. It ensure we fill the chirp.db 
