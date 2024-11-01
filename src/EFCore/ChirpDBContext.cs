@@ -5,7 +5,7 @@ namespace Chirp.EFCore;
 public class ChirpDBContext : DbContext {
     public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) {}
     public ChirpDBContext() {
-        
+
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,7 +21,9 @@ public class ChirpDBContext : DbContext {
         modelBuilder.Entity<Author>()
                 .HasIndex(c => c.AuthorId)
                 .IsUnique();
-    }
+		modelBuilder.Entity<Author>()
+								.HasKey(k => new { k.FollowerId, k.FollowingId });
+	}
     public DbSet<Message> Messages { get; set; }
 
     public DbSet<User> Users { get; set; }
