@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Load database connection via configuration
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.ChirpDbContext<AppDBContext>(options => options.UseSqlite(connectionString));
 
 // Add services to the container.
