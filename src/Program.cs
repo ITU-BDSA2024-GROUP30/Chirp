@@ -1,11 +1,16 @@
 using Chirp.EFCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.RootDirectory = "/UserFacade/Pages";
+});
 //builder.Services.AddSingleton<ICheepService, CheepService>();
 
 // Load database connection via configuration
@@ -28,7 +33,13 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
-app.UseStaticFiles();
+string wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "UserFacade");
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(wwwrootPath),
+    RequestPath = "/wwwroot"
+});
+//app.UseStaticFiles();
 
 app.UseRouting();
 
