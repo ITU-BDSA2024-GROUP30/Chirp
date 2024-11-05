@@ -17,7 +17,7 @@ builder.Services.AddRazorPages(options =>
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
-
+builder.Services.AddScoped<ICheepService, CheepService>();
 //builder.Services.AddScoped<IChatService, ChatService>();
 //builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
@@ -33,13 +33,13 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
-string wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "UserFacade");
+
+
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(wwwrootPath),
-    RequestPath = "/wwwroot"
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "UserFacade", "wwwroot")),
+    RequestPath = ""
 });
-//app.UseStaticFiles();
 
 app.UseRouting();
 
