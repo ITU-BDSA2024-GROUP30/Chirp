@@ -1,5 +1,5 @@
 using System;
-
+using Chirp.EFCore;
 
 public static class DbInitializer
 {

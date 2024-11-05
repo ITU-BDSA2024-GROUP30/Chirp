@@ -4,7 +4,6 @@ using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Chirp.EFCore;
-using Microsoft.VisualBasic;
 
 public interface IDBFacade
 {
@@ -27,17 +26,20 @@ public class DBFacade : IDBFacade
         }
     }
 
-    public void FillDatabase(string FileName)
+    /*public void FillDatabase(string FileName)
     {
         try
         {
+            var context = new ChirpDBContext();
+            context.Execute(DBInitializer());
+
             var embeddedProvider = new EmbeddedFileProvider(Assembly.GetExecutingAssembly());
             using var readerSomething = embeddedProvider.GetFileInfo(FileName).CreateReadStream();
             using var sr = new StreamReader(readerSomething);
             var query = sr.ReadToEnd();
 
             //using (var context = new ChirpDBContext("Data Source=" + DBFilePathWithFile)) //Denne er den nye og rigtige
-            using (var connection = new ChirpDBContext("Data Source=" + DBFilePathWithFile))
+            using (var context = new ChirpDBContext())
             {
                 context.Database.ExecuteSqlRaw(query);
             }
@@ -47,44 +49,44 @@ public class DBFacade : IDBFacade
         {
             Console.WriteLine("!!!!!!!!!!!!" + e.Message);
         }
-    }
+    }*/
     // This method should either be renamed or refactored such that
     // it only does one thing.
     public List<CheepObject> DatabaseConnection()
     {
         var cheepList = new List<CheepObject>();
 
-        using (var context = new ChirpDBContext("Data Source=" + DBFilePathWithFile))
-        {
+        //using (var context = new ChirpDBContext())
+        //{
             // Add a statement to check what is in the data base already.
             // This is a ductape solution. It ensure we fill the chirp.db 
             // file noce, instead on every GET request.
-            if (!cheepdataExists)
+            /*if (!cheepdataExists)
             {
                 FillDatabase("data/schema.sql");
                 FillDatabase("data/dump.sql");
                 cheepdataExists = true;
-            }
+            }*/
 
-
-            var query = context.Cheeps.Join(context.Authors,
-                         cheep => cheep.author_id,
-                         author => author.user_id,
+            var context = new ChirpDBContext();
+            var query = context.Messages.Join(context.Users,
+                         cheep => cheep.UserId,
+                         author => author.UserId,
                          (cheep, author) => new
                          {
-                             author_id = cheep.author_id,
-                             user_id = author.user_id,
-                             text = cheep.text,
-                             pub_date = cheep.pub_date,
-                             username = author.username
+                             author_id = cheep.UserId,
+                             user_id = author.UserId,
+                             text = cheep.Text,
+                             //pub_date = cheep.pub_date,
+                             username = author.Name
                          }
                          ).Select(message => new
                          {
                              message.author_id,
                              message.text,
-                             message.pub_date,
+                             //message.pub_date,
                              message.username
-                         }).OrderBy(message => message.pub_date);
+                         }); //).OrderBy(message => message.pub_date);
             var result = query.ToList();
 
             foreach (var cheep in result)
@@ -96,7 +98,7 @@ public class DBFacade : IDBFacade
 
                 cheepList.Add(new CheepObject(author, message, UnixTimeStampToDateTimeString(timestamp)));
             }
-        }
+        //}
         return cheepList;
     }
 
@@ -110,17 +112,18 @@ public class DBFacade : IDBFacade
 
     private static async Task<string> FromAuthorIdToUserNameAsync (string author)
     {
-        using (var context = new ChirpDBContext())
-        {
-            var query = context.Cheeps.Join(context.Authors,
-                        cheep => cheep.author_id,
-                        author => author.user_id,
+        //using (var context = new ChirpDBContext())
+        //{
+            var context = new ChirpDBContext();
+            var query = context.Messages.Join(context.Users,
+                        cheep => cheep.UserId,
+                        author => author.UserId,
                         (cheep, author) => new
                         {
-                            author_id = cheep.author_id,
-                            user_id = author.user_id,
-                            username = author.username,
-                            text = cheep.text
+                            author_id = cheep.UserId,
+                            user_id = author.UserId,
+                            username = author.Name,
+                            text = cheep.Text
                         }
                         ).Select(message => new
                         {
@@ -139,3 +142,4 @@ public class DBFacade : IDBFacade
         return "";
     }
 }
+//}

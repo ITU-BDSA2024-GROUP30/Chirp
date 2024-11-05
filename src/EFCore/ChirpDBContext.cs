@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Chirp.EFCore;
 
-public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
+public class ChirpDBContext : IdentityDbContext<Author>
 {
 	public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) { }
 	public ChirpDBContext()
@@ -27,7 +28,7 @@ public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
 		/*modelBuilder.Entity<Author>()
 								.HasKey(k => new { k.FollowerId, k.FollowingId });*/
 	}
-	public DbSet<Message> Messages { get; set; }
+	public DbSet<Cheep> Cheeps { get; set; }
 
-	public DbSet<User> Users { get; set; }
+	public DbSet<Author> Authors { get; set; }
 }
