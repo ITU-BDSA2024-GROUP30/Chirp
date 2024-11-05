@@ -5,9 +5,8 @@ namespace Chirp.EFCore;
 //[PrimaryKey(nameof(user_id))]
 public class Message
 {
-    public required int MessageId { get; set; }
-    public required int UserId { get; set; }
-    public required string Text { get; set; }
-    public required User User { get; set; }
-    public required DateTimeOffset Timestamp {get; set; }
+    public string Text { get; set; }
+    public int AuthorID { get; set; }
+    public string AuthorName { get; set; }
+    public long TimeStamp { get; set; }
 }

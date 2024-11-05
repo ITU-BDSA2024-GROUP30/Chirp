@@ -69,13 +69,13 @@ public class DBFacade : IDBFacade
             }*/
 
             var context = new ChirpDBContext();
-            var query = context.Messages.Join(context.Users,
-                         cheep => cheep.UserId,
-                         author => author.UserId,
+            var query = context.Cheeps.Join(context.Users,
+                         cheep => cheep.AuthorId,
+                         author => author.AuthorId,
                          (cheep, author) => new
                          {
-                             author_id = cheep.UserId,
-                             user_id = author.UserId,
+                             author_id = cheep.AuthorId,
+                             user_id = author.AuthorId,
                              text = cheep.Text,
                              //pub_date = cheep.pub_date,
                              username = author.Name
@@ -115,13 +115,13 @@ public class DBFacade : IDBFacade
         //using (var context = new ChirpDBContext())
         //{
             var context = new ChirpDBContext();
-            var query = context.Messages.Join(context.Users,
-                        cheep => cheep.UserId,
-                        author => author.UserId,
+            var query = context.Cheeps.Join(context.Users,
+                        cheep => cheep.AuthorId,
+                        author => author.AuthorId,
                         (cheep, author) => new
                         {
-                            author_id = cheep.UserId,
-                            user_id = author.UserId,
+                            author_id = cheep.AuthorId,
+                            user_id = author.AuthorId,
                             username = author.Name,
                             text = cheep.Text
                         }

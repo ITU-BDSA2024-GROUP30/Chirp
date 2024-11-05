@@ -3,14 +3,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Load database connection via configuration
-string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.ChirpDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<ICheepService, CheepService>();
+//builder.Services.AddSingleton<ICheepService, CheepService>();
+
+// Load database connection via configuration
+string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
+
 //builder.Services.AddScoped<IChatService, ChatService>();
 //builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
@@ -24,8 +26,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();

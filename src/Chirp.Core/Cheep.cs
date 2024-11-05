@@ -3,9 +3,9 @@ namespace Chirp.EFCore;
 
 public class Cheep
 {
-	public required int CheepId { get; set; }
-	public required string AuthorId { get; set; }
-	public required string Text { get; set; }
-	public required DateTimeOffset TimeStamp { get; set; }
-	public Author Author { get; set; }
+	public int CheepId { get; set; }
+    public string Text { get; set; }
+    public DateTimeOffset TimeStamp { get; set; }
+    public Author Author { get; set; }
+    public int AuthorId { get; set; }
 }

@@ -4,8 +4,7 @@ namespace Chirp.EFCore;
 
 public class Author : IdentityUser
 {
-	public required string Name { get; set; }
-	public required string Email { get; set; }
-	public required string AuthorId { get; set; }
-	public ICollection<Cheep> Cheeps { get; set; }
+	public string Name { get; set; }
+    public int AuthorId { get; set; }
+	public required ICollection<Cheep> Cheeps { get; set; }
 }
