@@ -26,47 +26,11 @@ public class DBFacade : IDBFacade
         }
     }
 
-    /*public void FillDatabase(string FileName)
-    {
-        try
-        {
-            var context = new ChirpDBContext();
-            context.Execute(DBInitializer());
-
-            var embeddedProvider = new EmbeddedFileProvider(Assembly.GetExecutingAssembly());
-            using var readerSomething = embeddedProvider.GetFileInfo(FileName).CreateReadStream();
-            using var sr = new StreamReader(readerSomething);
-            var query = sr.ReadToEnd();
-
-            //using (var context = new ChirpDBContext("Data Source=" + DBFilePathWithFile)) //Denne er den nye og rigtige
-            using (var context = new ChirpDBContext())
-            {
-                context.Database.ExecuteSqlRaw(query);
-            }
-            Console.WriteLine("Table 'authors' created successfully. From file: " + FileName);
-        }
-        catch (SqliteException e)
-        {
-            Console.WriteLine("!!!!!!!!!!!!" + e.Message);
-        }
-    }*/
     // This method should either be renamed or refactored such that
     // it only does one thing.
     public List<CheepObject> DatabaseConnection()
     {
         var cheepList = new List<CheepObject>();
-
-        //using (var context = new ChirpDBContext())
-        //{
-            // Add a statement to check what is in the data base already.
-            // This is a ductape solution. It ensure we fill the chirp.db 
-            // file noce, instead on every GET request.
-            /*if (!cheepdataExists)
-            {
-                FillDatabase("data/schema.sql");
-                FillDatabase("data/dump.sql");
-                cheepdataExists = true;
-            }*/
 
             var context = new ChirpDBContext();
             var query = context.Cheeps.Join(context.Users,
