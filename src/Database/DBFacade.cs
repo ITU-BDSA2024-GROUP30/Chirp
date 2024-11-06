@@ -20,7 +20,7 @@ public class DBFacade : IDBFacade
     private Boolean cheepdataExists = false;
     public DBFacade()
     {
-        if (!Directory.Exists("data"))
+        if (!Directory.Exists("/tmp/data"))
         {
             Directory.CreateDirectory(DBFilePath);
             File.Create(DBFilePathWithFile);

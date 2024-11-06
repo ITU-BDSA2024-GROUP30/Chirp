@@ -21,8 +21,7 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 //should below be addsingleton instead of addscoped?
 builder.Services.AddScoped<ICheepService, CheepService>();
-//builder.Services.AddScoped<IChatService, ChatService>();
-//builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+//builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
 
 var app = builder.Build();
