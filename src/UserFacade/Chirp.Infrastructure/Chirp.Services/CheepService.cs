@@ -1,4 +1,5 @@
 using System.Data;
+namespace Chirp.UserFacade.Chirp.Infrastructure.Chirp.Services;
 
 public record CheepObject(string Author, string Message, string Timestamp);
 

@@ -4,6 +4,8 @@ using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Chirp.EFCore;
+using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Services;
+
 
 public interface IDBFacade
 {
@@ -13,17 +15,17 @@ public interface IDBFacade
 public class DBFacade : IDBFacade
 {
 
-    private static string DBFilePath = Path.Combine(Path.GetTempPath(), "data"); //enten /data eller bare data
+    private static string DBFilePath = Path.GetTempPath(); //enten /data eller bare data
     private static string DBFilePathWithFile = Path.Combine(DBFilePath + "/chirp.db");
-    // previously: DBFilePath = "data/chirp.db";
     private Boolean cheepdataExists = false;
     public DBFacade()
     {
-        //if (!Directory.Exists("data"))
+        if (!Directory.Exists("data"))
         {
-            Directory.CreateDirectory("data");
-            File.Create(DBFilePath);
+            Directory.CreateDirectory(DBFilePath);
+            File.Create(DBFilePathWithFile);
         }
+        
     }
 
     // This method should either be renamed or refactored such that
@@ -52,6 +54,7 @@ public class DBFacade : IDBFacade
                              message.username
                          }); //).OrderBy(message => message.pub_date);
             var result = query.ToList();
+            
 
             foreach (var cheep in result)
             {

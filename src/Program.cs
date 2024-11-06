@@ -1,6 +1,8 @@
 using Chirp.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Services;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,7 @@ builder.Services.AddRazorPages(options =>
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
+//should below be addsingleton instead of addscoped?
 builder.Services.AddScoped<ICheepService, CheepService>();
 //builder.Services.AddScoped<IChatService, ChatService>();
 //builder.Services.AddScoped<IMessageRepository, MessageRepository>();
