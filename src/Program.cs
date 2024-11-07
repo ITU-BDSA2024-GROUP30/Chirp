@@ -14,16 +14,14 @@ if (!Directory.Exists("/tmp/data"))
 
 var builder = WebApplication.CreateBuilder(args);
 
-<<<<<<< HEAD
 // Add services to the container.
 builder.Services.AddRazorPages(options =>
 {
     //Razor pages are in a different folder and therefore we use this customized path
     options.RootDirectory = "/UserFacade/Pages";
 });
-=======
+
 //builder.Services.AddSingleton<ICheepService, CheepService>();
->>>>>>> main
 
 // Load database connection via configuration, get string of database path from appsettings.json
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -32,9 +30,6 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 //Below 2 lines helps create Cheeps on the website and show Cheeps.
 builder.Services.AddScoped<ICheepService, CheepService>();
-<<<<<<< HEAD
-builder.Services.AddScoped<ICheepRepository, CheepRepository>();
-=======
 //builder.Services.AddScoped<IChatService, ChatService>();
 //builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
@@ -60,8 +55,7 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
-<<<<<<< HEAD
-=======
+
 
 
 
