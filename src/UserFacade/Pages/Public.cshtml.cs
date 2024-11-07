@@ -6,7 +6,7 @@ namespace Chirp.src.Pages;
 public class PublicModel : PageModel
 {
     private readonly ICheepService _service;
-    public List<CheepObject> Cheeps { get; set; }
+    public required List<CheepObject> Cheeps { get; set; }
 
     public PublicModel(ICheepService service)
     {
