@@ -21,8 +21,6 @@ builder.Services.AddRazorPages(options =>
     options.RootDirectory = "/UserFacade/Pages";
 });
 
-//builder.Services.AddSingleton<ICheepService, CheepService>();
-
 // Load database connection via configuration, get string of database path from appsettings.json
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -30,19 +28,7 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 //Below 2 lines helps create Cheeps on the website and show Cheeps.
 builder.Services.AddScoped<ICheepService, CheepService>();
-//builder.Services.AddScoped<IChatService, ChatService>();
-//builder.Services.AddScoped<IMessageRepository, MessageRepository>();
-
-//Adds the Identity services to the DI container and uses Author as the User type. 
-
-builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
-.AddEntityFrameworkStores<ChirpDBContext>();
-
-// Add services to the container.
-builder.Services.AddRazorPages(options =>
-{
-    options.RootDirectory = "/UserFacade/Pages";
-});
+builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
 var app = builder.Build();
 
@@ -55,10 +41,6 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
-
-
-
-
 app.UseStaticFiles(new StaticFileOptions
 {
     //since our wwwroot is in a different folder than program.cs, we need this specific path
@@ -67,10 +49,6 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseRouting();
-
-app.UseAuthentication();
-
-app.UseAuthorization();
 
 app.MapRazorPages();
 
