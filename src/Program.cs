@@ -5,6 +5,10 @@ using ChirpCore.DTOs;
 using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 if (!Directory.Exists("/tmp/data"))
     {
