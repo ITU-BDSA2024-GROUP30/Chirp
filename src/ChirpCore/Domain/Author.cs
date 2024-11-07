@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
+using Chirp.EFCore;
 
-namespace Chirp.EFCore;
+namespace ChirpCore.Domain;
 
 public class Author : IdentityUser
 {

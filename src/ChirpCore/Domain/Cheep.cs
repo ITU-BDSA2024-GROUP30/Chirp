@@ -1,4 +1,6 @@
-namespace Chirp.EFCore;
+using ChirpCore.EFCore;
+
+namespace ChirpCore.Domain;
 
 
 public class Cheep
