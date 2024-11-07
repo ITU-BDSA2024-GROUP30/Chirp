@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
@@ -8,7 +7,7 @@ public class ChirpDBContext : IdentityDbContext<Author>
 {
 	public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) {
 		
-	 }
+	}
 	public ChirpDBContext()
 	{
 		
@@ -29,6 +28,7 @@ public class ChirpDBContext : IdentityDbContext<Author>
 								.IsUnique();
 		/*modelBuilder.Entity<Author>()
 								.HasKey(k => new { k.FollowerId, k.FollowingId });*/
+								//above will be relevant later
 	}
 	public DbSet<Cheep> Cheeps { get; set; }
 

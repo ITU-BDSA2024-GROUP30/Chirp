@@ -1,8 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace Chirp.EFCore;
 
-//[PrimaryKey(nameof(user_id))]
 public class User
 {
     public int UserId { get; set; } 

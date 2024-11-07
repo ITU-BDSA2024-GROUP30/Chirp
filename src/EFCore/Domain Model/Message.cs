@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace Chirp.EFCore;
-
-//[PrimaryKey(nameof(user_id))]
 public class Message
 {
     public string Text { get; set; }

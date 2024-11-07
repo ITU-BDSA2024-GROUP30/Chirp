@@ -1,6 +1,8 @@
 using System.Data;
 using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Repositories;
 
+//namespace Chirp.UserFacade.Chirp.Infrastructure.Chirp.Services;
+//namespace confuses the foreach loop on line 23, but we should find a way to implement
 public record CheepObject(string Author, string Message, string Timestamp);
 
 public interface ICheepService
@@ -17,7 +19,8 @@ public class CheepService (ICheepRepository repository) : ICheepService
     public List<CheepObject> GetCheeps()
     {
         var list = _repository.ReadCheeps();
-
+        
+        //read each CheepObject from CheepRepository
         foreach (CheepObject cheep in list)
         {
             _cheeps.Add(cheep);
@@ -26,7 +29,7 @@ public class CheepService (ICheepRepository repository) : ICheepService
         return _cheeps;
     }
 
-    // sorts cheep after the string author.
+    //Sorts cheep after the string author. We use this for author timelines
     public List<CheepObject> GetCheepsFromAuthor(string author)
     {
         // filter by the provided author name
