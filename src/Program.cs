@@ -1,4 +1,7 @@
 using Chirp.EFCore;
+using ChirpCore;
+using ChirpCore.Domain;
+using ChirpCore.DTOs;
 using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;

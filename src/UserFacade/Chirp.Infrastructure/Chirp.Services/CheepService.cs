@@ -1,5 +1,7 @@
 using System.Data;
 using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Repositories;
+using ChirpCore.Domain;
+
 
 //namespace Chirp.UserFacade.Chirp.Infrastructure.Chirp.Services;
 //namespace confuses the foreach loop on line 23, but we should find a way to implement
@@ -19,7 +21,7 @@ public class CheepService (ICheepRepository repository) : ICheepService
     public List<CheepObject> GetCheeps()
     {
         var list = _repository.ReadCheeps();
-        
+
         //read each CheepObject from CheepRepository
         foreach (CheepObject cheep in list)
         {

@@ -1,16 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using ChirpCore.Domain;
 
 namespace Chirp.EFCore;
 
 public class ChirpDBContext : IdentityDbContext<Author>
 {
 	public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) {
-		
+
 	}
 	public ChirpDBContext()
 	{
-		
+
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -18,6 +18,7 @@
     </PackageReference>
 
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
+		<ProjectReference Include="ChirpCore/ChirpCore.csproj"/>
     <EmbeddedResource Include="data/**/*" />
   </ItemGroup>
 
