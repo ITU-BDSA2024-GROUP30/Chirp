@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
 if (!Directory.Exists("/tmp/data"))
-        {
-            string DBFilePath = Path.GetTempPath();
-            string DBFilePathWithFile = Path.Combine(DBFilePath + "chirp.db");
-            Directory.CreateDirectory(DBFilePath);
-            File.Create(DBFilePathWithFile);
-        }
+{
+	string DBFilePath = Path.GetTempPath();
+	string DBFilePathWithFile = Path.Combine(DBFilePath + "chirp.db");
+	Directory.CreateDirectory(DBFilePath);
+	File.Create(DBFilePathWithFile);
+}
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages(options =>
 {
-    options.RootDirectory = "/UserFacade/Pages";
+	options.RootDirectory = "/UserFacade/Pages";
 });
 //builder.Services.AddSingleton<ICheepService, CheepService>();
 
@@ -34,9 +34,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 app.UseHttpsRedirection();
 
@@ -44,8 +44,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "UserFacade", "wwwroot")),
-    RequestPath = ""
+	FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "UserFacade", "wwwroot")),
+	RequestPath = ""
 });
 
 app.UseRouting();
@@ -54,10 +54,10 @@ app.MapRazorPages();
 
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ChirpDBContext>();
-    context.Database.EnsureCreated();
-    DbInitializer.SeedDatabase(context);
+	var services = scope.ServiceProvider;
+	var context = services.GetRequiredService<ChirpDBContext>();
+	context.Database.EnsureCreated();
+	DbInitializer.SeedDatabase(context);
 }
 
 app.Run();
