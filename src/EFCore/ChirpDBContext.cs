@@ -7,7 +7,7 @@ namespace Chirp.EFCore;
 public class ChirpDBContext : IdentityDbContext<Author>
 {
 	public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options) {
-		DbInitializer.SeedDatabase(this);
+		
 	 }
 	public ChirpDBContext()
 	{

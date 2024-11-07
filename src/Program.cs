@@ -1,9 +1,15 @@
 using Chirp.EFCore;
+using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Services;
 
-
+if (!Directory.Exists("/tmp/data"))
+        {
+            string DBFilePath = Path.GetTempPath();
+            string DBFilePathWithFile = Path.Combine(DBFilePath + "chirp.db");
+            Directory.CreateDirectory(DBFilePath);
+            File.Create(DBFilePathWithFile);
+        }
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +27,7 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 //should below be addsingleton instead of addscoped?
 builder.Services.AddScoped<ICheepService, CheepService>();
-//builder.Services.AddScoped<ICheepRepository, CheepRepository>();
-
+builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
 var app = builder.Build();
 
@@ -46,5 +51,13 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseRouting();
 
 app.MapRazorPages();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ChirpDBContext>();
+    context.Database.EnsureCreated();
+    DbInitializer.SeedDatabase(context);
+}
 
 app.Run();
