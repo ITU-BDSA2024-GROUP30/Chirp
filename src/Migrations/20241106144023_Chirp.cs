@@ -1,4 +1,5 @@
 ﻿using System;
+using ChirpCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable

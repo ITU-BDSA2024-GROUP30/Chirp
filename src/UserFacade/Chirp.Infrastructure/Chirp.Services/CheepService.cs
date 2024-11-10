@@ -1,6 +1,6 @@
 using System.Data;
 using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Repositories;
-using ChirpCore.Domain;
+using ChirpCore;
 
 
 //namespace Chirp.UserFacade.Chirp.Infrastructure.Chirp.Services;
@@ -13,7 +13,7 @@ public interface ICheepService
     public List<CheepObject> GetCheepsFromAuthor(string author);
 }
 
-public class CheepService (ICheepRepository repository) : ICheepService
+public class CheepService(ICheepRepository repository) : ICheepService
 {
     private readonly ICheepRepository _repository = repository;
     private static readonly List<CheepObject> _cheeps = [];

@@ -1,4 +1,4 @@
-﻿@using ChirpCore.Domain
+﻿@using ChirpCore
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,35 +12,35 @@
 
 	<div class=page>
 		<h1><img src="/images/icon1.png" alt="Icon1" />Chirp!</h1>
-using ChirpCore.Domain;
-#line default
-iv class=navigation>
-			@if (Author.Identity.IsAuthenticated)
-			{
-				<div>
-					<a href="/@(Author.Identity.Name)">my timeline</a> |
-					<a href="/">public timeline</a> |
-					<a ...>logout [@(Author.Identity.Name)]</a>
-				</div>
-			}
-			else
-			{
-				<div>
-					<a href="/">public timeline</a> |
-					<a href="/">register</a> |
-					<a href="/Login">login</a>
-				</div>
-			}
-		</div>
+		using ChirpCore.Domain;
+		#line default
+		iv class=navigation>
+		@if (User.Identity.IsAuthenticated)
+		{
+			<div>
+				<a href="/@(User.Identity.Name)">my timeline</a> |
+				<a href="/">public timeline</a> |
+				<a ...>logout [@(User.Identity.Name)]</a>
+			</div>
+		}
+		else
+		{
+			<div>
+				<a href="/">public timeline</a> |
+				<a href="/">register</a> |
+				<a href="/Login">login</a>
+			</div>
+		}
+	</div>
 
 
 
-		<div class=body>
-			@RenderBody()
-		</div>
-		<div class=footer>
-			Chirp &mdash; An ASP.NET Application
-		</div>
+	<div class=body>
+		@RenderBody()
+	</div>
+	<div class=footer>
+		Chirp &mdash; An ASP.NET Application
+	</div>
 	</div>
 
 </body>

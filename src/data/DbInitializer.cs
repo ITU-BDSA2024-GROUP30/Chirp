@@ -1,6 +1,6 @@
 using System;
-using Chirp.EFCore;
 using ChirpCore;
+using ChirpCore.Domain;
 
 
 public static class DbInitializer
