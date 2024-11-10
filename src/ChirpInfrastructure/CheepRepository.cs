@@ -5,6 +5,7 @@ services, etc. has a direct dependency onto CheepRepository.*/
 using System.Data;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChirpRepositories;
 
@@ -33,8 +34,8 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 	  Text = message.Text,
 	  AuthorID = message.AuthorId,
 	  AuthorName = message.Author.Name,
-	  TimeStamp = message.TimeStamp.ToString("MM/dd/yy H:mm:ss")
-	}).OrderBy(message => message.AuthorID);
+	  TimeStamp = message.TimeStamp.ToString("MM/dd/yy H:mm:ss") 
+	}).OrderBy(message => message.AuthorID); // As long as TimeStamp.ToString("") is present then we can't sort cheeps by time.
 	var result = query.ToList();
 
 	return result;
