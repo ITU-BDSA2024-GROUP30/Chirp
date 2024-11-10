@@ -22,10 +22,4 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Chirp.CLI.Client\Chirp.CLI.csproj" />
-  </ItemGroup>
-
 </Project>
