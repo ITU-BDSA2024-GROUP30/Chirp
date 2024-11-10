@@ -1,5 +1,5 @@
 using System.Data;
-using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Repositories;
+using Chirp.ChirpInfrastructure.Chirp.Repositories;
 using ChirpCore;
 
 

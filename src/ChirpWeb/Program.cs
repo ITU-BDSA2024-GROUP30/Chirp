@@ -1,13 +1,13 @@
 using ChirpCore;
 using ChirpCore.Domain;
 using ChirpCore.DTOs;
-using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Chirp.ChirpInfrastructure.Chirp.Repositories;
 
 
 if (!Directory.Exists("/tmp/data"))
@@ -25,7 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages(options =>
 {
     //Razor pages are in a different folder and therefore we use this customized path
-    options.RootDirectory = "/UserFacade/Pages";
+    options.RootDirectory = "./Pages";
 });
 
 // Load database connection via configuration, get string of database path from appsettings.json

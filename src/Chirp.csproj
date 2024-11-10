@@ -4,6 +4,7 @@
     <TargetFramework>net$(NETCoreAppMaximumVersion)</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>   
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,8 +27,6 @@
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
-
-		<ProjectReference Include="ChirpCore/ChirpCore.csproj"/>
 
     <EmbeddedResource Include="data/**/*" />
   </ItemGroup>
