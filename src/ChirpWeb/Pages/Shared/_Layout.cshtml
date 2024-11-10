@@ -1,4 +1,4 @@
-﻿@using ChirpCore
+﻿@using ChirpCore.DTOs
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,9 +12,6 @@
 
 	<div class=page>
 		<h1><img src="/images/icon1.png" alt="Icon1" />Chirp!</h1>
-		using ChirpCore.Domain;
-		#line default
-		div class=navigation>
 		@if (User.Identity.IsAuthenticated)
 		{
 			<div>

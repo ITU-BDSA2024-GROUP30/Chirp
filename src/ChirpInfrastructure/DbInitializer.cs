@@ -1,8 +1,6 @@
 using System;
-using ChirpCore;
 using ChirpCore.Domain;
-
-
+using ChirpInfrastructure;
 public static class DbInitializer
 {
     public static void SeedDatabase(ChirpDBContext chirpContext)

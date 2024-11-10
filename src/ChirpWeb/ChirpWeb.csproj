@@ -4,10 +4,11 @@
     <TargetFramework>net$(NETCoreAppMaximumVersion)</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo> 
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="AspNet.Security.OAuth.GitHub" Version="8.2.0" />
+	  <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="8.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
@@ -28,8 +29,8 @@
 	
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   
-    <ProjectReference Include="ChirpInfrastructure/ChirpInfrastructure.csproj"/>
-    <ProjectReference Include="ChirpCore/ChirpCore.csproj"/>
+    <ProjectReference Include="../ChirpInfrastructure/ChirpInfrastructure.csproj"/>
+    <ProjectReference Include="../ChirpCore/ChirpCore.csproj"/>
 
   </ItemGroup>
 

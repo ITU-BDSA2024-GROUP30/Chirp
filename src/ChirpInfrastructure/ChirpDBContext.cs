@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ChirpCore.Domain;
 
-namespace ChirpCore;
+namespace ChirpInfrastructure;
 
 public class ChirpDBContext : IdentityDbContext<Author>
 {
@@ -10,10 +10,7 @@ public class ChirpDBContext : IdentityDbContext<Author>
 	{
 
 	}
-	public ChirpDBContext()
-	{
-
-	}
+	// public ChirpDBContext() {}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
