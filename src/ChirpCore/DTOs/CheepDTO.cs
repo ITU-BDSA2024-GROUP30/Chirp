@@ -10,7 +10,7 @@ namespace ChirpCore.DTOs
 	{
 		public int AuthorID { get; set; }
 		[StringLength(160)] public string? Text { get; set; }
-		public DateTime TimeStamp { get; set; }
+		public required string TimeStamp { get; set; } // DateTime changed to string
 		public string? AuthorName { get; set; }
 
 	}

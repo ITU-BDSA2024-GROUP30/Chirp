@@ -1,13 +1,14 @@
-using ChirpCore;
-using ChirpCore.Domain;
-using ChirpCore.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Chirp.ChirpInfrastructure.Chirp.Repositories;
+using ChirpCore;
+using ChirpCore.Domain;
+using ChirpCore.DTOs;
+using ChirpRepositories;
+using ChirpInfrastructure;
 
 
 if (!Directory.Exists("/tmp/data"))
@@ -22,11 +23,13 @@ if (!Directory.Exists("/tmp/data"))
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages(options =>
+/*builder.Services.AddRazorPages(options =>
 {
     //Razor pages are in a different folder and therefore we use this customized path
-    options.RootDirectory = "./Pages";
-});
+    options.RootDirectory = "/Pages";
+}); */
+
+builder.Services.AddRazorPages();
 
 // Load database connection via configuration, get string of database path from appsettings.json
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -48,13 +51,15 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
+/*
 app.UseStaticFiles(new StaticFileOptions
 {
     //since our wwwroot is in a different folder than program.cs, we need this specific path
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "UserFacade", "wwwroot")),
     RequestPath = ""
-});
+});*/
 
+app.UseStaticFiles(); 
 app.UseRouting();
 
 app.MapRazorPages();
@@ -69,4 +74,4 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
-public partial class Program { }
+//public partial class Program { }

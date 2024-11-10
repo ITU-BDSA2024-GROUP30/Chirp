@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ChirpCore;
+using ChirpCore.DTOs;
 
-namespace Chirp.src.Pages;
+
+namespace ChirpWeb.Pages;
 
 public class UserTimelineModel : PageModel
 {
     private readonly ICheepService _service;
-    public required List<CheepObject> Cheeps { get; set; }
+    public required List<CheepDTO> Cheeps { get; set; }
 
     public UserTimelineModel(ICheepService service)
     {
