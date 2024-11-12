@@ -53,7 +53,7 @@ jobs:
           rm -r "$release_name"
       - name: List files in the repository
         run: |
-          ls  /home/runner/work/Chirp/Chirp-$tag-${{ matrix.target }}
+          ls  /home/runner/work/Chirp-$tag-${{ matrix.target }}
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
