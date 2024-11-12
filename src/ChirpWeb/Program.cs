@@ -37,8 +37,8 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 //ChirpDBContext created with our database path - which is specified in appsettings.json
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 
-builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
-.AddEntityFrameworkStores<ChirpDBContext>();
+//builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
+//.AddEntityFrameworkStores<ChirpDBContext>();
 
 //Below 2 lines helps create Cheeps on the website and show Cheeps.
 builder.Services.AddScoped<ICheepService, CheepService>();
