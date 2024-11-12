@@ -1,3 +1,5 @@
+using System.Reflection;
+using AspNetCoreGeneratedDocument;
 using Chirp.EFCore;
 using Chirp.UserFacade.Chirp.Infrastructure.Chirp.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -41,11 +43,15 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
+var embeddedFileProvider = new EmbeddedFileProvider(Assembly.GetExecutingAssembly(), "wwwroot");
+
 app.UseStaticFiles(new StaticFileOptions
 {
     //since our wwwroot is in a different folder than program.cs, we need this specific path
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "UserFacade", "wwwroot")),
-    RequestPath = ""
+    //FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "UserFacade", "wwwroot")),
+    
+    FileProvider = embeddedFileProvider,
+    RequestPath = "/wwwroot"
 });
 
 app.UseRouting();
