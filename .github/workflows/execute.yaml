@@ -36,9 +36,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0
-      - name: List files in the repository
-        run: |
-            ls  /home/runner/work/"Chirp-$tag-${{ matrix.target }}"
       - name: Build
         shell: bash
         run: |
@@ -47,6 +44,12 @@ jobs:
 
           dotnet publish src/Chirp.csproj --runtime "${{ matrix.target }}" -c Release --self-contained true -o "$release_name"
                
+          echo "Listing files in the GitHub workspace:"
+          ls ${{ github.workspace }}
+    
+          echo "Listing files in the release folder:"
+          ls "$release_name"
+
           if [ "${{ matrix.target }}" == "win-x64" ]; then
             zip r "${release_name}.zip" "./${release_name}/Chirp.exe"
           else
