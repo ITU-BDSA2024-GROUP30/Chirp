@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Chirp.Migrations
+namespace ChirpInfrastructure.Migrations
 {
     [DbContext(typeof(ChirpDBContext))]
-    [Migration("20241112150816_UpdatedCheepEntitySecondTry")]
-    partial class UpdatedCheepEntitySecondTry
+    [Migration("20241112165807_InitialDBSchema5")]
+    partial class InitialDBSchema5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace Chirp.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SecondEmail")
                         .HasColumnType("TEXT");
 
                     b.HasKey("AuthorId");

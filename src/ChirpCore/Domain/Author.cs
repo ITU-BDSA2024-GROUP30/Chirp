@@ -12,6 +12,11 @@ namespace ChirpCore.Domain
 		public required string Name { get; set; }
 		
 		public required string? Email { get; set; }
+
+		public string? ThirdEmail { get; set; }
+
+		public string? FavoriteColor { get; set; }
+
 		public required ICollection<Cheep> Cheeps { get; set; }
 	}
 }
