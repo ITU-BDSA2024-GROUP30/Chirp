@@ -47,9 +47,6 @@ var embeddedFileProvider = new EmbeddedFileProvider(Assembly.GetExecutingAssembl
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    //since our wwwroot is in a different folder than program.cs, we need this specific path
-    //FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "UserFacade", "wwwroot")),
-    
     FileProvider = embeddedFileProvider,
     RequestPath = "/wwwroot"
 });
