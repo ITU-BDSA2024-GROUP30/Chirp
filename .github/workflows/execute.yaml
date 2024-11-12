@@ -30,6 +30,9 @@ jobs:
     runs-on: ubuntu-latest
    
     steps:
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup dotnet
@@ -44,22 +47,16 @@ jobs:
 
           dotnet publish src/Chirp.csproj --runtime "${{ matrix.target }}" -c Release --self-contained true -o "$release_name"
                
-          echo "Listing files in the GitHub workspace:"
-          ls ${{ github.workspace }}
-    
-          echo "Listing files in the release folder:"
-          ls "$release_name"
-
           if [ "${{ matrix.target }}" == "win-x64" ]; then
-            zip r "${release_name}.zip" "./${release_name}/Chirp.exe"
+            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.exe"
           else
-            zip r "${release_name}.zip" "./${release_name}/Chirp"
+            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp"
           fi
           
           rm -r "$release_name"
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
-          files: "Chirp-*.zip" 
+          files: "Chirp-*" 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
