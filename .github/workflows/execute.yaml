@@ -38,7 +38,6 @@ jobs:
           dotnet-version: 8.0
       - name: Build
         shell: pwsh
-          
         run: |
           tag=$(git describe --tags --abbrev=0 --always )
           release_name="Chirp-$tag-${{ matrix.target }}"
