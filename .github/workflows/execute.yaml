@@ -38,7 +38,7 @@ jobs:
           dotnet-version: 8.0
       - name: List files in the repository
         run: |
-            ls  /home/runner/work/Chirp-$tag-${{ matrix.target }}
+            ls  /home/runner/work/"Chirp-$tag-${{ matrix.target }}"
       - name: Build
         shell: bash
         run: |
