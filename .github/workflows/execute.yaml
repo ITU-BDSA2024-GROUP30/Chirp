@@ -1,0 +1,62 @@
+#This workflow creates our exe file for windows, mac and linux
+name: Executable Release of Chirp
+run-name: ${{ github.actor }} is publishing a new version of "Chirp" by Group 30
+
+on: 
+  push:
+    tags:
+      - '*.*.*' #pattern som release tag matcher
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release
+    strategy:
+      matrix:
+        kind: ['linux', 'windows', 'macOS']
+        include:
+          - kind: linux
+            os: ubuntu-latest
+            target: linux-x64
+          - kind: windows
+            os: windows-latest
+            target: win-x64
+          - kind: macOS
+            os: macos-latest
+            target: osx-x64
+    runs-on: ubuntu-latest
+   
+    steps:
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.10
+      - name: Build
+        shell: bash
+        run: |
+          tag=$(git describe --tags --abbrev=0 --always )
+          release_name="Chirp-$tag-${{ matrix.target }}"
+
+          dotnet publish src/Chirp.csproj --runtime "${{ matrix.target }}" -c Release --self-contained true -o "$release_name"
+               
+          if [ "${{ matrix.target }}" == "win-x64" ]; then
+            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.CLI.exe"
+          else
+            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.CLI"
+          fi
+          
+          rm -r "$release_name"
+      - name: Publish
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "Chirp-*" 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
