@@ -48,9 +48,9 @@ jobs:
           dotnet publish src/Chirp.csproj --runtime "${{ matrix.target }}" -c Release --self-contained true -o "$release_name"
                
           if [ "${{ matrix.target }}" == "win-x64" ]; then
-            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.CLI.exe"
+            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.exe"
           else
-            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.CLI"
+            7z a -tzip "${release_name}.zip" "./${release_name}/Chirp"
           fi
           
           rm -r "$release_name"
