@@ -36,6 +36,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0
+      - name: List files in the repository
+        run: |
+            ls  /home/runner/work/Chirp-$tag-${{ matrix.target }}
       - name: Build
         shell: bash
         run: |
@@ -51,9 +54,6 @@ jobs:
           fi
           
           rm -r "$release_name"
-      - name: List files in the repository
-        run: |
-          ls  /home/runner/work/Chirp-$tag-${{ matrix.target }}
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
