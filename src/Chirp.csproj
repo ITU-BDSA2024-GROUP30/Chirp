@@ -25,8 +25,8 @@
 
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
     <EmbeddedResource Include="src/**/*" />
-    <None Include="UserFacade/wwwroot">
-    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="src/UserFacade/wwwroot/**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
