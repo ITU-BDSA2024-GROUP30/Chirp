@@ -4,6 +4,10 @@
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
     var routeName = HttpContext.GetRouteValue("author");
+
+    <!-- Pagination -->
+    int next = Model.currentPage + 1;
+    int previous = Model.currentPage > 1 ? Model.currentPage - 1 : 1;
 }
 
 <div>
@@ -30,4 +34,13 @@
     {
         <em>There are no cheeps so far.</em>
     }
+    @if (Model.currentPage > 1)
+    {
+        <Button class="button">
+            <a href="?pageNumber=@previous" class="button" id="previousButton" style="color: peachpuff;">Previous (@previous)</a>
+        </Button>
+    }
+        <Button class="button">
+            <a href="?pageNumber=@next" class="button" id="nextButton" style="color: peachpuff;">Next (@next)</a>
+        </Button>
 </div>
