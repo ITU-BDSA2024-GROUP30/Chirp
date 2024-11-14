@@ -13,7 +13,7 @@ public interface ICheepRepository
 {
   /*public Cheep CreateCheep();
   Above will be relevant later*/
-  public List<CheepDTO> ReadCheeps();
+  public List<CheepDTO> ReadCheeps(int pageNumber);
 
 }
 public class CheepRepository(ChirpDBContext context) : ICheepRepository
@@ -24,10 +24,10 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 
   }
   Above will be relevant later*/
-  public List<CheepDTO> ReadCheeps()
+  public List<CheepDTO> ReadCheeps(int pageNumber)
   {
-	var cheepList = new List<CheepDTO>();
-
+	//var cheepList = new List<CheepDTO>();
+	int pageSize = 32;
 	//query for getting every cheep
 	var query = _context.Cheeps.Select(message => new CheepDTO() // message = domain cheep. result = cheepDTO
 	{
@@ -35,7 +35,11 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 	  AuthorID = message.AuthorId,
 	  AuthorName = message.Author.Name,
 	  TimeStamp = message.TimeStamp.ToString("MM/dd/yy H:mm:ss") 
-	}).OrderBy(message => message.AuthorID); // As long as TimeStamp.ToString("") is present then we can't sort cheeps by time.
+	})
+	.OrderBy(message => message.AuthorID) // As long as TimeStamp.ToString("") is present then we can't sort cheeps by time.
+	.Skip((pageNumber - 1) * pageSize)
+	.Take(pageSize);
+
 	var result = query.ToList();
 
 	return result;

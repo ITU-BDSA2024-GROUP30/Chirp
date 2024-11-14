@@ -3,10 +3,14 @@
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
+
+    <!-- Pagination -->
+    int next = Model.currentPage + 1;
+    int previous = Model.currentPage > 1 ? Model.currentPage - 1 : 1;
 }
 
 <div>
-   
+
     <h2> Public Timeline </h2>
 
     @if (Model.Cheeps.Any())
@@ -30,4 +34,15 @@
     {
         <em>There are no cheeps so far.</em>
     }
+    <button class="button" onclick="navigateToPage(@previous)" style="color: ECCFC3;" id="previousButton"
+    @(Model.currentPage <= 1 ? "disabled" : "")>Previous (@previous)</button>
+    <button class="button" onclick="navigateToPage(@next)" style="color: ECCFC3;" id="nextButton">Next (@next)</button>
 </div>
+
+<script>
+    function navigateToPage(pageNumber) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('pageNumber', pageNumber);
+        window.location.href = url.toString(); // Navigate to the new URL
+    }
+</script>
