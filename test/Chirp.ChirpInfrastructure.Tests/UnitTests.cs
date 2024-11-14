@@ -1,8 +1,11 @@
-namespace Chirp.SimpleDB.Tests;
+using Xunit;
+using ChirpInfrastructure;
+
+namespace Chirp.ChirpInfraStructure.Tests{
 
 public class UnitTest1
 {
-    /*
+    
     [Fact]
     public void Test1()
     {
@@ -12,7 +15,8 @@ public class UnitTest1
         //ACt
 
         //Assert
-        assertEqual("Hej", h);
+        Assert.Same("Hej", h);
 
-    }*/
+    }
+}
 }

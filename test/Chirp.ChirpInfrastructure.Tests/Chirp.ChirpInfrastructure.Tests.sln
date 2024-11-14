@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{27562E40-7E9F-448D-82B9-1751B1F6C1C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{059BC530-AA63-4355-9EFB-0758E83C5B7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpInfrastructure", "src\ChirpInfrastructure\ChirpInfrastructure.csproj", "{6CFE1835-DF8F-4CF4-82C9-E6D27243E756}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.ChirpInfrastructure.Tests", "Chirp.ChirpInfrastructure.Tests.csproj", "{1FF31619-8E7B-4605-96D5-834266D442F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FF31619-8E7B-4605-96D5-834266D442F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF31619-8E7B-4605-96D5-834266D442F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF31619-8E7B-4605-96D5-834266D442F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF31619-8E7B-4605-96D5-834266D442F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
