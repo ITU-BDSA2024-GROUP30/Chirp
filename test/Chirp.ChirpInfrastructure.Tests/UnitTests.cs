@@ -3,11 +3,11 @@ using ChirpInfrastructure;
 
 namespace Chirp.ChirpInfraStructure.Tests{
 
-public class UnitTest1
+public class UnitTest
 {
     
     [Fact]
-    public void Test1()
+    public void TestThatTestWork()
     {
        //Arrange
         string h = "Hej";
