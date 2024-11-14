@@ -30,9 +30,6 @@ namespace ChirpInfrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Nickname")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("AuthorId");
 
                     b.HasIndex("AuthorId")
@@ -44,7 +41,7 @@ namespace ChirpInfrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("ChirpCore.Domain.Cheep", b =>
@@ -68,7 +65,7 @@ namespace ChirpInfrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Cheeps");
+                    b.ToTable("Cheeps", (string)null);
                 });
 
             modelBuilder.Entity("ChirpCore.Domain.Cheep", b =>

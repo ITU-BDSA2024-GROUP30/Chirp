@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 //using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 using ChirpCore.Domain;
 
 namespace ChirpInfrastructure;
 
-public class ChirpDBContext : DbContext
+public class ChirpDBContext : IdentityDbContext<Author>
 {
 	public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options)
 	{
@@ -15,7 +16,7 @@ public class ChirpDBContext : DbContext
 	public DbSet<Cheep> Cheeps { get; set; }
 
 	public DbSet<Author> Authors { get; set; }
-	
+
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
@@ -33,5 +34,5 @@ public class ChirpDBContext : DbContext
 								.HasKey(k => new { k.FollowerId, k.FollowingId });
 		//above will be relevant later*/
 	}
-	
+
 }
