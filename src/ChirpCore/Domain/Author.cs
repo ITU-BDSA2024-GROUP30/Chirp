@@ -11,7 +11,7 @@ namespace ChirpCore.Domain
 		public int UserId { get; set; }
 		public required string Name { get; set; }
 
-		//public required string Email { get; set; }
+		public override string? Email { get; set; }
 
 		public required ICollection<Cheep> Cheeps { get; set; }
 	}
