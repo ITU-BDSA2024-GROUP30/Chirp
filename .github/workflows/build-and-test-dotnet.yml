@@ -23,7 +23,7 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore dependencies
       run: dotnet restore
-      
+
     - name: Build
       run: dotnet build --no-restore
 
@@ -37,4 +37,4 @@ jobs:
       run: dotnet test ./test/Chirp.ChirpWeb.Tests
 
     - name: Test Chirp.CrossTests
-      run: dotnet test ./test/Chirp.ChirpCrossTests
+      run: dotnet test ./test/Chirp.CrossTests
