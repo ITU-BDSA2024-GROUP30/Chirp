@@ -2,7 +2,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: Build and Test .NET
 
 on:
   push:
@@ -25,7 +25,15 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Test 1
-      run: dotnet test ./test/Chirp.CLI.Client.Tests
-    - name: Test 2
-      run: dotnet test ./test/Chirp.SimpleDB.Tests
+
+    - name: Test ChirpCore
+      run: dotnet test ./test/Chirp.ChirpCore.Tests
+    
+    - name: Test ChirpInfrastructure
+      run: dotnet test ./test/Chirp.ChirpInfrastructure.Tests
+
+    - name: Test ChirpWeb
+      run: dotnet test ./test/Chirp.ChirpWeb.Tests
+
+    - name: Test Chirp.CrossTests
+      run: dotnet test ./test/Chirp.ChirpCrossTests
