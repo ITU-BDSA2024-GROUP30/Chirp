@@ -28,7 +28,7 @@ public class ChirpDBContext : IdentityDbContext<Author>
 								.HasIndex(c => c.Email)
 							.IsUnique();
 		modelBuilder.Entity<Author>()
-								.HasIndex(c => c.AuthorId)
+								.HasIndex(c => c.UserId)
 								.IsUnique();
 		/*modelBuilder.Entity<Author>()
 								.HasKey(k => new { k.FollowerId, k.FollowingId });

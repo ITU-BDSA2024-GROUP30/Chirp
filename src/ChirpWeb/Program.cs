@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ChirpRepositories;
 using ChirpInfrastructure;
+using Microsoft.Extensions.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ string? connectionString = builder.Configuration.GetConnectionString("ChirpDatab
 
 //ChirpDBContext created with our database path - which is specified in appsettings.json
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
+
 // builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 .AddEntityFrameworkStores<ChirpDBContext>();
@@ -76,7 +78,6 @@ app.UseStaticFiles(new StaticFileOptions
 /*
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Builder;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ChirpCore;
