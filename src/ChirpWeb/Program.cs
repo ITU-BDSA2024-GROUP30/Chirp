@@ -56,6 +56,12 @@ using (var scope = app.Services.CreateScope())
     DbInitializer.SeedDatabase(context);
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ChirpDBContext>();
+    dbContext.Database.Migrate();
+}
+
 app.Run();
 //public partial class Program { }
 
