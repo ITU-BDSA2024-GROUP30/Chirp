@@ -29,14 +29,15 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 	//var cheepList = new List<CheepDTO>();
 	int pageSize = 32;
 	//query for getting every cheep
-	var query = _context.Cheeps.Select(message => new CheepDTO() // message = domain cheep. result = cheepDTO
+	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
+	//orders by the domainmodel timestamp, which is datetime type
+	.Select(message => new CheepDTO() // message = domain cheep. result = cheepDTO
 	{
 	  Text = message.Text,
 	  AuthorID = message.AuthorId,
 	  AuthorName = message.Author.Name,
 	  TimeStamp = message.TimeStamp.ToString("MM/dd/yy H:mm:ss") 
 	})
-	.OrderBy(message => message.AuthorID) // As long as TimeStamp.ToString("") is present then we can't sort cheeps by time.
 	.Skip((pageNumber - 1) * pageSize)
 	.Take(pageSize);
 
