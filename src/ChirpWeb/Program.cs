@@ -57,14 +57,13 @@ using (var scope = app.Services.CreateScope())
 */
 
 //Below 'using' block from Group 3. Seeds our database, and ensures that the database is created
-/*
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ChirpDBContext>();
     context.Database.EnsureCreated();
     DbInitializer.SeedDatabase(context);
-}*/
+}
 
 
 app.Run();

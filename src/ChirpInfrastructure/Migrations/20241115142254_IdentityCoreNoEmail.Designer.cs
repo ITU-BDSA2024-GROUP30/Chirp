@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChirpInfrastructure.Migrations
 {
     [DbContext(typeof(ChirpDBContext))]
-    [Migration("20241115133238_NoMoreEmail")]
-    partial class NoMoreEmail
+    [Migration("20241115142254_IdentityCoreNoEmail")]
+    partial class IdentityCoreNoEmail
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
