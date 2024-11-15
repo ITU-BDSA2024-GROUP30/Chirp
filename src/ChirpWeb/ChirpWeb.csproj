@@ -2,13 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net$(NETCoreAppMaximumVersion)</TargetFramework>
-    <!-- from chat -->
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <PreserveCompilationContext>true</PreserveCompilationContext>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild> <!-- Ensures package generation -->
-    <OutputPath>bin\Release\net8.0\publish</OutputPath> <!-- Ensures build manifest ends up here -->
-    <IsPackable>true</IsPackable>
-
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo> 
@@ -41,9 +34,6 @@
 
   </ItemGroup>
 
-   <Target Name="CopyBuildManifest" AfterTargets="Publish">
-    <Copy SourceFiles="$(PublishDir)manifest.json" DestinationFolder="$(PublishDir)" />
-  </Target>
 
 </Project>
 
