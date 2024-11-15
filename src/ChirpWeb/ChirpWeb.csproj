@@ -2,13 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>net$(NETCoreAppMaximumVersion)</TargetFramework>
+    <!-- from chat -->
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild> <!-- Ensures package generation -->
+    <OutputPath>bin\Release\net8.0\publish</OutputPath> <!-- Ensures build manifest ends up here -->
+    <IsPackable>true</IsPackable>
+
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo> 
   </PropertyGroup>
 
   <ItemGroup>
-	  <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="8.2.0" />
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="8.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
@@ -22,10 +29,10 @@
     </PackageReference>
 
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; 
-      analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PrivateAssets>all</PrivateAssets>
+    <IncludeAssets>runtime; build; native; contentfiles; 
+    analyzers; buildtransitive</IncludeAssets>
+  </PackageReference>
 	
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   
@@ -33,6 +40,10 @@
     <ProjectReference Include="../ChirpCore/ChirpCore.csproj"/>
 
   </ItemGroup>
+
+   <Target Name="CopyBuildManifest" AfterTargets="Publish">
+    <Copy SourceFiles="$(PublishDir)manifest.json" DestinationFolder="$(PublishDir)" />
+  </Target>
 
 </Project>
 
