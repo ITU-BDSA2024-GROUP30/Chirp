@@ -10,13 +10,14 @@ public class APITests : IClassFixture<WebApplicationFactory<Program>>
     private readonly WebApplicationFactory<Program> _fixture;
     private readonly HttpClient _client;
 
-
+    //constructor taken from week 5 slides
 	public APITests(WebApplicationFactory<Program> fixture)
     {
         _fixture = fixture;
         _client = _fixture.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = true, HandleCookies = true });
     }
 
+    //test mostly taken from week 5 slides
     [Fact]
     public async void CanSeePublicTimeline()
     {
@@ -28,6 +29,7 @@ public class APITests : IClassFixture<WebApplicationFactory<Program>>
         Assert.Contains("Public Timeline", content);
     }
 
+    //test mostly taken from week 5 slides
     [Theory]
     [InlineData("Luanna Muro")]
     public async void CanSeePrivateTimeline(string author)
@@ -40,6 +42,7 @@ public class APITests : IClassFixture<WebApplicationFactory<Program>>
         Assert.Contains($"{author}'s Timeline", content);
        
     }
+    
     /*Data NOT included in these API tests (write statements shows in commandline
     that no cheeps are visible. Fix and test more, or simply test this somehow else?)
     [Theory]
