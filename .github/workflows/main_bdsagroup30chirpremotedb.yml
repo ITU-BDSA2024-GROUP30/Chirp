@@ -55,6 +55,9 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_67B92491A4DE44DCB09AD675AB1657B9 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6563D80F22C44CBB9A438C03DE117D73 }}
 
+      - name: Remove old files in wwwroot
+        run: rm -rf /home/site/wwwroot/*    
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
