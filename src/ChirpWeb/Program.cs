@@ -48,11 +48,13 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 // From ChatGPT to ensure the database is up to date with migrations when run 
+/*
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ChirpDBContext>();
     dbContext.Database.Migrate();
 }
+*/
 
 //Below 'using' block from Group 3. Seeds our database, and ensures that the database is created
 /*
