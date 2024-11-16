@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ChirpRepositories;
 using ChirpInfrastructure;
 using Microsoft.Extensions.Configuration;
-
+using ChirpCore.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +15,7 @@ string? connectionString = builder.Configuration.GetConnectionString("ChirpDatab
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 
 // builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
 .AddEntityFrameworkStores<ChirpDBContext>();
 
 builder.Services.AddRazorPages();
