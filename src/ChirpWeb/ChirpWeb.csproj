@@ -32,6 +32,8 @@
     <ProjectReference Include="../ChirpInfrastructure/ChirpInfrastructure.csproj"/>
     <ProjectReference Include="../ChirpCore/ChirpCore.csproj"/>
 
+    <InternalsVisibleTo Include="Chirp.ChirpWeb.Tests" />
+
   </ItemGroup>
 
 </Project>

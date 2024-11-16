@@ -75,4 +75,6 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
-//public partial class Program { }
+
+//class for API tests in Chirp.ChirpWeb.Tests
+public partial class Program { }
