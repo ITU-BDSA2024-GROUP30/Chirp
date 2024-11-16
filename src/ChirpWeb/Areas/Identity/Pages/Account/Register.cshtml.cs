@@ -121,11 +121,12 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                //var user = new Author {  // OG code (homemade)
-                //    Name = Input.Name, Cheeps = []
-                //}; 
+                var user = new Author {  // OG code (homemade)
+                    Name = Input.Name, Cheeps = []
+                }; 
                 
-                var user = CreateUser(); // supposed to be here
+                // Method below came with the template originally, and might make issues.
+                //var user = CreateUser(); // supposed to be here
 
                 await _userStore.SetUserNameAsync(user, Input.Name, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
