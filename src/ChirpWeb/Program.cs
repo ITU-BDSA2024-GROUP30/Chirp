@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using ChirpCore.Domain;
 using Microsoft.Data.Sqlite;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -51,7 +52,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-// From ChatGPT to ensure the database is up to date with migrations when run 
+// From ChatGPT to ensure the database is up to date with migrations when run
 /*
 using (var scope = app.Services.CreateScope())
 {
@@ -72,3 +73,6 @@ using (var scope = app.Services.CreateScope())
 
 
 app.Run();
+
+//class for API tests in Chirp.ChirpWeb.Tests
+public partial class Program { }

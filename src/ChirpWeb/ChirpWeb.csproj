@@ -4,7 +4,7 @@
     <TargetFramework>net$(NETCoreAppMaximumVersion)</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo> 
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="8.0.10" />
-    
+
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <IncludeAssets>runtime; build; native; contentfiles;
       Analyzers; buildtransitive</IncludeAssets>
@@ -23,16 +23,18 @@
 
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
     <PrivateAssets>all</PrivateAssets>
-    <IncludeAssets>runtime; build; native; contentfiles; 
+    <IncludeAssets>runtime; build; native; contentfiles;
     analyzers; buildtransitive</IncludeAssets>
   </PackageReference>
 
 	<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
-	
+
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  
+
     <ProjectReference Include="../ChirpInfrastructure/ChirpInfrastructure.csproj" />
     <ProjectReference Include="../ChirpCore/ChirpCore.csproj" />
+
+		<InternalsVisibleTo Include="Chirp.ChirpWeb.Tests" />
 
   </ItemGroup>
 
