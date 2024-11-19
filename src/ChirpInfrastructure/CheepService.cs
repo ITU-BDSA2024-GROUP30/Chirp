@@ -3,9 +3,7 @@ using ChirpRepositories;
 using ChirpCore.DTOs;
 
 
-//namespace Chirp.UserFacade.Chirp.Infrastructure.Chirp.Services;
 //namespace confuses the foreach loop on line 23, but we should find a way to implement
-
 
 //public record Cheep(string Author, string Message, string Timestamp);
 
