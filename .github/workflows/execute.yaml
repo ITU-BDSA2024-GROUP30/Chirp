@@ -37,13 +37,15 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0
+      - name: Restore dependencies
+        run: dotnet restore
       - name: Build
         shell: bash
         run: |
           tag=$(git describe --tags --abbrev=0 --always )
           release_name="Chirp-$tag-${{ matrix.target }}"
 
-          dotnet publish src/ChirpWeb/ChirpWeb.csproj --runtime "${{ matrix.target }}" -c Release --self-contained true
+          dotnet publish src/ChirpWeb/ChirpWeb.csproj --runtime "${{ matrix.target }}" -c Release --self-contained true -o "$release_name"
                
           if [ "${{ matrix.target }}" == "win-x64" ]; then
             7z a -tzip "${release_name}.zip" "./${release_name}/Chirp.exe"
@@ -52,9 +54,6 @@ jobs:
           fi
           
           rm -r "$release_name"
-
-      #- name: Restore dependencies
-      #  run: dotnet restore
         
       - name: Publish
         uses: softprops/action-gh-release@v1
