@@ -40,7 +40,6 @@
 
     <InternalsVisibleTo Include="Chirp.ChirpWeb.Tests" />
   
-  <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.6" />
     <EmbeddedResource Include="src/UserFacade/wwwroot/**" />
   </ItemGroup>
