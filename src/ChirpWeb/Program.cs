@@ -16,7 +16,7 @@ string? connectionString = builder.Configuration.GetConnectionString("ChirpDatab
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 
 var dbcon = new SqliteConnection(connectionString);
-await dbcon.OpenAsync();
+//await dbcon.OpenAsync();
 
 // builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -65,7 +65,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ChirpDBContext>();
-    //context.Database.EnsureCreated();
+    context.Database.EnsureCreated();
     //await context.Database.MigrateAsync();
     DbInitializer.SeedDatabase(context);
 }
