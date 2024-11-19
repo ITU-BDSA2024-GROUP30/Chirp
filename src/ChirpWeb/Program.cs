@@ -4,6 +4,7 @@ using ChirpRepositories;
 using ChirpInfrastructure;
 using Microsoft.Extensions.Configuration;
 using ChirpCore.Domain;
+using Microsoft.Data.Sqlite;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,9 @@ string? connectionString = builder.Configuration.GetConnectionString("ChirpDatab
 
 //ChirpDBContext created with our database path - which is specified in appsettings.json
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
+
+var dbcon = new SqliteConnection(connectionString);
+await dbcon.OpenAsync();
 
 // builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -61,35 +65,10 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ChirpDBContext>();
-    context.Database.EnsureCreated();
+    //context.Database.EnsureCreated();
+    await context.Database.MigrateAsync();
     DbInitializer.SeedDatabase(context);
 }
 
 
 app.Run();
-//public partial class Program { }
-
-// Add services to the container.
-/*builder.Services.AddRazorPages(options =>
-{
-    //Razor pages are in a different folder and therefore we use this customized path
-    options.RootDirectory = "/Pages";
-}); */
-
-/*
-app.UseStaticFiles(new StaticFileOptions
-{
-    //since our wwwroot is in a different folder than program.cs, we need this specific path
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "UserFacade", "wwwroot")),
-    RequestPath = ""
-});*/
-
-/*
-using Microsoft.Extensions.FileProviders;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using ChirpCore;
-using ChirpCore.Domain; 
-using ChirpCore.DTOs; 
-*/
