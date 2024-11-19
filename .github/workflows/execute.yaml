@@ -53,8 +53,8 @@ jobs:
           
           rm -r "$release_name"
 
-      - name: Restore dependencies
-        run: dotnet restore
+      #- name: Restore dependencies
+      #  run: dotnet restore
         
       - name: Publish
         uses: softprops/action-gh-release@v1
