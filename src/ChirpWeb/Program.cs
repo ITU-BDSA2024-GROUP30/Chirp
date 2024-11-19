@@ -2,9 +2,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ChirpRepositories;
 using ChirpInfrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-using ChirpCore.Domain;
 using Microsoft.Data.Sqlite;
+using ChirpCore;
+using ChirpCore.Domain;
+using ChirpCore.DTOs;
+using ChirpRepositories;
+using ChirpInfrastructure;
 
 
 var builder = WebApplication.CreateBuilder(args);
