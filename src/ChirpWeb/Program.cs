@@ -66,7 +66,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ChirpDBContext>();
     //context.Database.EnsureCreated();
-    await context.Database.MigrateAsync();
+    //await context.Database.MigrateAsync();
     DbInitializer.SeedDatabase(context);
 }
 
