@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpCore", "..\..\src\ChirpCore\ChirpCore.csproj", "{0CAA7550-80C8-48EE-A9F2-0E549B94D1BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.ChirpCore.Tests", "Chirp.ChirpCore.Tests.csproj", "{467F9F2F-6A15-48FF-8B25-2313EF855C11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CAA7550-80C8-48EE-A9F2-0E549B94D1BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CAA7550-80C8-48EE-A9F2-0E549B94D1BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CAA7550-80C8-48EE-A9F2-0E549B94D1BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CAA7550-80C8-48EE-A9F2-0E549B94D1BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{467F9F2F-6A15-48FF-8B25-2313EF855C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{467F9F2F-6A15-48FF-8B25-2313EF855C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{467F9F2F-6A15-48FF-8B25-2313EF855C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{467F9F2F-6A15-48FF-8B25-2313EF855C11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
