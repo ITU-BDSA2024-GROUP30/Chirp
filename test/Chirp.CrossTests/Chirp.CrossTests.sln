@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.CrossTests", "Chirp.CrossTests.csproj", "{7D12FB8E-DB19-4632-9632-8584471C0659}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpCore", "..\..\src\ChirpCore\ChirpCore.csproj", "{88082C1B-521A-41E0-88EE-EB67FEFE4E30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpInfrastructure", "..\..\src\ChirpInfrastructure\ChirpInfrastructure.csproj", "{447087E3-6248-403E-BD9A-1CD4D42BE6A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpWeb", "..\..\src\ChirpWeb\ChirpWeb.csproj", "{964540BF-2073-4D13-987C-581CFF40D1E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D12FB8E-DB19-4632-9632-8584471C0659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D12FB8E-DB19-4632-9632-8584471C0659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D12FB8E-DB19-4632-9632-8584471C0659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D12FB8E-DB19-4632-9632-8584471C0659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88082C1B-521A-41E0-88EE-EB67FEFE4E30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88082C1B-521A-41E0-88EE-EB67FEFE4E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88082C1B-521A-41E0-88EE-EB67FEFE4E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88082C1B-521A-41E0-88EE-EB67FEFE4E30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{447087E3-6248-403E-BD9A-1CD4D42BE6A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{447087E3-6248-403E-BD9A-1CD4D42BE6A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{447087E3-6248-403E-BD9A-1CD4D42BE6A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{447087E3-6248-403E-BD9A-1CD4D42BE6A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{964540BF-2073-4D13-987C-581CFF40D1E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{964540BF-2073-4D13-987C-581CFF40D1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{964540BF-2073-4D13-987C-581CFF40D1E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{964540BF-2073-4D13-987C-581CFF40D1E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
