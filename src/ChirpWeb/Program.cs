@@ -34,8 +34,8 @@ builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(conne
 var dbcon = new SqliteConnection(connectionString);
 //await dbcon.OpenAsync();
 
-// builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
+// builder.Services.AddDatabaseDeveloperPageExceptionFilter(); // AddDefaultIdentity
+builder.Services.AddIdentity<Author, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true) 
 .AddEntityFrameworkStores<ChirpDBContext>();
 
 builder.Services.AddRazorPages();
@@ -77,6 +77,7 @@ using (var scope = app.Services.CreateScope())
 */
 
 //Below 'using' block from Group 3. Seeds our database, and ensures that the database is created
+/*
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -84,7 +85,7 @@ using (var scope = app.Services.CreateScope())
     await context.Database.MigrateAsync();
     context.Database.EnsureCreated();
     DbInitializer.SeedDatabase(context);
-}
+}*/
 
 
 app.Run();

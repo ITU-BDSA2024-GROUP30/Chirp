@@ -32,9 +32,9 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
 		//orders by the domainmodel timestamp, which is datetime type
 		.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
+			cheep.CheepId,
+			cheep.Id,
 			cheep.Text,
-			cheep.UserId,
-			cheep.Author.Name,
 			cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
 		))
 		.Skip((pageNumber - 1) * pageSize)

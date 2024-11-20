@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using ChirpCore.Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace ChirpInfrastructure;
 
-public class ChirpDBContext : IdentityDbContext<Author>
+public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
 {
 	public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options)
 	{
@@ -21,18 +22,8 @@ public class ChirpDBContext : IdentityDbContext<Author>
 	{
 		base.OnModelCreating(modelBuilder);
 
-		modelBuilder.Entity<Author>()
-								.HasIndex(c => c.Name)
-								.IsUnique();
-		modelBuilder.Entity<Author>()
-								.HasIndex(c => c.Email)
-							.IsUnique();
-		modelBuilder.Entity<Author>()
-								.HasIndex(c => c.UserId)
-								.IsUnique();
-		/*modelBuilder.Entity<Author>()
-								.HasKey(k => new { k.FollowerId, k.FollowingId });
-		//above will be relevant later*/
+		modelBuilder.Entity<Author>().HasIndex(a => a.UserName).IsUnique();
+		modelBuilder.Entity<Author>().HasIndex(a => a.Email).IsUnique();
 	}
 
 }

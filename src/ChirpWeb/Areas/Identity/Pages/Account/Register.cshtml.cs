@@ -122,7 +122,7 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new Author {  // OG code (homemade)
-                    Name = Input.Name, Cheeps = []
+                    UserName = Input.Name, Cheeps = []
                 }; 
                 
                 // Method below came with the template originally, and might make issues.
