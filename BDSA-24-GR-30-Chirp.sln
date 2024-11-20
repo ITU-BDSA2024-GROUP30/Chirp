@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{27562E40-7E9F-448D-82B9-1751B1F6C1C6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{059BC530-AA63-4355-9EFB-0758E83C5B7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpWeb", "src\ChirpWeb\ChirpWeb.csproj", "{491426D5-0389-4965-8422-637BBD186170}"
@@ -12,14 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpInfrastructure", "src\ChirpInfrastructure\ChirpInfrastructure.csproj", "{6CFE1835-DF8F-4CF4-82C9-E6D27243E756}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpCore", "src\ChirpCore\ChirpCore.csproj", "{62870BE0-86E9-437B-8853-0877B4EE8A49}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.ChirpInfrastructure.Tests", "test\Chirp.ChirpInfrastructure.Tests\Chirp.ChirpInfrastructure.Tests.csproj", "{678ACC16-FC17-4AF0-BBFF-CD9DCE9A0523}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.ChirpWeb.Tests", "test\Chirp.ChirpWeb.Tests\Chirp.ChirpWeb.Tests.csproj", "{B13787ED-562F-4D0E-9490-BC1B48603D63}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.ChirpCore.Tests", "test\Chirp.ChirpCore.Tests\Chirp.ChirpCore.Tests.csproj", "{AAECCB12-58B5-44D0-ADF9-386B839B8F46}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.CrossTests", "test\Chirp.CrossTests\Chirp.CrossTests.csproj", "{54A996E6-502D-4B77-AD06-318E9A7C9BB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,21 +30,6 @@ Global
 		{62870BE0-86E9-437B-8853-0877B4EE8A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62870BE0-86E9-437B-8853-0877B4EE8A49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{678ACC16-FC17-4AF0-BBFF-CD9DCE9A0523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{678ACC16-FC17-4AF0-BBFF-CD9DCE9A0523}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{678ACC16-FC17-4AF0-BBFF-CD9DCE9A0523}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{678ACC16-FC17-4AF0-BBFF-CD9DCE9A0523}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B13787ED-562F-4D0E-9490-BC1B48603D63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B13787ED-562F-4D0E-9490-BC1B48603D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B13787ED-562F-4D0E-9490-BC1B48603D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B13787ED-562F-4D0E-9490-BC1B48603D63}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAECCB12-58B5-44D0-ADF9-386B839B8F46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAECCB12-58B5-44D0-ADF9-386B839B8F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAECCB12-58B5-44D0-ADF9-386B839B8F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAECCB12-58B5-44D0-ADF9-386B839B8F46}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54A996E6-502D-4B77-AD06-318E9A7C9BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54A996E6-502D-4B77-AD06-318E9A7C9BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54A996E6-502D-4B77-AD06-318E9A7C9BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54A996E6-502D-4B77-AD06-318E9A7C9BB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,9 +38,5 @@ Global
 		{491426D5-0389-4965-8422-637BBD186170} = {059BC530-AA63-4355-9EFB-0758E83C5B7D}
 		{6CFE1835-DF8F-4CF4-82C9-E6D27243E756} = {059BC530-AA63-4355-9EFB-0758E83C5B7D}
 		{62870BE0-86E9-437B-8853-0877B4EE8A49} = {059BC530-AA63-4355-9EFB-0758E83C5B7D}
-		{678ACC16-FC17-4AF0-BBFF-CD9DCE9A0523} = {27562E40-7E9F-448D-82B9-1751B1F6C1C6}
-		{B13787ED-562F-4D0E-9490-BC1B48603D63} = {27562E40-7E9F-448D-82B9-1751B1F6C1C6}
-		{AAECCB12-58B5-44D0-ADF9-386B839B8F46} = {27562E40-7E9F-448D-82B9-1751B1F6C1C6}
-		{54A996E6-502D-4B77-AD06-318E9A7C9BB3} = {27562E40-7E9F-448D-82B9-1751B1F6C1C6}
 	EndGlobalSection
 EndGlobal
