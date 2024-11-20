@@ -31,13 +31,12 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 		//query for getting every cheep
 		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
 		//orders by the domainmodel timestamp, which is datetime type
-		.Select(cheep => new CheepDTO() // message = domain cheep. result = cheepDTO
-		{
-			Text = cheep.Text,
-			UserId = cheep.UserId,
-			AuthorName = cheep.Author.Name,
-			TimeStamp = cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
-		})
+		.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
+			cheep.Text,
+			cheep.UserId,
+			cheep.Author.Name,
+			cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
+		))
 		.Skip((pageNumber - 1) * pageSize)
 		.Take(pageSize);
 

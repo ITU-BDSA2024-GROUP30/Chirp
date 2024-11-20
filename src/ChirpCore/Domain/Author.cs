@@ -13,6 +13,6 @@ namespace ChirpCore.Domain
 		//public override required string? Email { get; set; }
 		public required ICollection<Cheep> Cheeps { get; set; }
 
-		public required ICollection<Author> Follows { get; set; }
+		//public required ICollection<Author> Follows { get; set; }
 	}
 }

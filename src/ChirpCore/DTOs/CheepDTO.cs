@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ChirpCore.DTOs
 {
-	public record CheepDTO(int UserId, int CheepId, string Text, string Timestamp);
+	public record CheepDTO(int CheepId, int UserId, string Text, string Timestamp);
 	/*
 	{
 		public int UserId { get; set; }

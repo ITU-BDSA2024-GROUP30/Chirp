@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{82409831-55FA-4F19-9E6C-BA57259F5564}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpCore", "src\ChirpCore\ChirpCore.csproj", "{F2E2822E-D1FB-419C-B312-337EFA463211}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpInfrastructure", "src\ChirpInfrastructure\ChirpInfrastructure.csproj", "{D449327F-7AB5-4DF3-8FE7-B6992D140011}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChirpWeb", "src\ChirpWeb\ChirpWeb.csproj", "{C2C87767-C173-4B1F-8E95-3C74570F8FEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2E2822E-D1FB-419C-B312-337EFA463211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E2822E-D1FB-419C-B312-337EFA463211}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2E2822E-D1FB-419C-B312-337EFA463211}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E2822E-D1FB-419C-B312-337EFA463211}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D449327F-7AB5-4DF3-8FE7-B6992D140011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D449327F-7AB5-4DF3-8FE7-B6992D140011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D449327F-7AB5-4DF3-8FE7-B6992D140011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D449327F-7AB5-4DF3-8FE7-B6992D140011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2C87767-C173-4B1F-8E95-3C74570F8FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C87767-C173-4B1F-8E95-3C74570F8FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2C87767-C173-4B1F-8E95-3C74570F8FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2C87767-C173-4B1F-8E95-3C74570F8FEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2E2822E-D1FB-419C-B312-337EFA463211} = {82409831-55FA-4F19-9E6C-BA57259F5564}
+		{D449327F-7AB5-4DF3-8FE7-B6992D140011} = {82409831-55FA-4F19-9E6C-BA57259F5564}
+		{C2C87767-C173-4B1F-8E95-3C74570F8FEF} = {82409831-55FA-4F19-9E6C-BA57259F5564}
+	EndGlobalSection
+EndGlobal
