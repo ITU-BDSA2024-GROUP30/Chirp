@@ -16,10 +16,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 if (Directory.Exists("ChirpDatabaseConnection"))
 {
+    File.Delete("ChirpDatabaseConnection");
     //string DBFilePath = Path.GetTempPath();
     //string DBFilePathWithFile = Path.Combine(DBFilePath + "chirp.db");
     //Directory.CreateDirectory(DBFilePath);
-    File.Delete("ChirpWeb.db");
+
     //File.Create(DBFilePathWithFile);
 }
 
@@ -80,8 +81,8 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ChirpDBContext>();
+    await context.Database.MigrateAsync();
     context.Database.EnsureCreated();
-    //await context.Database.MigrateAsync();
     DbInitializer.SeedDatabase(context);
 }
 

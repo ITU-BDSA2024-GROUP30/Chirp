@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ChirpInfrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityCoreNoEmail : Migration
+    public partial class IdentityCore : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

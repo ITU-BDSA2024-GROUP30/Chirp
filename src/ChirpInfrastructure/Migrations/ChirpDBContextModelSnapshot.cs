@@ -122,7 +122,7 @@ namespace ChirpInfrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Cheeps", (string)null);
+                    b.ToTable("Cheeps");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
