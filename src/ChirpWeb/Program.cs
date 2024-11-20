@@ -10,11 +10,18 @@ using Microsoft.Data.Sqlite;
 using ChirpCore;
 using ChirpCore.Domain;
 using ChirpCore.DTOs;
-using ChirpRepositories;
-using ChirpInfrastructure;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+if (Directory.Exists("ChirpDatabaseConnection"))
+{
+    //string DBFilePath = Path.GetTempPath();
+    //string DBFilePathWithFile = Path.Combine(DBFilePath + "chirp.db");
+    //Directory.CreateDirectory(DBFilePath);
+    File.Delete("ChirpWeb.db");
+    //File.Create(DBFilePathWithFile);
+}
 
 
 // Load database connection via configuration, get string of database path from appsettings.json
