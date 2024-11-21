@@ -12,6 +12,7 @@ using ChirpCore.Domain;
 using ChirpCore.DTOs;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -34,9 +35,9 @@ if ()
     File.Delete("ChirpDatabaseConnection");
 }*/
 
-
+string path = Environment.GetEnvironmentVariable("chirpdbpath") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
 // Load database connection via configuration, get string of database path from appsettings.json
-string? connectionString = builder.Configuration.GetConnectionString("ChirpDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
+string connectionString = "Data Source=" + path;
 
 //ChirpDBContext created with our database path - which is specified in appsettings.json
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
