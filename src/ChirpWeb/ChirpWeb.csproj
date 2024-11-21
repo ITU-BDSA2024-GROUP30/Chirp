@@ -35,6 +35,8 @@
 
 		<InternalsVisibleTo Include="Chirp.ChirpWeb.Tests" />
 
+    <InternalsVisibleTo Include="Chirp.ChirpWeb.Tests" />
+
   </ItemGroup>
 
 

@@ -11,9 +11,16 @@ namespace ChirpRepositories;
 
 public interface ICheepRepository
 {
-	/*public Cheep CreateCheep();
-	Above will be relevant later*/
-	public List<CheepDTO> ReadCheeps(int pageNumber);
+   /*Below commented method will be relevant later
+  public Cheep CreateCheep();
+
+	Below 2 methods will not be implemented. If developers
+	wish to implement editing or deleting of Cheeps from an Author,
+	this is where to add this functionality.
+  public Cheep EditCheep();
+  public void DeleteCheep();
+  */
+  public List<CheepDTO> ReadCheeps(int pageNumber);
 
 }
 public class CheepRepository(ChirpDBContext context) : ICheepRepository
@@ -22,14 +29,14 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 
 	/*public Cheep CreateCheep(){
 
-	}
-	Above will be relevant later*/
-	public List<CheepDTO> ReadCheeps(int pageNumber)
-	{
-		//var cheepList = new List<CheepDTO>();
-		int pageSize = 32;
-		//query for getting every cheep
-		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
+  }
+  Above will be relevant later*/
+  public List<CheepDTO> ReadCheeps(int pageNumber)
+  {
+	int pageSize = 32;
+
+	//query for getting every cheep
+	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
 		//orders by the domainmodel timestamp, which is datetime type
 		.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 			cheep.CheepId,
@@ -42,16 +49,6 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 
 		var result = query.ToList();
 
-		return result;
-
-		/*
-		foreach (var cheep in result)
-		{
-		  var author = cheep.AuthorName;
-		  var message = cheep.Text;
-		  var timestamp = cheep.TimeStamp;
-		  cheepList.Add(new CheepDTO());
-		}
-		return cheepList;*/
-	}
+	return result;
+  }
 }
