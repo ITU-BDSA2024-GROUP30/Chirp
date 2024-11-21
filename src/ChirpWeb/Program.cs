@@ -46,6 +46,7 @@ var dbcon = new SqliteConnection(connectionString);
 
 // builder.Services.AddDatabaseDeveloperPageExceptionFilter(); // AddDefaultIdentity
 builder.Services.AddIdentity<Author, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+.AddDefaultUI()
 .AddEntityFrameworkStores<ChirpDBContext>();
 
 builder.Services.AddRazorPages();

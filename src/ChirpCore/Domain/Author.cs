@@ -15,8 +15,8 @@ namespace ChirpCore.Domain
 
 		//public required ICollection<Author> Follows { get; set; }
 
-		/*public void test(Author author)
+		public void test(Author author)
 		{
-		}*/
+		}
 	}
 }

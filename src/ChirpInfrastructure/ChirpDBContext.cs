@@ -24,6 +24,17 @@ public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
 
 		modelBuilder.Entity<Author>().HasIndex(a => a.UserName).IsUnique();
 		modelBuilder.Entity<Author>().HasIndex(a => a.Email).IsUnique();
+
+		// Below lines 29-37 are from ChatGPT to help ensure the Id in Cheep is a foreign key.
+		modelBuilder.Entity<Cheep>(entity =>
+		{
+			entity.HasKey(c => c.CheepId);
+
+			entity.HasOne(c => c.Author)
+			.WithMany(a => a.Cheeps)
+			.HasForeignKey(c => c.Id)
+			.OnDelete(DeleteBehavior.Cascade);
+		});
 	}
 
 }
