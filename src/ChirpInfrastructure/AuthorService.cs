@@ -14,23 +14,23 @@ public class AuthorService(IAuthorRepository AuthorRepository) : IAuthorService 
     //Used when an Author initially registers for our website.
     //This method needs to invoke AddAuthor() from AuthorRepo, in order to add
     //this new Author to our database
-    RegisterAuthor(){}
+    public void RegisterAuthor(){}
 
     //This method is used when an Author is already registrered and tries to login.
-    LoginAuthor(){
+    public void LoginAuthor(){
         //needs to call on authentication and authorization for identity user
     }
 
     //This method is invoked when an Author clicks the 'Forget Me!' button.
     //Needs to call upon DeleteAuthor() from AuthorRepo to remove Author from DB.
-    ForgetAuthor(){}
+    public void ForgetAuthor(){}
 
     //Method for adding another Author to acting Author's follower list
     //Probably calls on UpdateAuthor() from AuthorRepo
-    FollowAuthor(){}
+    public void FollowAuthor(){}
 
     //Method for removing another Author from acting Author's follower list
     //Probably calls on UpdateAuthor() from AuthorRepo
-    UnfollowAuthor(){}
+    public void UnfollowAuthor(){}
 
 }
