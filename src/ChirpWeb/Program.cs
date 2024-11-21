@@ -14,15 +14,25 @@ using ChirpCore.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-if (Directory.Exists("ChirpDatabaseConnection"))
+
+if (Directory.Exists("ChirpDatabaseConnection") || File.Exists("ChirpDatabaseConnection"))
 {
-    File.Delete("ChirpDatabaseConnection");
+    //File.Delete("ChirpDatabaseConnection");
     //string DBFilePath = Path.GetTempPath();
     //string DBFilePathWithFile = Path.Combine(DBFilePath + "chirp.db");
     //Directory.CreateDirectory(DBFilePath);
 
-    //File.Create(DBFilePathWithFile);
+    //File.Create("ChirpWeb.db");
 }
+else
+{
+    //File.Create("ChirpWeb.db");
+}
+/*
+if ()
+{
+    File.Delete("ChirpDatabaseConnection");
+}*/
 
 
 // Load database connection via configuration, get string of database path from appsettings.json
@@ -35,7 +45,7 @@ var dbcon = new SqliteConnection(connectionString);
 //await dbcon.OpenAsync();
 
 // builder.Services.AddDatabaseDeveloperPageExceptionFilter(); // AddDefaultIdentity
-builder.Services.AddIdentity<Author, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true) 
+builder.Services.AddIdentity<Author, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
 .AddEntityFrameworkStores<ChirpDBContext>();
 
 builder.Services.AddRazorPages();
@@ -77,7 +87,7 @@ using (var scope = app.Services.CreateScope())
 */
 
 //Below 'using' block from Group 3. Seeds our database, and ensures that the database is created
-/*
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -85,7 +95,7 @@ using (var scope = app.Services.CreateScope())
     await context.Database.MigrateAsync();
     context.Database.EnsureCreated();
     DbInitializer.SeedDatabase(context);
-}*/
+}
 
 
 app.Run();

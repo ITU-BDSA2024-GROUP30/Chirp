@@ -11,23 +11,23 @@ namespace ChirpRepositories;
 
 public interface ICheepRepository
 {
-  /*public Cheep CreateCheep();
-  Above will be relevant later*/
-  public List<CheepDTO> ReadCheeps(int pageNumber);
+	/*public Cheep CreateCheep();
+	Above will be relevant later*/
+	public List<CheepDTO> ReadCheeps(int pageNumber);
 
 }
 public class CheepRepository(ChirpDBContext context) : ICheepRepository
 {
-  private readonly ChirpDBContext _context = context;
+	private readonly ChirpDBContext _context = context;
 
-  /*public Cheep CreateCheep(){
+	/*public Cheep CreateCheep(){
 
-  }
-  Above will be relevant later*/
-  public List<CheepDTO> ReadCheeps(int pageNumber)
-  {
-	//var cheepList = new List<CheepDTO>();
-	int pageSize = 32;
+	}
+	Above will be relevant later*/
+	public List<CheepDTO> ReadCheeps(int pageNumber)
+	{
+		//var cheepList = new List<CheepDTO>();
+		int pageSize = 32;
 		//query for getting every cheep
 		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
 		//orders by the domainmodel timestamp, which is datetime type
@@ -44,14 +44,14 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 
 		return result;
 
-	/*
-	foreach (var cheep in result)
-	{
-	  var author = cheep.AuthorName;
-	  var message = cheep.Text;
-	  var timestamp = cheep.TimeStamp;
-	  cheepList.Add(new CheepDTO());
+		/*
+		foreach (var cheep in result)
+		{
+		  var author = cheep.AuthorName;
+		  var message = cheep.Text;
+		  var timestamp = cheep.TimeStamp;
+		  cheepList.Add(new CheepDTO());
+		}
+		return cheepList;*/
 	}
-	return cheepList;*/
-  }
 }
