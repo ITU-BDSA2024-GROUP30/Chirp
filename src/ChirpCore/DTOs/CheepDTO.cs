@@ -7,12 +7,4 @@ using System.ComponentModel.DataAnnotations;
 namespace ChirpCore.DTOs
 {
 	public record CheepDTO(int CheepId, int UserId, string Text, string TimeStamp);
-	/*
-	{
-		public int UserId { get; set; }
-		[StringLength(160, MinimumLength = 1)] public string? Text { get; set; }
-		public required string TimeStamp { get; set; } // DateTime changed to string
-		public string? AuthorName { get; set; }
-
-	}*/
 }
