@@ -22,7 +22,7 @@ public class AuthorService(IAuthorRepository AuthorRepository) : IAuthorService 
     }
 
     //This method is invoked when an Author clicks the 'Forget Me!' button.
-    //Needs to call upon DeleteAuthor() from AuthorRepo to remove Author from DB.
+    //Needs to call upon DeleteAuthorFromDatabase() from AuthorRepo to remove Author from DB.
     public void ForgetAuthor(){}
 
     //Method for adding another Author to acting Author's follower list
