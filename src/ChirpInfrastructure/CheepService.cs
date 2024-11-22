@@ -20,7 +20,7 @@ public class CheepService(ICheepRepository repository) : ICheepService
 
     public List<CheepDTO> GetCheeps(int pageNumber)
     {
-        _cheeps.Clear();//
+        _cheeps.Clear();
         var list = _repository.ReadCheeps(pageNumber);
 
         //read each CheepObject from CheepRepository
@@ -35,7 +35,19 @@ public class CheepService(ICheepRepository repository) : ICheepService
     //Sorts cheep after the string author. We use this for author timelines
     public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber) 
     {
+
+        _cheeps.Clear();
+        var list = _repository.ReadCheepsFromAuthor(author, pageNumber);
+
+        //read each CheepObject from CheepRepository
+        foreach (CheepDTO cheep in list)
+        {
+            _cheeps.Add(cheep);
+        }
+
+        return _cheeps;
+        // Below is the old code
         // filter by the provided author name (will this cause problems if 2 authors share the same name?)
-        return _cheeps.Where(x => x.UserName == author).ToList();   
+        //return _cheeps.Where(x => x.UserName == author).ToList();    
     }
 }
