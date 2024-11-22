@@ -24,6 +24,10 @@ public class PublicModel : PageModel
         {
             currentPage = 1;
         }
+    
         return Page();
+        
     }
+
+    
 }
