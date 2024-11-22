@@ -14,27 +14,6 @@ using ChirpCore.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-if (Directory.Exists("ChirpDatabaseConnection") || File.Exists("ChirpDatabaseConnection"))
-{
-    //File.Delete("ChirpDatabaseConnection");
-    //string DBFilePath = Path.GetTempPath();
-    //string DBFilePathWithFile = Path.Combine(DBFilePath + "chirp.db");
-    //Directory.CreateDirectory(DBFilePath);
-
-    //File.Create("ChirpWeb.db");
-}
-else
-{
-    //File.Create("ChirpWeb.db");
-}
-/*
-if ()
-{
-    File.Delete("ChirpDatabaseConnection");
-}*/
-
-
 // Load database connection via configuration, get string of database path from appsettings.json
 string? connectionString = builder.Configuration.GetConnectionString("ChirpDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
 
@@ -44,9 +23,9 @@ builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(conne
 var dbcon = new SqliteConnection(connectionString);
 //await dbcon.OpenAsync();
 
-// builder.Services.AddDatabaseDeveloperPageExceptionFilter(); // AddDefaultIdentity
 builder.Services.AddIdentity<Author, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
 .AddDefaultUI()
+.AddDefaultTokenProviders()	
 .AddEntityFrameworkStores<ChirpDBContext>();
 
 builder.Services.AddRazorPages();
@@ -69,7 +48,7 @@ else
 }
 app.UseHttpsRedirection();
 
-app.UseStaticFiles();  // Due to Onion Structure setup the implict path for wwwroot works again (same for addRazorPages)
+app.UseStaticFiles(); 
 app.UseRouting();
 
 
@@ -77,15 +56,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
-
-// From ChatGPT to ensure the database is up to date with migrations when run
-/*
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<ChirpDBContext>();
-    dbContext.Database.Migrate();
-}
-*/
 
 //Below 'using' block from Group 3. Seeds our database, and ensures that the database is created
 
@@ -97,7 +67,6 @@ using (var scope = app.Services.CreateScope())
     context.Database.EnsureCreated();
     DbInitializer.SeedDatabase(context);
 }
-
 
 app.Run();
 
