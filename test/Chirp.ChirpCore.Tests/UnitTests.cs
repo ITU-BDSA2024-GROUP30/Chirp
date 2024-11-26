@@ -14,16 +14,16 @@ public class UnitTest
         // Arrange & Act
         var author = new Author
         {
-            Name = "Jane Doe",
+            UserName = "Jane Doe",
             Email = "jane.doe@example.com",
             Id = 123,
             Cheeps = Cheeps,
         };
 
         //Assert
-        Assert.Same("Jane Doe", author.Name);
+        Assert.Same("Jane Doe", author.UserName);
         Assert.Same("jane.doe@example.com", author.Email);
-        Assert.Equal(123, author.AuthorId);
+        Assert.Equal(123, author.Id);
         Assert.True(author.Cheeps.Count == 0);
     }
 
@@ -37,7 +37,7 @@ public class UnitTest
         ICollection<Cheep> Cheeps = [];
         var author = new Author
         {
-            Name = "Jane Doe",
+            UserName = "Jane Doe",
             Email = "jane.doe@example.com",
             Id = 123,
             Cheeps = Cheeps,
@@ -80,7 +80,7 @@ public class UnitTest
 
         var author = new Author
         {
-            Name = "John Doe",
+            UserName = "John Doe",
             Email = "john.doe@example.com",
             Id = 456,
             Cheeps = Cheeps,
@@ -102,9 +102,9 @@ public class UnitTest
 
         Assert.Same(cheep3.Author, author);
 
-        Assert.NotEqual(123, cheep3.AuthorId);
+        Assert.NotEqual(123, cheep3.Id);
 
-        Assert.NotEqual("Helge", cheep3.Author.Name);
+        Assert.NotEqual("Helge", cheep3.Author.UserName);
 
         Assert.Equal(new DateTime(2024, 11, 12), cheep3.TimeStamp);
 
@@ -121,7 +121,7 @@ public class UnitTest
 
         var author = new Author
         {
-            Name = "Jerry Doe",
+            UserName = "Jerry Doe",
             Email = "jerry.doe@example.com",
             Id = 789,
             Cheeps = Cheeps,
@@ -146,7 +146,7 @@ public class UnitTest
 
         var author = new Author
         {
-            Name = "Jerry Doe",
+            UserName = "Jerry Doe",
             Email = "jerry.doe@example.com",
             Id = 789,
             Cheeps = Cheeps,
