@@ -9,14 +9,13 @@ namespace ChirpInfrastructure;
 
 public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
 {
+	public DbSet<Cheep> Cheeps { get; set; }
+
+	public DbSet<Author> Authors { get; set; }
 	public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options)
 	{
 
 	}
-	// public ChirpDBContext() {}
-	public DbSet<Cheep> Cheeps { get; set; }
-
-	public DbSet<Author> Authors { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{

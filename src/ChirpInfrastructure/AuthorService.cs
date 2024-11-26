@@ -10,7 +10,14 @@ public interface IAuthorService {
     public void UnfollowAuthor();
 }
 
-public class AuthorService(IAuthorRepository AuthorRepository) : IAuthorService {
+public class AuthorService : IAuthorService
+{
+	private readonly IAuthorService _authorRepository;
+	public AuthorService(IAuthorService authorRepository)
+	{
+		//used when methods underneathe will be implemented
+		_authorRepository = authorRepository;
+	}
     //Used when an Author initially registers for our website.
     //This method needs to invoke AddAuthor() from AuthorRepo, in order to add
     //this new Author to our database

@@ -15,7 +15,7 @@ using ChirpCore.DTOs;
 var builder = WebApplication.CreateBuilder(args);
 
 // Load database connection via configuration, get string of database path from appsettings.json
-string? connectionString = builder.Configuration.GetConnectionString("ChirpDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
+string connectionString = builder.Configuration.GetConnectionString("ChirpDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
 
 //ChirpDBContext created with our database path - which is specified in appsettings.json
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
