@@ -1,6 +1,7 @@
 using System.Data;
 using ChirpRepositories;
 using ChirpCore.DTOs;
+using System.Reflection;
 
 
 //namespace confuses the foreach loop on line 23, but we should find a way to implement
@@ -27,8 +28,9 @@ public class CheepService : ICheepService
 	{
 
 		_cheeps.Clear();
-		
-		var list = _repository.ReadCheeps(authorName, pageNumber);
+		var authorhasName = "";
+
+		var list = _repository.ReadCheeps(authorhasName, pageNumber);
 
 		//read each CheepObject from CheepRepository
 
