@@ -6,6 +6,8 @@ using System.Data;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
 using Microsoft.EntityFrameworkCore;
+using ChirpCore.Domain;
+
 
 namespace ChirpRepositories;
 
@@ -59,44 +61,46 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
   // Return the ID of the newly created Cheep
   Return queryResult.CheepId
   End Function*/
-	public async Task<int> CreateCheep(CheepDTO newMessage)
+	public async Task<int> CreateCheep(int userId, string text)
 	{
-		//Get author sync
-		var cheepAuthor = await _context.Authors.FirstOrDefault(author => author.AuthorId == newMessage.AuthorID);
+		// Retrieve the author by their ID
+		var author = await _context.Authors
+			.FirstOrDefaultAsync(a => a.Id == userId);
 
-		if (cheepAuthor == null)
+		if (author == null)
 		{
-			throw new InvalidOperationException($"Author with ID {newMessage.AuthorID} not found.");
+			throw new Exception("Author not found");
 		}
 
+		// Create a new Cheep object
 		var newCheep = new Cheep
 		{
-			CheepId = GenerateNextCheepId(),
-			AuthorId = newMessage.AuthorID,
-			Text = newMessage.Text,
-			TimeStamp = DateTime.UtcNow,
-			Author = cheepAuthor
+			CheepId = await GenerateNextCheepIdAsync(),
+			Id = userId,
+			Author = author,
+			Text = text,
+			TimeStamp = DateTime.UtcNow
 		};
 
-		// Add the Cheep object to the database context (not yet persisted)
-		var queryResult = await _context.Cheeps.AddAsync(newCheep);
+		// Add the Cheep to the database context
+		await _context.Cheeps.AddAsync(newCheep);
 
-		cheepAuthor.Cheeps.Add(newCheep);
+		// Add the Cheep to the author's list of Cheeps
+		author.Cheeps.Add(newCheep);
 
 		// Persist changes to the database
 		await _context.SaveChangesAsync();
 
-		Console.WriteLine($"Store Cheep message = {newCheep.Text} and AuthorId = {newCheep.AuthorId}");
-
 		// Return the ID of the newly created Cheep
-		return queryResult.Entity.CheepId;
+		return newCheep.CheepId;
 	}
 
-	private int GenerateNextCheepId()
+	private async Task<int> GenerateNextCheepIdAsync()
 	{
-		// Example implementation: Fetch max CheepId from DB and increment (from w3)
-		var maxId = _context.Cheeps.Max(c => (int?)c.CheepId) ?? 0;
-		return maxId + 1;
+		// Generate the next Cheep ID
+		return await _context.Cheeps.AnyAsync()
+			? await _context.Cheeps.MaxAsync(c => c.CheepId) + 1
+			: 1;
 	}
 
 	public List<CheepDTO> ReadCheeps(int pageNumber)
