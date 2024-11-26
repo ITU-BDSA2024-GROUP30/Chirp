@@ -12,71 +12,75 @@ namespace ChirpRepositories;
 
 public interface ICheepRepository
 {
-   /*Below commented method will be relevant later
-  public Cheep CreateCheep();
+	/*Below commented method will be relevant later
+ public Cheep CreateCheep();
 
-	Below 2 methods will not be implemented. If developers
-	wish to implement editing or deleting of Cheeps from an Author,
-	this is where to add this functionality.
-  public Cheep EditCheep();
-  public void DeleteCheep();
-  */
-  public List<CheepDTO> ReadCheeps(int pageNumber);
-	public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber);
+ Below 2 methods will not be implemented. If developers
+ wish to implement editing or deleting of Cheeps from an Author,
+ this is where to add this functionality.
+ public Cheep EditCheep();
+ public void DeleteCheep();
+ */
+	Task<List<CheepDTO>> ReadCheeps(string authorName, int pageNumber);
+	Task<List<CheepDTO>> ReadCheepsFromAuthor(string authorName, int pageNumber);
 
 }
-public class CheepRepository(ChirpDBContext context) : ICheepRepository
+public class CheepRepository : ICheepRepository
 {
-	private readonly ChirpDBContext _context = context;
+	private readonly ChirpDBContext _context;
+	private const int pageSize = 32;
+	private readonly string authorName = "";
+	public CheepRepository(ChirpDBContext context)
+	{
+		_context = context;
+
+	}
+
 
 	/*public Cheep CreateCheep(){
 
   }
   Above will be relevant later*/
-  public List<CheepDTO> ReadCheeps(int pageNumber)
-  {
-	int pageSize = 32;
+	public Task<List<CheepDTO>> ReadCheeps(string authorName, int pageNumber)
+	{
+		//query for getting every cheep
+		var authorhasName = _context.Authors.FirstOrDefaultAsync(a => a.UserName == authorName);
 
-	//query for getting every cheep
-	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
-		//orders by the domainmodel timestamp, which is datetime type
-		.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
-			cheep.CheepId,
-			cheep.Id,
-	 		cheep.Author.UserName,
-			cheep.Text,
-			cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
-		))
-		.Skip((pageNumber - 1) * pageSize)
-		.Take(pageSize);
+		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
+			//orders by the domainmodel timestamp, which is datetime type
+			.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
+				cheep.CheepId,
+				cheep.Id,
+				authorName,
+				cheep.Text,
+				cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
+			))
+			.Skip((pageNumber - 1) * pageSize)
+			.Take(pageSize);
 
-		var result = query.ToList();
+		return query.ToListAsync();
+	}
 
-	return result;
-  }
+	public Task<List<CheepDTO>> ReadCheepsFromAuthor(string authorName, int pageNumber)
+	{
+		var authorhasName = _context.Authors.FirstOrDefaultAsync(a => a.UserName == authorName);
 
-  public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber)
-  {
-	int pageSize = 32;
+		//query for getting every cheep
+		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
+					//.Where(Cheep => Cheep.Author.UserName == author)
+					//orders by the domainmodel timestamp, which is datetime type
+					.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
+						cheep.CheepId,
+						cheep.Id,
+						authorName,
+						cheep.Text,
+						cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
+					))
+					.Skip((pageNumber - 1) * pageSize)
+					.Take(pageSize);
 
-	//query for getting every cheep
-	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
-				.Where(Cheep => Cheep.Author.UserName == author)
-		//orders by the domainmodel timestamp, which is datetime type
-				.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
-					cheep.CheepId,
-					cheep.Id,
-					cheep.Author.UserName,
-					cheep.Text,
-					cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
-				))
-				.Skip((pageNumber - 1) * pageSize)
-				.Take(pageSize);
-
-		var result = query.ToList();
-
-	return result;
-  }
+		return query.ToListAsync();
+	}
 
 
 }

@@ -9,45 +9,46 @@ using ChirpCore.DTOs;
 
 public interface ICheepService
 {
-    public List<CheepDTO> GetCheeps(int pageNumber);
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber);
+	public List<CheepDTO> GetCheeps(int pageNumber);
+	public List<CheepDTO> GetCheepsFromAuthor(string authorName, int pageNumber);
 }
 
-public class CheepService(ICheepRepository repository) : ICheepService
+public class CheepService : ICheepService
 {
-    private readonly ICheepRepository _repository = repository;
-    private static readonly List<CheepDTO> _cheeps = [];
+	private readonly ICheepRepository _repository;
 
-    public List<CheepDTO> GetCheeps(int pageNumber)
-    {
-        _cheeps.Clear();
-        var list = _repository.ReadCheeps(pageNumber);
+	public CheepService(ICheepRepository repository)
+	{
+		_repository = repository;
+	}
+	private static readonly List<CheepDTO> _cheeps = [];
 
-        //read each CheepObject from CheepRepository
-        foreach (CheepDTO cheep in list)
-        {
-            _cheeps.Add(cheep);
-        }
+	public List<CheepDTO> GetCheeps(int pageNumber)
+	{
 
-        return _cheeps;
-    }
+		_cheeps.Clear();
+		
+		var list = _repository.ReadCheeps(authorName, pageNumber);
 
-    //Sorts cheep after the string author. We use this for author timelines
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber) 
-    {
+		//read each CheepObject from CheepRepository
 
-        _cheeps.Clear();
-        var list = _repository.ReadCheepsFromAuthor(author, pageNumber);
 
-        //read each CheepObject from CheepRepository
-        foreach (CheepDTO cheep in list)
-        {
-            _cheeps.Add(cheep);
-        }
+		return _cheeps;
+	}
 
-        return _cheeps;
-        // Below is the old code
-        // filter by the provided author name (will this cause problems if 2 authors share the same name?)
-        //return _cheeps.Where(x => x.UserName == author).ToList();    
-    }
+	//Sorts cheep after the string author. We use this for author timelines
+	public List<CheepDTO> GetCheepsFromAuthor(string authorName, int pageNumber)
+	{
+
+		_cheeps.Clear();
+		var list = _repository.ReadCheepsFromAuthor(authorName, pageNumber);
+
+		//read each CheepObject from CheepRepository
+
+
+		return _cheeps;
+		// Below is the old code
+		// filter by the provided author name (will this cause problems if 2 authors share the same name?)
+		//return _cheeps.Where(x => x.UserName == author).ToList();
+	}
 }
