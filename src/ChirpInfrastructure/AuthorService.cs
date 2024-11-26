@@ -1,6 +1,7 @@
 using System.Data;
 using ChirpRepositories;
 using ChirpCore.DTOs;
+using Microsoft.AspNetCore.Identity;
 
 public interface IAuthorService {
     public void RegisterAuthor();
