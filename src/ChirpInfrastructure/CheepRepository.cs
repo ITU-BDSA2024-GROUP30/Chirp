@@ -20,21 +20,25 @@ public interface ICheepRepository
   public Cheep EditCheep();
   public void DeleteCheep();
   */
-  public List<CheepDTO> ReadCheeps(int pageNumber);
+  	public List<CheepDTO> ReadCheeps(int pageNumber);
 	public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber);
 
 }
-public class CheepRepository(ChirpDBContext context) : ICheepRepository
+public class CheepRepository : ICheepRepository
 {
-	private readonly ChirpDBContext _context = context;
-
-	/*public Cheep CreateCheep(){
+	private readonly ChirpDBContext _context;
+	private const int pageSize = 32;
+	
+	public CheepRepository(ChirpDBContext context)
+	{
+		_context = context;
+	}
+/*public Cheep CreateCheep(){
 
   }
   Above will be relevant later*/
   public List<CheepDTO> ReadCheeps(int pageNumber)
   {
-	int pageSize = 32;
 
 	//query for getting every cheep
 	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
@@ -51,12 +55,12 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 
 		var result = query.ToList();
 
-	return result;
+	return query.ToList();
   }
 
   public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber)
   {
-	int pageSize = 32;
+	
 
 	//query for getting every cheep
 	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
@@ -72,9 +76,9 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 				.Skip((pageNumber - 1) * pageSize)
 				.Take(pageSize);
 
-		var result = query.ToList();
+		
 
-	return result;
+	return query.ToList();
   }
 
 

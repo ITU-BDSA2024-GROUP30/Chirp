@@ -16,19 +16,16 @@
     @if (SignInManager.IsSignedIn(User))
     {
         @* The block below needs changing or possibly deleting. 
-           The /Account/Manga/Index endpoint page should be the user page instead (My timeline ya'know)
+           The asp-route-returnUrl @Url.Page("/Index" endpoint page should be the user page instead (My timeline ya'know)
         *@
-        <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
-                title="Manage">Hello @UserManager.GetUserName(User)!</a>
-        </li>
-
-        <li class="nav-item">
+        <div id="bar">
+            <a href="/">public timeline</a> |
+            <a href="/@(User.Identity.Name)">my timeline</a> |
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
                 asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
                 <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
             </form>
-        </li>
+        </div>
     }
     else
     {
@@ -37,10 +34,5 @@
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a> |
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </div>
-        @*
-    <li class="nav-item">
-    </li>
-    <li class="nav-item">
-    </li>*@
     }
 </ul>

@@ -12,8 +12,12 @@ public interface IAuthorRepository {
     public void DeleteAuthorFromDatabase();
 }
 
-public class AuthorRepository (ChirpDBContext context) : IAuthorRepository {
-    private readonly ChirpDBContext _context = context;
+public class AuthorRepository : IAuthorRepository {
+    private readonly ChirpDBContext _context;
+    public AuthorRepository(ChirpDBContext context)
+    {
+        _context = context;
+    }
     
     //Below adds a new author to the database and logs their info for later login
     public void AddAuthorToDatabase(){}

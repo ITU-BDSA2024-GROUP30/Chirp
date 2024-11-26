@@ -13,9 +13,14 @@ public interface ICheepService
     public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber);
 }
 
-public class CheepService(ICheepRepository repository) : ICheepService
+public class CheepService : ICheepService
 {
-    private readonly ICheepRepository _repository = repository;
+	private readonly ICheepRepository _repository;
+
+	public CheepService(ICheepRepository repository)
+	{
+		_repository = repository;
+	}
     private static readonly List<CheepDTO> _cheeps = [];
 
     public List<CheepDTO> GetCheeps(int pageNumber)
