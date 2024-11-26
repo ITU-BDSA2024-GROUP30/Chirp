@@ -14,7 +14,8 @@ public interface IAuthorRepository {
 
 public class AuthorRepository : IAuthorRepository {
     private readonly ChirpDBContext _context;
-    public AuthorRepository(ChirpDBContext context){
+    public AuthorRepository(ChirpDBContext context)
+    {
         _context = context;
     }
     
