@@ -1,7 +1,8 @@
 using System.Data;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 
 namespace ChirpRepositories;
 
@@ -18,19 +19,19 @@ public class AuthorRepository : IAuthorRepository {
     {
         _context = context;
     }
-    
+
     //Below adds a new author to the database and logs their info for later login
     public void AddAuthorToDatabase(){}
-    
-    //Below method takes username/email and password and matches it with an 
+
+    //Below method takes username/email and password and matches it with an
     //author in the db
     public void LoginAuthor(){}
 
     //This method is used when an Author follows or unfollow another Author,
     //and their followlist needs to be updated.
-    public void UpdateFollowlistAuthor(){}  // To avoid complicated code, maybe separate this into 2 methods: 
-                                            // AddToFollowlistAuthor() and RemoveFromFollowlistAuthor() 
-                                            
+    public void UpdateFollowlistAuthor(){}  // To avoid complicated code, maybe separate this into 2 methods:
+                                            // AddToFollowlistAuthor() and RemoveFromFollowlistAuthor()
+
     //Below is a 'delete' function - delete is called 'Forget Me!' in the program
     public void DeleteAuthorFromDatabase(){}
 }
