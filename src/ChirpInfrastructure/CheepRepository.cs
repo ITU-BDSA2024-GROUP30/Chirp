@@ -69,7 +69,6 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 			throw new InvalidOperationException($"Author with ID {newMessage.AuthorID} not found.");
 		}
 
-		// Create a new Cheep object
 		var newCheep = new Cheep
 		{
 			CheepId = GenerateNextCheepId(),
@@ -82,13 +81,11 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 		// Add the Cheep object to the database context (not yet persisted)
 		var queryResult = await _context.Cheeps.AddAsync(newCheep);
 
-		// Add the Cheep to the author's list of Cheeps
 		cheepAuthor.Cheeps.Add(newCheep);
 
 		// Persist changes to the database
 		await _context.SaveChangesAsync();
 
-		// Log the Cheep details
 		Console.WriteLine($"Store Cheep message = {newCheep.Text} and AuthorId = {newCheep.AuthorId}");
 
 		// Return the ID of the newly created Cheep
