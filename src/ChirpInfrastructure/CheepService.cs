@@ -3,16 +3,14 @@ using ChirpRepositories;
 using ChirpCore.DTOs;
 
 
-//namespace Chirp.UserFacade.Chirp.Infrastructure.Chirp.Services;
 //namespace confuses the foreach loop on line 23, but we should find a way to implement
-
 
 //public record Cheep(string Author, string Message, string Timestamp);
 
 public interface ICheepService
 {
     public List<CheepDTO> GetCheeps(int pageNumber);
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber);
+    public List<CheepDTO> GetCheepsFromAuthor(int authorId, int pageNumber);
 }
 
 public class CheepService(ICheepRepository repository) : ICheepService
@@ -35,9 +33,9 @@ public class CheepService(ICheepRepository repository) : ICheepService
     }
 
     //Sorts cheep after the string author. We use this for author timelines
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber)
+    public List<CheepDTO> GetCheepsFromAuthor(int authorId, int pageNumber)
     {
         // filter by the provided author name (will this cause problems if 2 authors share the same name?)
-        return _cheeps.Where(x => x.AuthorName == author).ToList();
+        return _cheeps.Where(x => x.UserId == authorId).ToList();
     }
 }

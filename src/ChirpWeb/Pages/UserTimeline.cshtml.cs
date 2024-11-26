@@ -16,10 +16,10 @@ public class UserTimelineModel : PageModel
         _service = service;
     }
 
-    public ActionResult OnGet(string author, int pageNumber = 1)
+    public ActionResult OnGet(int authorId, int pageNumber = 1)
     {
         currentPage = pageNumber;
-        Cheeps = _service.GetCheepsFromAuthor(author, currentPage);
+        Cheeps = _service.GetCheepsFromAuthor(authorId, currentPage);
         if (currentPage < 1)
         {
             currentPage = 1;
