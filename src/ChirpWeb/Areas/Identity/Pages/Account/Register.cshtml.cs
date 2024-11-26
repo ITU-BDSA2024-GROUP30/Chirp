@@ -72,7 +72,7 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
         public class InputModel
         {
             /// <summary>
-            ///     Homemade
+            ///     The following code is homemade to allow a user to also have a username
             ///     
             /// </summary>
             [Required]
