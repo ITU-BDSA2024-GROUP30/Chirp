@@ -65,7 +65,6 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            // [UserName]
             [Required]
             public string UserName { get; set; }
 
@@ -96,10 +95,8 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            Console.WriteLine("We're in OnGetAsync Login.cshtml.cs now!");
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
-                Console.WriteLine("The string was empty or null and we get an error message");
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
@@ -115,22 +112,22 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            Console.WriteLine("We're in OnPostAsync Login.cshtml.cs now! ");
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
             {
-                Console.WriteLine("We're in OnPostAsync Login.cshtml.cs now! And the ModelState is Valid!!!!");
+                /*
+                var user = new Author
+                {  // OG code (homemade)
+                    UserName = Input.UserName,
+                    Email = Input.Email,
+                    Cheeps = []
+                };*/
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                Console.WriteLine("OnPostAsync Login.cshtml.cs, the result is: " + result);
-                Console.WriteLine("         the input user name: " + Input.UserName);
-                Console.WriteLine("         the input email: " + Input.Email);
-                Console.WriteLine("         the input password: " + Input.Password);
-                Console.WriteLine("         the input RememberMe: " + Input.RememberMe);
+                var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false); //Input.UserName => user
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -147,7 +144,6 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    Console.WriteLine("OnPostAsync Login.cshtml.cs invalid login attempt");
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
