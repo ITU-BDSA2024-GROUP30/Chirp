@@ -9,7 +9,7 @@ public interface IAuthorRepository {
     public void AddAuthorToDatabase();
     public void LoginAuthor();
     public void UpdateFollowlistAuthor();
-    public void DeleteAuthor();
+    public void DeleteAuthorFromDatabase();
 }
 
 public class AuthorRepository (ChirpDBContext context) : IAuthorRepository {
@@ -24,8 +24,9 @@ public class AuthorRepository (ChirpDBContext context) : IAuthorRepository {
 
     //This method is used when an Author follows or unfollow another Author,
     //and their followlist needs to be updated.
-    public void UpdateFollowlistAuthor(){}
-    
+    public void UpdateFollowlistAuthor(){}  // To avoid complicated code, maybe separate this into 2 methods: 
+                                            // AddToFollowlistAuthor() and RemoveFromFollowlistAuthor() 
+                                            
     //Below is a 'delete' function - delete is called 'Forget Me!' in the program
-    public void DeleteAuthor(){}
+    public void DeleteAuthorFromDatabase(){}
 }
