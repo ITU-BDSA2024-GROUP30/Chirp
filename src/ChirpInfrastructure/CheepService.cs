@@ -28,9 +28,9 @@ public class CheepService : ICheepService
 	{
 
 		_cheeps.Clear();
-		var authorhasName = "";
 
-		var list = _repository.ReadCheeps(authorhasName, pageNumber);
+
+		var list = _repository.ReadCheeps(pageNumber);
 
 		//read each CheepObject from CheepRepository
 

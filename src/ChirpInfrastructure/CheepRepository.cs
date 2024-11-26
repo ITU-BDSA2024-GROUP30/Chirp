@@ -21,7 +21,7 @@ public interface ICheepRepository
  public Cheep EditCheep();
  public void DeleteCheep();
  */
-	Task<List<CheepDTO>> ReadCheeps(string authorName, int pageNumber);
+	Task<List<CheepDTO>> ReadCheeps(int pageNumber);
 	Task<List<CheepDTO>> ReadCheepsFromAuthor(string authorName, int pageNumber);
 
 }
@@ -41,17 +41,17 @@ public class CheepRepository : ICheepRepository
 
   }
   Above will be relevant later*/
-	public Task<List<CheepDTO>> ReadCheeps(string authorName, int pageNumber)
+	public Task<List<CheepDTO>> ReadCheeps(int pageNumber)
 	{
-		//query for getting every cheep
-		var authorhasName = _context.Authors.FirstOrDefaultAsync(a => a.UserName == authorName);
 
+		//var authorhasName = _context.Authors.FirstOrDefaultAsync(a => a.UserName == authorName);
+		//query for getting every cheep
 		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
 			//orders by the domainmodel timestamp, which is datetime type
 			.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 				cheep.CheepId,
 				cheep.Id,
-				authorName,
+				cheep.Author.UserName,
 				cheep.Text,
 				cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
 			))
