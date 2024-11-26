@@ -3,6 +3,7 @@ Configure the ASP.NET DI container (dependency injection container) so that inst
 CheepRepository are injected into your application wherever needed. That is, none of your views,
 services, etc. has a direct dependency onto CheepRepository.*/
 using System.Data;
+using ChirpCore.Domain;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
 using Microsoft.EntityFrameworkCore;

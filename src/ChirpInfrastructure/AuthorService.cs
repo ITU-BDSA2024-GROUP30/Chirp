@@ -10,7 +10,7 @@ public interface IAuthorService {
     public void UnfollowAuthor();
 }
 
-public class AuthorService(IAuthorRepository AuthorRepository) : IAuthorService {
+public class AuthorService : IAuthorService {
     //Used when an Author initially registers for our website.
     //This method needs to invoke AddAuthor() from AuthorRepo, in order to add
     //this new Author to our database
