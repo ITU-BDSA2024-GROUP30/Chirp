@@ -1,5 +1,6 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using ChirpCore.Domain
+﻿@using ChirpCore.Domain
+@using Microsoft.AspNetCore.Identity
+
 
 @inject SignInManager<Author> SignInManager
 @inject UserManager<Author> UserManager
@@ -15,7 +16,7 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        @* The block below needs changing or possibly deleting. 
+        @* The block below needs changing or possibly deleting.
            The asp-route-returnUrl @Url.Page("/Index" endpoint page should be the user page instead (My timeline ya'know)
         *@
         <div id="bar">

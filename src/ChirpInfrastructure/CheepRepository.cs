@@ -3,6 +3,7 @@ Configure the ASP.NET DI container (dependency injection container) so that inst
 CheepRepository are injected into your application wherever needed. That is, none of your views,
 services, etc. has a direct dependency onto CheepRepository.*/
 using System.Data;
+using ChirpCore.Domain;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ public class CheepRepository : ICheepRepository
 {
 	private readonly ChirpDBContext _context;
 	private const int pageSize = 32;
-	
+
 	public CheepRepository(ChirpDBContext context)
 	{
 		_context = context;
@@ -60,7 +61,7 @@ public class CheepRepository : ICheepRepository
 
   public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber)
   {
-	
+
 
 	//query for getting every cheep
 	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
@@ -76,7 +77,7 @@ public class CheepRepository : ICheepRepository
 				.Skip((pageNumber - 1) * pageSize)
 				.Take(pageSize);
 
-		
+
 
 	return query.ToList();
   }
