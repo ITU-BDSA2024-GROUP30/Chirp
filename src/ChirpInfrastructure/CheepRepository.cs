@@ -94,7 +94,7 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 
 	private int GenerateNextCheepId()
 	{
-		// Example implementation: Fetch max CheepId from DB and increment
+		// Example implementation: Fetch max CheepId from DB and increment (from w3)
 		var maxId = _context.Cheeps.Max(c => (int?)c.CheepId) ?? 0;
 		return maxId + 1;
 	}
