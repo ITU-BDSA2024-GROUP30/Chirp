@@ -12,7 +12,7 @@ public interface IAuthorRepository
 	public void AddAuthorToFollowlist(string LoggedInAuthorUsername, string AuthorToFollowUsername);
 	public void RemoveAuthorFromFollowlist(string LoggedInAuthorUsername, string AuthorToFollowUsername);
 	public void DeleteAuthorFromDatabase();
-	public void GetAuthorFromUsername(string Username);
+	public Author GetAuthorFromUsername(string Username);
 }
 
 public class AuthorRepository : IAuthorRepository

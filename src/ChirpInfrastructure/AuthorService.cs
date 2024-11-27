@@ -7,10 +7,10 @@ public interface IAuthorService
 	public void RegisterAuthor();
 	public void LoginAuthor();
 	public void ForgetAuthor();
-	public void FollowAuthor(string LoggedInAuthor, string AuthorToFollow);
-	public void UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow);
+	public Task FollowAuthor(string LoggedInAuthor, string AuthorToFollow);
+	public Task UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow);
 
-	public bool IsFollowing(string LoggedInAuthor, string AuthorToFollow);
+	public Task IsFollowing(string LoggedInAuthor, string AuthorToFollow);
 }
 
 public class AuthorService : IAuthorService
