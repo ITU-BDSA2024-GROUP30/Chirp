@@ -8,7 +8,7 @@ public static class DbInitializer
 		if (!(chirpContext.Authors.Any() && chirpContext.Cheeps.Any()))
 		{
 			var a1 = new Author() { Id = 1, UserName = "Roger Histand", Email = "Roger+Histand@hotmail.com", Cheeps = new List<Cheep>(), Follows = new List<Author>() };
-			var a2 = new Author() { Id = 2, UserName = "Luanna Muro", Email = "Luanna-Muro@ku.dk", Cheeps = new List<Cheep>(), Follows = new List<Author>() { this } };
+			var a2 = new Author() { Id = 2, UserName = "Luanna Muro", Email = "Luanna-Muro@ku.dk", Cheeps = new List<Cheep>(), Follows = new List<Author>() };
 			var a3 = new Author() { Id = 3, UserName = "Wendell Ballan", Email = "Wendell-Ballan@gmail.com", Cheeps = new List<Cheep>(), Follows = new List<Author>() };
 			var a4 = new Author() { Id = 4, UserName = "Nathan Sirmon", Email = "Nathan+Sirmon@dtu.dk", Cheeps = new List<Cheep>(), Follows = new List<Author>() };
 			var a5 = new Author() { Id = 5, UserName = "Quintin Sitts", Email = "Quintin+Sitts@itu.dk", Cheeps = new List<Cheep>(), Follows = new List<Author>() };
