@@ -13,16 +13,17 @@ namespace ChirpRepositories;
 
 public interface ICheepRepository
 {
-   /*Below commented method will be relevant later
-  public Cheep CreateCheep();
+	/*Below commented method will be relevant later
+   public Cheep CreateCheep();
 
-	Below 2 methods will not be implemented. If developers
-	wish to implement editing or deleting of Cheeps from an Author,
-	this is where to add this functionality.
-  public Cheep EditCheep();
-  public void DeleteCheep();
-  */
-  public List<CheepDTO> ReadCheeps(int pageNumber);
+	 Below 2 methods will not be implemented. If developers
+	 wish to implement editing or deleting of Cheeps from an Author,
+	 this is where to add this functionality.
+   public Cheep EditCheep();
+   public void DeleteCheep();
+   */
+	public Task<int> CreateCheep(int userId, string text);
+	public List<CheepDTO> ReadCheeps(int pageNumber);
 	public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber);
 
 }
@@ -64,8 +65,7 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 	public async Task<int> CreateCheep(int userId, string text)
 	{
 		// Retrieve the author by their ID
-		var author = await _context.Authors
-			.FirstOrDefaultAsync(a => a.Id == userId);
+		var author = await _context.Authors.FirstOrDefaultAsync(a => a.Id == userId);
 
 		if (author == null)
 		{
@@ -98,9 +98,7 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 	private async Task<int> GenerateNextCheepIdAsync()
 	{
 		// Generate the next Cheep ID
-		return await _context.Cheeps.AnyAsync()
-			? await _context.Cheeps.MaxAsync(c => c.CheepId) + 1
-			: 1;
+		return await _context.Cheeps.AnyAsync() ? await _context.Cheeps.MaxAsync(c => c.CheepId) + 1 : 1;
 	}
 
 	public List<CheepDTO> ReadCheeps(int pageNumber)
