@@ -10,6 +10,8 @@ namespace ChirpCore.Domain
 	{
 		public required ICollection<Cheep> Cheeps { get; set; }
 
-		//public required ICollection<Author> Follows { get; set; }
+		public required ICollection<Author> Follows { get; set; }
+
+
 	}
 }
