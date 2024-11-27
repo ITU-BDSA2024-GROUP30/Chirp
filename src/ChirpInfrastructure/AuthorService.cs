@@ -2,12 +2,15 @@ using System.Data;
 using ChirpRepositories;
 using ChirpCore.DTOs;
 
-public interface IAuthorService {
-    public void RegisterAuthor();
-    public void LoginAuthor();
-    public void ForgetAuthor();
-    public void FollowAuthor();
-    public void UnfollowAuthor();
+public interface IAuthorService
+{
+	public void RegisterAuthor();
+	public void LoginAuthor();
+	public void ForgetAuthor();
+	public void FollowAuthor(string LoggedInAuthor, string AuthorToFollow);
+	public void UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow);
+
+	public bool IsFollowing(string LoggedInAuthor, string AuthorToFollow);
 }
 
 public class AuthorService : IAuthorService
@@ -18,26 +21,37 @@ public class AuthorService : IAuthorService
 		//used when methods underneathe will be implemented
 		_repository = repository;
 	}
-    //Used when an Author initially registers for our website.
-    //This method needs to invoke AddAuthor() from AuthorRepo, in order to add
-    //this new Author to our database
-    public void RegisterAuthor(){}
+	//Used when an Author initially registers for our website.
+	//This method needs to invoke AddAuthor() from AuthorRepo, in order to add
+	//this new Author to our database
+	public void RegisterAuthor() { }
 
-    //This method is used when an Author is already registrered and tries to login.
-    public void LoginAuthor(){
-        //needs to call on authentication and authorization for identity user
-    }
+	//This method is used when an Author is already registrered and tries to login.
+	public void LoginAuthor()
+	{
+		//needs to call on authentication and authorization for identity user
+	}
 
-    //This method is invoked when an Author clicks the 'Forget Me!' button.
-    //Needs to call upon DeleteAuthorFromDatabase() from AuthorRepo to remove Author from DB.
-    public void ForgetAuthor(){}
+	//This method is invoked when an Author clicks the 'Forget Me!' button.
+	//Needs to call upon DeleteAuthorFromDatabase() from AuthorRepo to remove Author from DB.
+	public void ForgetAuthor() { }
 
-    //Method for adding another Author to acting Author's follower list
-    //Probably calls on UpdateAuthor() from AuthorRepo
-    public void FollowAuthor(){}
+	//Method for adding another Author to acting Author's follower list
+	//Probably calls on UpdateAuthor() from AuthorRepo
+	public void FollowAuthor(string LoggedInAuthor, string AuthorToFollow)
+	{
+		Console.WriteLine("Testing click of follow button");
+		Console.WriteLine("Logged in author: " + LoggedInAuthor);
+	}
 
-    //Method for removing another Author from acting Author's follower list
-    //Probably calls on UpdateAuthor() from AuthorRepo
-    public void UnfollowAuthor(){}
+	//Method for removing another Author from acting Author's follower list
+	//Probably calls on UpdateAuthor() from AuthorRepo
+	public void UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow) { }
+
+	public bool IsFollowing(string LoggedInAuthor, string AuthorToFollow)
+	{
+		//return true
+		return false;
+	}
 
 }

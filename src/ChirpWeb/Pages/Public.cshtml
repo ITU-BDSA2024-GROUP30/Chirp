@@ -23,6 +23,12 @@
                         <strong>
                             <a href="/@cheep.UserName">@cheep.UserName</a> @* first UserId was UserName, second UserId was AuthorName *@
                         </strong>
+                        <button class="button" onclick="AuthorService.FollowAuthor(LoggedInAuthor,  @cheep.UserName), ReloadPage()" id="followbutton" button-type="button"
+                        @(_authorService.IsFollowing(LoggedInAuthor, @cheep.UserName) ? "disabled" : "") >Follow</button>
+                        <FollowUnfollowButton class="FollowUnfollowButton" onclick="AuthorService.UnfollowAuthor(LoggedInAuthor,  @cheep.UserName), ReloadPage()" id="unfollowbutton"
+                        @(_authorService.IsFollowing(LoggedInAuthor, @cheep.UserName) ? "disabled" : "")
+                        >Unfollow</FollowUnfollowButton>
+                        <p></p> <!-- Linebreak -->
                         @cheep.Text
                         <small>&mdash; @cheep.TimeStamp</small>
                     </p>
@@ -44,5 +50,11 @@
         const url = new URL(window.location.href);
         url.searchParams.set('pageNumber', pageNumber);
         window.location.href = url.toString(); // Navigate to the new URL
+    }
+</script>
+
+<script>
+    function reloadPage(){
+        window.location.href = window.location.href;
     }
 </script>
