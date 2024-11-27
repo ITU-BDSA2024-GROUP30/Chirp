@@ -45,18 +45,11 @@ builder.Services.AddAuthentication(options =>
     .AddCookie()
     .AddGitHub(o =>
     {
-        if (builder.Configuration["GitHubClientID"] == null )
-        {
-            Console.Error.WriteLine("You must provide a client ID.");
-        }
-        
-        if (builder.Configuration["GitHubClientSecret"] == null )
-        {
-            Console.Error.WriteLine("You must provide a client Secret.");
-        }
+       
         o.ClientId = builder.Configuration["authentication:github:clientId"];
         o.ClientSecret = builder.Configuration["authentication:github:clientSecret"];
         o.CallbackPath = "/signin-github";
+        o.Scope.Add("user:email");
     });
 
 var app = builder.Build();
@@ -79,6 +72,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+//app.UseSession();
 
 
 app.MapRazorPages();
