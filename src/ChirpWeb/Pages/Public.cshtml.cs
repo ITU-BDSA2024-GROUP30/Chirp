@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ChirpCore.DTOs;
-using AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
+using ChirpCore.Domain;
 
 namespace ChirpWeb.Pages;
 
 public class PublicModel : PageModel
 {
+	private readonly SignInManager<Author> _signInManager;
 	private readonly ICheepService _CheepService;
 	private readonly IAuthorService _AuthorService;
 	public required List<CheepDTO> Cheeps { get; set; }
