@@ -7,9 +7,11 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Data.Sqlite;
+using AspNet.Security.OAuth.GitHub;
 using ChirpCore;
 using ChirpCore.Domain;
 using ChirpCore.DTOs;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +36,29 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<ICheepService, CheepService>();
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = "GitHub";
+    })
+    .AddCookie()
+    .AddGitHub(o =>
+    {
+        if (builder.Configuration["GitHubClientID"] == null )
+        {
+            Console.Error.WriteLine("You must provide a client ID.");
+        }
+        
+        if (builder.Configuration["GitHubClientSecret"] == null )
+        {
+            Console.Error.WriteLine("You must provide a client Secret.");
+        }
+        o.ClientId = builder.Configuration["authentication:github:clientId"];
+        o.ClientSecret = builder.Configuration["authentication:github:clientSecret"];
+        o.CallbackPath = "/signin-github";
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -54,6 +79,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapRazorPages();
 
