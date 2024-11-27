@@ -55,6 +55,18 @@ public class AuthorRepository : IAuthorRepository
 
 
 
-		return (Author) LoggedInAuthor;
+		return (Author)LoggedInAuthor;
+	}
+	public bool IsFollowing(string LoggedInAuthor, string AuthorToFollow)
+	{
+		if (GetAuthorFromUsername(LoggedInAuthor).
+				Follows.Contains(GetAuthorFromUsername(AuthorToFollow)))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
