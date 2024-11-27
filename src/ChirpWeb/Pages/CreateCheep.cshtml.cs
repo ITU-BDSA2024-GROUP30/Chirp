@@ -22,7 +22,7 @@ namespace ChirpWeb.Pages
 
         public void OnGet()
         {
-
+            // Mb initialise properties or handle logic for GET request
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -33,14 +33,17 @@ namespace ChirpWeb.Pages
                 return Page();
             }
 
+            // Get logged-in userID
             var userId = _httpContextAccessor.HttpContext?.User?.FindFirst("sub")?.Value;
             if (userId == null)
             {
                 return Unauthorized();
             }
 
+            // Create Cheep using the repository
             await _repository.CreateCheep(int.Parse(userId), CheepText);
 
+            // Redirect to a different page after posting
             return RedirectToPage("/Index"); // Adjust maybe
         }
     }
