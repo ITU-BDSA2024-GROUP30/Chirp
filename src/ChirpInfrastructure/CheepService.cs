@@ -38,11 +38,11 @@ public class CheepService : ICheepService
     }
 
     //Sorts cheep after the string author. We use this for author timelines
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber)
+    public List<CheepDTO> GetCheepsFromAuthor(string author, int pagenumber)
     {
 
         _cheeps.Clear();
-        var list = _repository.ReadCheepsFromAuthor(author, pageNumber);
+        var list = _repository.ReadCheepsFromFollowList(author, pagenumber);
 
         //read each CheepObject from CheepRepository
         foreach (CheepDTO cheep in list)

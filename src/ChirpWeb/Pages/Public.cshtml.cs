@@ -15,16 +15,25 @@ public class PublicModel : PageModel
 	public int currentPage;
 	public string? LoggedInAuthorUsername;
 
-	public PublicModel(ICheepService CheepService, IAuthorService AuthorService)
+	public PublicModel(
+							IAuthorService AuthorService,
+							ICheepService CheepService,
+			SignInManager<Author> signInManager)
+	{
+		_AuthorService = AuthorService;
+		_CheepService = CheepService;
+		_signInManager = signInManager;
+	}
+	/*public PublicModel(ICheepService CheepService, IAuthorService AuthorService)
 	{
 		_CheepService = CheepService;
 		_AuthorService = AuthorService;
 		IsLoggedIn();
-	}
+	}*/
 
 	public void IsLoggedIn()
 	{
-		bool IsLoggedIn = ChirpWeb.Areas.Identity.Pages.Login.SignInManager.IsSignedIn(User);
+		bool IsLoggedIn = _signInManager.IsSignedIn(User);
 		if (IsLoggedIn)
 		{
 			LoggedInAuthorUsername = User.Identity.Name;
@@ -43,7 +52,7 @@ public class PublicModel : PageModel
 
 	public bool IsFollowing(string AuthorToFollowUnfollowUsername)
 	{
-		_AuthorService.IsFollowing(LoggedInAuthorUsername, AuthorToFollowUnfollowUsername);
+		return _AuthorService.IsFollowing(LoggedInAuthorUsername, AuthorToFollowUnfollowUsername);
 	}
 
 	public ActionResult OnGet(int pageNumber = 1)

@@ -32,19 +32,21 @@ builder.Services.AddRazorPages();
 
 //Below 2 lines helps create Cheeps on the website and show Cheeps.
 builder.Services.AddScoped<ICheepService, CheepService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) //removed !  might go back later
 {
-    // app.UseMigrationsEndPoint();
+	// app.UseMigrationsEndPoint();
 }
 else
 {
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseExceptionHandler("/Error");
+	app.UseHsts();     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 }
 app.UseHttpsRedirection();
 
@@ -61,11 +63,11 @@ app.MapRazorPages();
 
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ChirpDBContext>();
-    await context.Database.MigrateAsync();
-    context.Database.EnsureCreated();
-    DbInitializer.SeedDatabase(context);
+	var services = scope.ServiceProvider;
+	var context = services.GetRequiredService<ChirpDBContext>();
+	await context.Database.MigrateAsync();
+	context.Database.EnsureCreated();
+	DbInitializer.SeedDatabase(context);
 }
 
 app.Run();
