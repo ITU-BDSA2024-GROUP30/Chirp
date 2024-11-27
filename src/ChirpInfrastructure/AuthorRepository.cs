@@ -50,9 +50,11 @@ public class AuthorRepository : IAuthorRepository
 
 	public Author GetAuthorFromUsername(string Username)
 	{
-		Author LoggedInAuthor = _context.Authors
+		var LoggedInAuthor = _context.Authors
 		.Select(Author => Author).Where(Author => Author.UserName == Username);
 
-		return LoggedInAuthor;
+
+
+		return (Author) LoggedInAuthor;
 	}
 }
