@@ -51,7 +51,7 @@ public class AuthorRepository : IAuthorRepository
 	public Author GetAuthorFromUsername(string Username)
 	{
 		Author LoggedInAuthor = _context.Authors
-		.SelectAll().Where(Author => Author.Name == Username);
+		.Select(Author => Author.Name == Username);
 
 		return LoggedInAuthor;
 	}
