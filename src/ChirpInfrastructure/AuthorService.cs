@@ -1,6 +1,7 @@
-using System.Data;
 using ChirpRepositories;
-using ChirpCore.DTOs;
+
+
+namespace ChirpServices;
 
 public interface IAuthorService
 {

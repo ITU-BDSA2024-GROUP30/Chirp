@@ -10,6 +10,7 @@ using Microsoft.Data.Sqlite;
 using ChirpCore;
 using ChirpCore.Domain;
 using ChirpCore.DTOs;
+using ChirpServices;
 
 
 var builder = WebApplication.CreateBuilder(args);

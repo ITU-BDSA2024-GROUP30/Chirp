@@ -20,7 +20,7 @@ public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
-
+		
 		modelBuilder.Entity<Author>().HasIndex(a => a.UserName).IsUnique();
 		modelBuilder.Entity<Author>().HasIndex(a => a.Email).IsUnique();
 

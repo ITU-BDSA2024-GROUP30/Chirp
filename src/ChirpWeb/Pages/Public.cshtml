@@ -23,11 +23,13 @@
                         <strong>
                             <a href="/@cheep.UserName">@cheep.UserName</a> @* first UserId was UserName, second UserId was AuthorName *@
                         </strong>
-                        <button class="button" onclick="Model.FollowAuthor(@cheep.UserName), ReloadPage()" id="followbutton" button-type="button"
+                        @if(Model.IsLoggedIn()){
+                        <button class="button" onclick="Model.FollowAuthorClick(@cheep.UserName), ReloadPage()" id="followbutton" button-type="button"
                         @(Model.IsFollowing(@cheep.UserName) ? "disabled" : "") >Follow</button>
-                        <FollowUnfollowButton class="FollowUnfollowButton" onclick="Model.FollowAuthor(@cheep.UserName), ReloadPage()" id="unfollowbutton"
+                        <FollowUnfollowButton class="FollowUnfollowButton" onclick="Model.UnFollowAuthorClick(@cheep.UserName), ReloadPage()" id="unfollowbutton"
                         @(!Model.IsFollowing(@cheep.UserName) ? "disabled" : "")
                         >Unfollow</FollowUnfollowButton>
+                        }
                         <p></p> <!-- Linebreak -->
                         @cheep.Text
                         <small>&mdash; @cheep.TimeStamp</small>

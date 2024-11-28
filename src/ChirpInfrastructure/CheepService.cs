@@ -2,6 +2,7 @@ using System.Data;
 using ChirpRepositories;
 using ChirpCore.DTOs;
 
+namespace ChirpServices;
 
 //namespace confuses the foreach loop on line 23, but we should find a way to implement
 

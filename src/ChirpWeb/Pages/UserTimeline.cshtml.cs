@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ChirpCore.DTOs;
-
+using ChirpServices;
 
 namespace ChirpWeb.Pages;
 

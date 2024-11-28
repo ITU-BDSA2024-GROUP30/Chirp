@@ -9,10 +9,11 @@ public interface IAuthorRepository
 {
 	public void AddAuthorToDatabase();
 	public void LoginAuthor();
-	public void AddAuthorToFollowlist(string LoggedInAuthorUsername, string AuthorToFollowUsername);
-	public void RemoveAuthorFromFollowlist(string LoggedInAuthorUsername, string AuthorToFollowUsername);
 	public void DeleteAuthorFromDatabase();
 	public Author GetAuthorFromUsername(string Username);
+	public bool IsFollowing(string LoggedInAuthorUsername, string AuthorToFollow);
+  	public void AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
+  	public void RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
 }
 
 public class AuthorRepository : IAuthorRepository
@@ -32,35 +33,24 @@ public class AuthorRepository : IAuthorRepository
 
 	//This method is used when an Author follows another Author,
 	//and their followlist needs to be updated.
-	public void AddAuthorToFollowlist(string LoggedInAuthorUsername, string AuthorToFollowUsername)
-	{
-		Author LoggedInAuthor = GetAuthorFromUsername(LoggedInAuthorUsername);
-		LoggedInAuthor.Follows.Add(GetAuthorFromUsername(AuthorToFollowUsername));
-	}
 
 
 	//this method is used when an Author unfollows another Author
-	public void RemoveAuthorFromFollowlist(string LoggedInAuthorUsername, string AuthorToFollowUsername)
-	{
-		Author LoggedInAuthor = GetAuthorFromUsername(LoggedInAuthorUsername);
-		LoggedInAuthor.Follows.Remove(GetAuthorFromUsername(AuthorToFollowUsername));
-	}
 
 	public void DeleteAuthorFromDatabase() { }
 
 	public Author GetAuthorFromUsername(string Username)
 	{
-		var LoggedInAuthor = _context.Authors
-		.Select(Author => Author).Where(Author => Author.UserName == Username);
-
-
-
-		return (Author)LoggedInAuthor;
+		if (Username == null){
+			throw new ArgumentNullException(Username);
+		}
+		Author LoggedInAuthor = _context.Authors.Where(Author => Author.UserName == Username).First();
+		
+		return LoggedInAuthor;
 	}
 	public bool IsFollowing(string LoggedInAuthor, string AuthorToFollow)
 	{
-		if (GetAuthorFromUsername(LoggedInAuthor).
-				Follows.Contains(GetAuthorFromUsername(AuthorToFollow)))
+		if (GetAuthorFromUsername(LoggedInAuthor).Follows.Contains(GetAuthorFromUsername(AuthorToFollow)))
 		{
 			return true;
 		}
@@ -69,4 +59,16 @@ public class AuthorRepository : IAuthorRepository
 			return false;
 		}
 	}
+
+  public void AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername)
+  {
+	Author LoggedInAuthor = GetAuthorFromUsername(loggedInAuthorUsername);
+		LoggedInAuthor.Follows.Add(GetAuthorFromUsername(authorToFollowUsername));
+  }
+
+  public void RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername)
+  {
+	Author LoggedInAuthor = GetAuthorFromUsername(loggedInAuthorUsername);
+	LoggedInAuthor.Follows.Remove(GetAuthorFromUsername(authorToFollowUsername));
+  }
 }

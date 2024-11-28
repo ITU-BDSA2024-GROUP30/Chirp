@@ -49,7 +49,7 @@ public class CheepRepository : ICheepRepository
 			.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 				cheep.CheepId,
 				cheep.Id,
-				 cheep.Author.UserName,
+				cheep.Author.UserName,
 				cheep.Text,
 				cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
 			))

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ChirpCore.DTOs;
 using Microsoft.AspNetCore.Identity;
 using ChirpCore.Domain;
+using ChirpServices;
 
 namespace ChirpWeb.Pages;
 
@@ -31,13 +32,15 @@ public class PublicModel : PageModel
 		IsLoggedIn();
 	}*/
 
-	public void IsLoggedIn()
+	public bool IsLoggedIn()
 	{
 		bool IsLoggedIn = _signInManager.IsSignedIn(User);
 		if (IsLoggedIn)
 		{
 			LoggedInAuthorUsername = User.Identity.Name;
+			
 		}
+		return IsLoggedIn;
 	}
 
 	public void FollowAuthorClick(string AuthorToFollowUsername)
