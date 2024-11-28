@@ -11,7 +11,7 @@ public interface IAuthorRepository
 	public void LoginAuthor();
 	public void DeleteAuthorFromDatabase();
 	public Author GetAuthorFromUsername(string Username);
-	public bool IsFollowing(string LoggedInAuthorUsername, string AuthorToFollow);
+	public Boolean IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername);
   	public void AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
   	public void RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
 }
@@ -48,9 +48,14 @@ public class AuthorRepository : IAuthorRepository
 		
 		return LoggedInAuthor;
 	}
-	public bool IsFollowing(string LoggedInAuthor, string AuthorToFollow)
+	public Boolean IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername)
 	{
-		if (GetAuthorFromUsername(LoggedInAuthor).Follows.Contains(GetAuthorFromUsername(AuthorToFollow)))
+		if (LoggedInAuthorUsername == null || AuthorToFollowUsername == null) {
+			throw new ArgumentNullException("Usernames null");
+		}
+		Author LoggedInAuthor = GetAuthorFromUsername(LoggedInAuthorUsername);
+		Author AuthorToFollow = GetAuthorFromUsername(AuthorToFollowUsername);
+		if (LoggedInAuthor.Follows.Contains(AuthorToFollow))
 		{
 			return true;
 		}
@@ -63,7 +68,7 @@ public class AuthorRepository : IAuthorRepository
   public void AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername)
   {
 	Author LoggedInAuthor = GetAuthorFromUsername(loggedInAuthorUsername);
-		LoggedInAuthor.Follows.Add(GetAuthorFromUsername(authorToFollowUsername));
+	LoggedInAuthor.Follows.Add(GetAuthorFromUsername(authorToFollowUsername));
   }
 
   public void RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername)

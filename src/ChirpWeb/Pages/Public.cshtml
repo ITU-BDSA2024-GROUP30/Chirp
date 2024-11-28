@@ -18,21 +18,24 @@
         <ul id="messagelist" class="cheeps">
             @foreach (var cheep in Model.Cheeps)
             {
+                string Username = cheep.UserName; 
                 <li>
                     <p>
                         <strong>
                             <a href="/@cheep.UserName">@cheep.UserName</a> @* first UserId was UserName, second UserId was AuthorName *@
                         </strong>
-                        @if(Model.IsLoggedIn()){
-                        <button class="button" onclick="Model.FollowAuthorClick(@cheep.UserName), ReloadPage()" id="followbutton" button-type="button"
-                        @(Model.IsFollowing(@cheep.UserName) ? "disabled" : "") >Follow</button>
-                        <FollowUnfollowButton class="FollowUnfollowButton" onclick="Model.UnFollowAuthorClick(@cheep.UserName), ReloadPage()" id="unfollowbutton"
-                        @(!Model.IsFollowing(@cheep.UserName) ? "disabled" : "")
-                        >Unfollow</FollowUnfollowButton>
-                        }
                         <p></p> <!-- Linebreak -->
                         @cheep.Text
+                        
                         <small>&mdash; @cheep.TimeStamp</small>
+                        <p></p> <!-- Linebreak -->
+                        @if(Model.IsLoggedIn()){
+                        <button class="button" onclick="Model.FollowAuthorClick(@cheep.UserName), ReloadPage()" id="followbutton" button-type="button"
+                        @(Model.IsFollowing(Username) ? "disabled" : "") >Follow</button>
+                        <button class="button" onclick="Model.UnFollowAuthorClick(@cheep.UserName), ReloadPage()" id="unfollowbutton"
+                        @(!Model.IsFollowing(Username) ? "disabled" : "")
+                        >Unfollow</button>
+                        }
                     </p>
                 </li>
             }

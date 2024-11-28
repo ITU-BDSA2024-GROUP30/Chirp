@@ -14,7 +14,7 @@ public class PublicModel : PageModel
 	private readonly IAuthorService _AuthorService;
 	public required List<CheepDTO> Cheeps { get; set; }
 	public int currentPage;
-	public string? LoggedInAuthorUsername;
+	required public string LoggedInAuthorUsername;
 
 	public PublicModel(
 							IAuthorService AuthorService,
@@ -32,9 +32,9 @@ public class PublicModel : PageModel
 		IsLoggedIn();
 	}*/
 
-	public bool IsLoggedIn()
+	public Boolean IsLoggedIn()
 	{
-		bool IsLoggedIn = _signInManager.IsSignedIn(User);
+		Boolean IsLoggedIn = _signInManager.IsSignedIn(User);
 		if (IsLoggedIn)
 		{
 			LoggedInAuthorUsername = User.Identity.Name;

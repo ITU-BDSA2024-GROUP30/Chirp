@@ -96,11 +96,11 @@ public class CheepRepository : ICheepRepository
 
 	public Author GetAuthorFromUsername(string Username)
 	{
-		var LoggedInAuthor = _context.Authors
-		.Select(Author => Author).Where(Author => Author.UserName == Username);
-
-
-
-		return (Author)LoggedInAuthor;
+		if (Username == null){
+			throw new ArgumentNullException(Username);
+		}
+		Author LoggedInAuthor = _context.Authors.Where(Author => Author.UserName == Username).First();
+		
+		return LoggedInAuthor;
 	}
 }

@@ -121,16 +121,19 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
 			ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 			if (ModelState.IsValid)
 			{
-				var user = new Author
-				{  // OG code (homemade)
+				//var user = new Author
+				/*{  // OG code (homemade)
 					UserName = Input.UserName,
 					Email = Input.Email,
 					Cheeps = [],
 					Follows = []
-				};
-				user.Follows.Add(user);
+				};*/
 				// Method below came with the template originally, and might make issues.
-				//var user = CreateUser(); // supposed to be here
+				var user = CreateUser(); // supposed to be here
+				user.UserName = Input.UserName;
+				user.Email = Input.Email;
+				user.Cheeps = [];
+				user.Follows = [user];
 
 				await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
 				await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -138,10 +141,13 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
 
 				if (result.Succeeded)
 				{
+					
 					_logger.LogInformation("User created a new account with password.");
 
 					var userId = await _userManager.GetUserIdAsync(user);
 					var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+					
+				
 					code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 					var callbackUrl = Url.Page(
 							"/Account/ConfirmEmail",
