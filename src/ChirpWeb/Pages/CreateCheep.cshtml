@@ -1,0 +1,29 @@
+@page
+@model ChirpWeb.Pages.CreateCheepModel
+@{
+    ViewData["Title"] = "Create Cheep";
+}
+
+<h2>Create a New Cheep</h2>
+
+<form method="post">
+    <!--
+    <div>
+        <label for="CheepText">Your Cheep:</label>
+        <textarea id="CheepText" name="CheepText" maxlength="160" required>@Model.CheepText</textarea>
+    </div>
+    <button type="submit">Publish</button>
+    -->
+    <textarea asp-for="CheepText" rows="3" cols="40" placeholder="What's on your mind?"></textarea>
+    <button type="submit">Chirp</button>
+</form>
+
+@if (!ModelState.IsValid)
+{
+    <div style="color: red;">
+    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}

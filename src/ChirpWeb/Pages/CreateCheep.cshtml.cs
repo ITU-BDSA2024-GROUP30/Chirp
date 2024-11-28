@@ -8,7 +8,7 @@ namespace ChirpWeb.Pages
 {
     public class CreateCheepModel : PageModel
     {
-        private readonly ICheepRepository _repository;
+        private readonly ICheepRepository _cheepRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         [BindProperty]
@@ -16,7 +16,7 @@ namespace ChirpWeb.Pages
 
         public CreateCheepModel(ICheepRepository repository, IHttpContextAccessor httpContextAccessor)
         {
-            _repository = repository;
+            _cheepRepository = repository;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -27,7 +27,7 @@ namespace ChirpWeb.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (string.IsNullOrWhiteSpace(CheepText))
+            /*if (string.IsNullOrWhiteSpace(CheepText))
             {
                 ModelState.AddModelError(string.Empty, "Message cannot be empty.");
                 return Page();
@@ -44,7 +44,32 @@ namespace ChirpWeb.Pages
             await _repository.CreateCheep(int.Parse(userId), CheepText);
 
             // Redirect to a different page after posting
-            return RedirectToPage("/Index"); // Adjust maybe
+            return RedirectToPage("/Index"); // Adjust maybe*/
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            string userId = _httpContextAccessor.HttpContext?.User?.FindFirst("sub")?.Value;
+            string userName;
+
+            if (userId != null)
+            {
+                // User is logged in
+                userName = _httpContextAccessor.HttpContext.User.Identity?.Name ?? "Anonymous";
+            }
+            else
+            {
+                // User is anonymous
+                userId = "0"; // Use a default ID for anonymous users (or handle this differently)
+                userName = "Anonymous";
+            }
+
+            await _cheepRepository.CreateCheep(int.Parse(userId), userName, CheepText);
+
+            return RedirectToPage("/Index");
         }
+
     }
 }
+

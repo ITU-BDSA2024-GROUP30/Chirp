@@ -22,7 +22,7 @@ public interface ICheepRepository
    public Cheep EditCheep();
    public void DeleteCheep();
    */
-	public Task<int> CreateCheep(int userId, string text);
+	public Task<int> CreateCheep(int userId, string userName, string text);
 	public List<CheepDTO> ReadCheeps(int pageNumber);
 	public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber);
 
@@ -62,9 +62,9 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
   // Return the ID of the newly created Cheep
   Return queryResult.CheepId
   End Function*/
-	public async Task<int> CreateCheep(int userId, string text)
+	public async Task<int> CreateCheep(int userId, string userName, string text)
 	{
-		// Retrieve the author by their ID
+		/*// Retrieve the author by their ID
 		var author = await _context.Authors.FirstOrDefaultAsync(a => a.Id == userId);
 
 		if (author == null)
@@ -92,6 +92,37 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 		await _context.SaveChangesAsync();
 
 		// Return the ID of the newly created Cheep
+		return newCheep.CheepId;*/
+		// If the user is anonymous, we don't associate them with an Author.
+		Author? author = null;
+		if (userId != 0)
+		{
+			author = await _context.Authors.FirstOrDefaultAsync(a => a.Id == userId);
+			if (author == null)
+			{
+				throw new Exception("Author not found");
+			}
+		}
+
+		// Create a new Cheep object
+		var newCheep = new Cheep
+		{
+			CheepId = await GenerateNextCheepIdAsync(),
+			Id = userId,
+			Author = author,
+			Text = text,
+			TimeStamp = DateTime.UtcNow
+		};
+
+		if (author != null)
+		{
+			author.Cheeps.Add(newCheep);
+		}
+
+		// Add the Cheep to the database context
+		await _context.Cheeps.AddAsync(newCheep);
+		await _context.SaveChangesAsync();
+
 		return newCheep.CheepId;
 	}
 
