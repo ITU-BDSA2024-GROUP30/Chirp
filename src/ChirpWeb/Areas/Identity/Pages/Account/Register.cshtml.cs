@@ -133,7 +133,7 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
 				user.UserName = Input.UserName;
 				user.Email = Input.Email;
 				user.Cheeps = [];
-				user.Follows = [user];
+				user.Follows.Add(user);
 
 				await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
 				await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

@@ -67,20 +67,23 @@ public class CheepRepository : ICheepRepository
 		var ListOfCheeps = new List<CheepDTO>();
 		foreach (Author author in AuthorToGetFrom.Follows)
 		{
+			if (author.UserName == null){
+				throw new ArgumentNullException(author.UserName);
+			}
 			//query for getting every cheep
 			var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
-						.Where(Cheep => Cheep.Author.UserName == AuthorName)
+						.Where(Cheep => Cheep.Id == author.Id)
 						//orders by the domainmodel timestamp, which is datetime type
 						.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 							cheep.CheepId,
 							cheep.Id,
-							cheep.Author.UserName,
+							author.UserName,
 							cheep.Text,
 							cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
 						))
 						.Skip((pageNumber - 1) * pageSize)
 						.Take(pageSize);
-			ListOfListOfCheeps.Add(query.ToList());
+			ListOfListOfCheeps.Add([.. query]);
 		}
 
 		foreach (List<CheepDTO> cheeplist in ListOfListOfCheeps)
