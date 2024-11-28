@@ -3,71 +3,59 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Http;
 using ChirpCore.Domain;
 using ChirpRepositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace ChirpWeb.Pages
 {
     public class CreateCheepModel : PageModel
     {
-        private readonly ICheepRepository _cheepRepository;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICheepRepository _repository;
 
+        
+
+        public CreateCheepModel(ICheepRepository repository)
+        {
+            _repository = repository;
+        }
         [BindProperty]
-        public string CheepText { get; set; } = string.Empty;
-
-        public CreateCheepModel(ICheepRepository repository, IHttpContextAccessor httpContextAccessor)
-        {
-            _cheepRepository = repository;
-            _httpContextAccessor = httpContextAccessor;
-        }
-
-        public void OnGet()
-        {
-            // Mb initialise properties or handle logic for GET request
-        }
+        [Required(ErrorMessage = "Please enter a message for your Cheep.")]
+        [StringLength(280, ErrorMessage = "Cheep cannot exceed 280 characters.")]
+        public string CheepText { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
-        {
-            /*if (string.IsNullOrWhiteSpace(CheepText))
+        {   
+            // Validate input
+            if (string.IsNullOrWhiteSpace(CheepText))
             {
                 ModelState.AddModelError(string.Empty, "Message cannot be empty.");
                 return Page();
             }
 
-            // Get logged-in userID
-            var userId = _httpContextAccessor.HttpContext?.User?.FindFirst("sub")?.Value;
-            if (userId == null)
+                // Get the user ID, or 0 for anonymous
+            int userId = 0; // default for anonymous user
+            string userName = "Anonymous";
+
+            if (User.Identity.IsAuthenticated)
             {
-                return Unauthorized();
+                // Get the user ID if the user is authenticated (e.g., from a ClaimsPrincipal)
+                userId = int.Parse(User.Identity.Name); // Assuming the user ID is stored as the Name claim
+                userName = User.Identity.Name; // Or use User.Claims for more specific handling
             }
 
-            // Create Cheep using the repository
-            await _repository.CreateCheep(int.Parse(userId), CheepText);
-
-            // Redirect to a different page after posting
-            return RedirectToPage("/Index"); // Adjust maybe*/
-            if (!ModelState.IsValid)
+            try
             {
+                // Call the repository to create the new Cheep
+                //int cheepId = await _repository.CreateCheep(userId, Text);
+                await _repository.CreateCheep(userId, userName, CheepText);
+                return RedirectToPage("/Index"); // Redirect to the homepage or any page you want after creating the Cheep
+
+            }
+            catch (Exception ex)
+            {
+                //ErrorMessage = $"Error creating Cheep: {ex.Message}";
+                ModelState.AddModelError(string.Empty, $"Error creating Cheep: {ex.Message}");
                 return Page();
             }
-
-            string userId = _httpContextAccessor.HttpContext?.User?.FindFirst("sub")?.Value;
-            string userName;
-
-            if (userId != null)
-            {
-                // User is logged in
-                userName = _httpContextAccessor.HttpContext.User.Identity?.Name ?? "Anonymous";
-            }
-            else
-            {
-                // User is anonymous
-                userId = "0"; // Use a default ID for anonymous users (or handle this differently)
-                userName = "Anonymous";
-            }
-
-            await _cheepRepository.CreateCheep(int.Parse(userId), userName, CheepText);
-
-            return RedirectToPage("/Index");
         }
 
     }
