@@ -24,17 +24,17 @@
                         <strong>
                             <a href="/@cheep.UserName">@cheep.UserName</a> @* first UserId was UserName, second UserId was AuthorName *@
                         </strong>
+                        @if (Model.IsLoggedIn())
+                        {
+                        <FollowUnfollowButton class="FollowUnfollowButton" onclick="Model.FollowAuthorClick(@cheep.UserName); ReloadPage();" id="followbutton" button-type="button"
+                        @(Model.IsFollowing(Username) ? "disabled" : "")>Follow</FollowUnfollowButton>
+                        <FollowUnfollowButton class="FollowUnfollowButton" onclick="Model.UnFollowAuthorClick(@cheep.UserName); ReloadPage();" id="unfollowbutton"
+                        @(!Model.IsFollowing(Username) ? "disabled" : "")>Unfollow</FollowUnfollowButton>
+                        }
                         <p></p> <!-- Linebreak -->
                         @cheep.Text
-                        
                         <small>&mdash; @cheep.TimeStamp</small>
-                        <p></p> <!-- Linebreak -->
-                        @if(Model.IsLoggedIn()){
-                        <button class="button" onclick="Model.FollowAuthorClick(@cheep.UserName); ReloadPage();" id="followbutton" button-type="button"
-                        @(Model.IsFollowing(Username) ? "disabled" : "")>Follow</button>
-                        <button class="button" onclick="Model.UnFollowAuthorClick(@cheep.UserName); ReloadPage();" id="unfollowbutton"
-                        @(!Model.IsFollowing(Username) ? "disabled" : "")>Unfollow</button>
-                        }
+                        
                     </p>
                 </li>
             }
