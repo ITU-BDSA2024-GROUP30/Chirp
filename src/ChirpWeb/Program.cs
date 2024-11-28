@@ -39,7 +39,6 @@ builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = "GitHub";
     })
     .AddCookie()
@@ -50,6 +49,8 @@ builder.Services.AddAuthentication(options =>
         o.CallbackPath = "/signin-github";
         o.Scope.Add("user:email");
     });
+
+//  options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
 var app = builder.Build();
 
