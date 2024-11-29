@@ -14,9 +14,10 @@ using ChirpCore.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Load database connection via configuration, get string of database path from appsettings.json
-string connectionString = builder.Configuration.GetConnectionString("ChirpDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
 
+string path = Environment.GetEnvironmentVariable("chirpdbpath") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
+// Load database connection via configuration, get string of database path from appsettings.json
+string connectionString = "Data Source=" + path;
 //ChirpDBContext created with our database path - which is specified in appsettings.json
 builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
 
@@ -39,12 +40,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) //removed !  might go back later
 {
-    // app.UseMigrationsEndPoint();
+	// app.UseMigrationsEndPoint();
 }
 else
 {
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseExceptionHandler("/Error");
+	app.UseHsts();     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 }
 app.UseHttpsRedirection();
 
@@ -61,11 +62,11 @@ app.MapRazorPages();
 
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ChirpDBContext>();
-    await context.Database.MigrateAsync();
-    context.Database.EnsureCreated();
-    DbInitializer.SeedDatabase(context);
+	var services = scope.ServiceProvider;
+	var context = services.GetRequiredService<ChirpDBContext>();
+	await context.Database.MigrateAsync();
+	context.Database.EnsureCreated();
+	DbInitializer.SeedDatabase(context);
 }
 
 app.Run();
