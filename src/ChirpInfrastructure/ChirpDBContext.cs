@@ -7,16 +7,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ChirpInfrastructure;
 
-public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
+public class ChirpDBContext : IdentityDbContext<Author>
 {
-	public DbSet<Cheep> Cheeps { get; set; }
-
-	public DbSet<Author> Authors { get; set; }
+	public required DbSet<Cheep> Cheeps { get; set; }
+	public required DbSet<Author> Authors { get; set; }
 	public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options)
 	{
 
 	}
-
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
@@ -31,7 +29,6 @@ public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
 
 			entity.HasOne(c => c.Author)
 			.WithMany(a => a.Cheeps)
-			.HasForeignKey(c => c.Id)
 			.OnDelete(DeleteBehavior.Cascade);
 		});
 	}

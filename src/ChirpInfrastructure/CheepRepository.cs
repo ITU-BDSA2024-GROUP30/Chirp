@@ -20,7 +20,7 @@ public interface ICheepRepository
   public Cheep EditCheep();
   public void DeleteCheep();
   */
-  	public List<CheepDTO> ReadCheeps(int pageNumber);
+  public List<CheepDTO> ReadCheeps(int pageNumber);
 	public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber);
 
 }
@@ -28,7 +28,7 @@ public class CheepRepository : ICheepRepository
 {
 	private readonly ChirpDBContext _context;
 	private const int pageSize = 32;
-	
+
 	public CheepRepository(ChirpDBContext context)
 	{
 		_context = context;
@@ -45,7 +45,6 @@ public class CheepRepository : ICheepRepository
 		//orders by the domainmodel timestamp, which is datetime type
 		.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 			cheep.CheepId,
-			cheep.Id,
 	 		cheep.Author.UserName,
 			cheep.Text,
 			cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
@@ -60,7 +59,7 @@ public class CheepRepository : ICheepRepository
 
   public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber)
   {
-	
+
 
 	//query for getting every cheep
 	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
@@ -68,7 +67,6 @@ public class CheepRepository : ICheepRepository
 		//orders by the domainmodel timestamp, which is datetime type
 				.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 					cheep.CheepId,
-					cheep.Id,
 					cheep.Author.UserName,
 					cheep.Text,
 					cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
@@ -76,7 +74,7 @@ public class CheepRepository : ICheepRepository
 				.Skip((pageNumber - 1) * pageSize)
 				.Take(pageSize);
 
-		
+
 
 	return query.ToList();
   }
