@@ -47,7 +47,7 @@ namespace ChirpWeb.Pages
                 // Call the repository to create the new Cheep
                 //int cheepId = await _repository.CreateCheep(userId, Text);
                 await _repository.CreateCheep(userId, userName, CheepText);
-                return RedirectToPage("/Index"); // Redirect to the homepage or any page you want after creating the Cheep
+                return RedirectToPage("/1"); // Redirect to the homepage or any page you want after creating the Cheep
 
             }
             catch (Exception ex)
