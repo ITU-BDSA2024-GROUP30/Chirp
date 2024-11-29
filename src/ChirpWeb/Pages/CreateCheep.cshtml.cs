@@ -38,7 +38,7 @@ namespace ChirpWeb.Pages
             if (User.Identity.IsAuthenticated)
             {
                 // Get the user ID if the user is authenticated (e.g., from a ClaimsPrincipal)
-                userId = int.Parse(User.Identity.Name); // Assuming the user ID is stored as the Name claim
+                //userId = int.Parse(User.Identity.Name);
                 userName = User.Identity.Name; // Or use User.Claims for more specific handling
             }
 
@@ -47,7 +47,7 @@ namespace ChirpWeb.Pages
                 // Call the repository to create the new Cheep
                 //int cheepId = await _repository.CreateCheep(userId, Text);
                 await _repository.CreateCheep(userId, userName, CheepText);
-                return RedirectToPage("/1"); // Redirect to the homepage or any page you want after creating the Cheep
+                return RedirectToPage("/Timeline"); // Redirect to the homepage
 
             }
             catch (Exception ex)
