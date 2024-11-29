@@ -15,11 +15,8 @@ using ChirpCore.DTOs;
 var builder = WebApplication.CreateBuilder(args);
 
 // Load database connection via configuration, get string of database path from appsettings.json
-//string connectionString = builder.Configuration.GetConnectionString("ChirpDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
-//string connectionString = "Data Source=:memory:";
-//string path = Environment.GetEnvironmentVariable("chirpdbpath") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
-//string connectionString = "Data Source=" + path;
 
+//string connectionString = "Data Source=:memory:";
 //sætter denne som $env:CHIRPDBPATH="Data Source=C:\tmp\ChirpData\chirp.db" miljøvariabel
 string connectionString = builder.Configuration["CHIRPDBPATH"] ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
 //string connectionString = "Data Source=" + path;
