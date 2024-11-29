@@ -15,6 +15,7 @@ public class ChirpDBContext : IdentityDbContext<Author>
 	{
 
 	}
+	/*
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
@@ -31,6 +32,6 @@ public class ChirpDBContext : IdentityDbContext<Author>
 			.WithMany(a => a.Cheeps)
 			.OnDelete(DeleteBehavior.Cascade);
 		});
-	}
+	}*/
 
 }

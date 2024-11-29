@@ -14,17 +14,19 @@ using ChirpCore.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = builder.Configuration.GetConnectionString("ChirpDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
+// Load database connection via configuration, get string of database path from appsettings.json
+//string connectionString = builder.Configuration.GetConnectionString("ChirpDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
+string connectionString = "Data Source=:memory:";
+var dbcon = new SqliteConnection(connectionString);
+dbcon.Open();
 
 //string path = Environment.GetEnvironmentVariable("chirpdbpath") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
-// Load database connection via configuration, get string of database path from appsettings.json
 //string connectionString = "Data Source=" + path;
 
 //ChirpDBContext created with our database path - which is specified in appsettings.json
-builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
+builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(dbcon));
 
-var dbcon = new SqliteConnection(connectionString);
-//await dbcon.OpenAsync();
+
 
 builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
 .AddDefaultUI()
@@ -67,7 +69,6 @@ using (var scope = app.Services.CreateScope())
 	var services = scope.ServiceProvider;
 	var context = services.GetRequiredService<ChirpDBContext>();
 	await context.Database.MigrateAsync();
-	context.Database.EnsureCreated();
 	DbInitializer.SeedDatabase(context);
 }
 
