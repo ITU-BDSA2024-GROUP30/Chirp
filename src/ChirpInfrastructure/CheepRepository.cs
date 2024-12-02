@@ -93,6 +93,8 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 
 		// Return the ID of the newly created Cheep
 		return newCheep.CheepId;*/
+		Console.WriteLine($"Creating cheep for user {userId} with text: {text}");
+
 		// If the user is anonymous, we don't associate them with an Author.
 		Author? author = null;
 		if (userId != 0)
@@ -122,7 +124,7 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
 		// Add the Cheep to the database context
 		await _context.Cheeps.AddAsync(newCheep);
 		await _context.SaveChangesAsync();
-
+		Console.WriteLine("Cheep successfully saved to database.");
 		return newCheep.CheepId;
 	}
 

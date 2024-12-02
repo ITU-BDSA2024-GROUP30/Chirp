@@ -23,6 +23,40 @@ namespace ChirpWeb.Pages
         public string CheepText { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            try
+            {
+                int userId = 0;
+                string userName = "Anonymous";
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    userId = int.Parse(User.FindFirst("sub")?.Value ?? "0");
+                    userName = User.Identity.Name ?? "Anonymous";
+                }
+
+                Console.WriteLine($"Attempting to create Cheep by userId: {userId}, userName: {userName}");
+
+                await _repository.CreateCheep(userId, userName, CheepText);
+
+                Console.WriteLine("Cheep created successfully!");
+
+                return RedirectToPage("/Index"); // Redirect after success
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                ModelState.AddModelError(string.Empty, "An error occurred while submitting your Cheep.");
+                return Page();
+            }
+        }
+
+        /*public async Task<IActionResult> OnPostAsync()
         {   
             // Validate input
             if (string.IsNullOrWhiteSpace(CheepText))
@@ -56,7 +90,7 @@ namespace ChirpWeb.Pages
                 ModelState.AddModelError(string.Empty, $"Error creating Cheep: {ex.Message}");
                 return Page();
             }
-        }
+        }*/
 
     }
 }
