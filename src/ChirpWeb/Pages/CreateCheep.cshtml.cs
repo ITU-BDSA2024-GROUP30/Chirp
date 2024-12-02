@@ -22,6 +22,7 @@ namespace ChirpWeb.Pages
         [StringLength(280, ErrorMessage = "Cheep cannot exceed 280 characters.")]
         public string CheepText { get; set; }
 
+        //currently chat
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
