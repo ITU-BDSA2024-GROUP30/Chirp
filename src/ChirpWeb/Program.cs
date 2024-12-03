@@ -13,17 +13,18 @@ using ChirpCore.DTOs;
 
 
 var builder = WebApplication.CreateBuilder(args);
+//Tror useless (old)
+//Load database connection via configuration, get string of database path from appsettings.json
+//string connectionString = "Data Source=" + path;
 
-// Load database connection via configuration, get string of database path from appsettings.json
+//local
+string connectionString = "Data Source=:memory:";
 
-//lokal
-//string connectionString = "Data Source=:memory:";
 //eller sætter denne som $env:CHIRPDBPATH="Data Source=C:\tmp\ChirpData\chirp.db" miljøvariabel i terminalen, forskelligt fra terminal til terminal
 
 //Global
-string connectionString = builder.Configuration["CHIRPDBPATH"] ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
-//Tror useless
-//string connectionString = "Data Source=" + path;
+//string connectionString = builder.Configuration["CHIRPDBPATH"] ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
+
 var dbcon = new SqliteConnection(connectionString);
 dbcon.Open();
 
