@@ -16,9 +16,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Load database connection via configuration, get string of database path from appsettings.json
 
+//lokal
 //string connectionString = "Data Source=:memory:";
-//sætter denne som $env:CHIRPDBPATH="Data Source=C:\tmp\ChirpData\chirp.db" miljøvariabel
+//eller sætter denne som $env:CHIRPDBPATH="Data Source=C:\tmp\ChirpData\chirp.db" miljøvariabel i terminalen, forskelligt fra terminal til terminal
+
+//Global
 string connectionString = builder.Configuration["CHIRPDBPATH"] ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
+//Tror useless
 //string connectionString = "Data Source=" + path;
 var dbcon = new SqliteConnection(connectionString);
 dbcon.Open();
