@@ -46,7 +46,7 @@ public class CheepRepository : ICheepRepository
 			//orders by the domainmodel timestamp, which is datetime type
 			.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 				cheep.CheepId,
-				 cheep.Author.UserName,
+				cheep.Author.UserName,
 				cheep.Text,
 				cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
 			))

@@ -1,9 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-//using System.Linq;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
 using ChirpCore.Domain;
-using Microsoft.AspNetCore.Identity;
 
 namespace ChirpInfrastructure;
 
