@@ -10,7 +10,7 @@
 
 <ItemGroup>
 		<PackageReference Include="Microsoft.Data.SQLite" Version="8.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
