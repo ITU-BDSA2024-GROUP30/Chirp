@@ -38,27 +38,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<ICheepService, CheepService>();
 builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
-
-// Taken from StackOverflow
-// https://stackoverflow.com/questions/46309653/github-oauth-provider-with-asp-net-core-2-0-does-not-work
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-.AddCookie(o => o.LoginPath = new PathString("/login"))
-.AddOAuth("GitHub", "Git Hub", options =>
-{
-    options.ClientId = builder.Configuration["authentication:github:clientId"];
-    options.ClientSecret = builder.Configuration["authentication:github:clientSecret"];
-    options.CallbackPath = "/signin-github";
-    options.AuthorizationEndpoint = "http://github.com/login/oauth/authorize";
-    options.TokenEndpoint = "https://github.com/login/oauth/access_token";
-    //options.Scope.Add("user:email");
-});
-
-/*
 builder.Services.AddAuthentication(options =>
     {
-        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        //options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = "GitHub";
     })
     .AddCookie()
@@ -68,9 +49,7 @@ builder.Services.AddAuthentication(options =>
         o.ClientSecret = builder.Configuration["authentication:github:clientSecret"];
         o.CallbackPath = "/signin-github";
         o.Scope.Add("user:email");
-    });*/
-
-//  options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    });
 
 var app = builder.Build();
 
