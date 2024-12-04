@@ -43,12 +43,13 @@ public class PublicModel : PageModel
 		return IsLoggedIn;
 	}
 
-	public void FollowAuthorClick(string AuthorToFollowUsername)
+	public bool FollowAuthorClick(string AuthorToFollowUsername)
 	{
 		_AuthorService.FollowAuthor(LoggedInAuthorUsername, AuthorToFollowUsername);
+		return true;
 	}
 
-	public void UnfollowAuthor(string AuthorToUnfollowUsername)
+	public void UnfollowAuthorClick(string AuthorToUnfollowUsername)
 	{
 		_AuthorService.UnfollowAuthor(LoggedInAuthorUsername, AuthorToUnfollowUsername);
 	}

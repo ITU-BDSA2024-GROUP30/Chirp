@@ -26,10 +26,17 @@
                         </strong>
                         @if (Model.IsLoggedIn())
                         {
-                        <FollowUnfollowButton class="FollowUnfollowButton" onclick="Model.FollowAuthorClick(@cheep.UserName); ReloadPage();" id="followbutton" button-type="button"
-                        @(Model.IsFollowing(Username) ? "disabled" : "")>Follow</FollowUnfollowButton>
-                        <FollowUnfollowButton class="FollowUnfollowButton" onclick="Model.UnFollowAuthorClick(@cheep.UserName); ReloadPage();" id="unfollowbutton"
-                        @(!Model.IsFollowing(Username) ? "disabled" : "")>Unfollow</FollowUnfollowButton>
+                            if(!Model.IsFollowing(Username)){
+                            <FollowUnfollowButton class="FollowUnfollowButton"  button-type="button" onclick="FollowAuthor('@cheep.UserName')" id="followbutton">
+                                Follow    
+                            </FollowUnfollowButton>
+                            }
+                            else
+                            {
+                            <FollowUnfollowButton class="FollowUnfollowButton"  button-type="button" onclick="UnfollowAuthor('@cheep.UserName')" id="unfollowbutton">
+                                Unfollow
+                            </FollowUnfollowButton>
+                            }
                         }
                         <p></p> <!-- Linebreak -->
                         @cheep.Text
@@ -58,7 +65,21 @@
 </script>
 
 <script>
-    function reloadPage(){
+    function ReloadPage(){
         window.location.href = window.location.href;
+    }
+</script>
+
+<script>
+    function FollowAuthor(Username){
+        @Model.FollowAuthorClick(Username);
+        ReloadPage();
+    }
+</script>
+
+<script>
+    function UnfollowAuthor(Username){
+        @Model.UnFollowAuthorClick(Username); 
+        ReloadPage();
     }
 </script>
