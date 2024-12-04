@@ -9,7 +9,7 @@ on:
       - opened
 jobs:
   label_issues:
-    runs-on: ubuntu-latest-22.04
+    runs-on: ubuntu-latest
     permissions:
       issues: write
     steps:
