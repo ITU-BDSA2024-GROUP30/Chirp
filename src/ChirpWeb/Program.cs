@@ -18,8 +18,8 @@ public partial class Program
 		var builder = WebApplication.CreateBuilder(args);
 
 		string connectionString = "";
-		//outcommented due to workflow on git 
-		/*if (builder.Environment.IsDevelopment())
+		//outcommented due to workflow on git
+		if (builder.Environment.IsDevelopment())
 		{
 			//THIS is for local
 			connectionString = "Data Source=:memory:";
@@ -32,13 +32,13 @@ public partial class Program
 
 		}
 		else
-		{*/
+		{
 			//This is for Global
 			connectionString = builder.Configuration["CHIRPDBPATH"] ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
 			//this is showing in the terminal that it is local
 			Console.WriteLine("This is from gobal in builder in builder environment development (azure enviorment variabel)");
 
-		//}
+		}
 		var dbcon = new SqliteConnection(connectionString);
 		dbcon.Open();
 
