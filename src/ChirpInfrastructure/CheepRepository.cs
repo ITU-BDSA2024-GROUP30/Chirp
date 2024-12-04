@@ -14,7 +14,7 @@ namespace ChirpRepositories;
 public interface ICheepRepository
 {
 	/*Below commented method will be relevant later
-   public Cheep CreateCheep();
+   public Cheep CreateCheepAsync();
 
 	 Below 2 methods will not be implemented. If developers
 	 wish to implement editing or deleting of Cheeps from an Author,
@@ -22,16 +22,19 @@ public interface ICheepRepository
    public Cheep EditCheep();
    public void DeleteCheep();
    */
-	public Task<int> CreateCheep(int userId, string userName, string text);
+	//public Task<int> CreateCheepAsync(int userId, string userName, string text);
 	public List<CheepDTO> ReadCheeps(int pageNumber);
 	public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber);
+	public Task<Author?> GetAuthorByIdAsync(int userId);
+	Task<int> GenerateNextCheepIdAsync();
+	Task<int> AddCheepAsync(Cheep newCheep);
 
 }
 public class CheepRepository(ChirpDBContext context) : ICheepRepository
 {
 	private readonly ChirpDBContext _context = context;
 
-	/*public Cheep CreateCheep(){
+	/*public Cheep CreateCheepAsync(){
 
   }
   Above will be relevant later*/
@@ -62,122 +65,68 @@ public class CheepRepository(ChirpDBContext context) : ICheepRepository
   // Return the ID of the newly created Cheep
   Return queryResult.CheepId
   End Function*/
-	public async Task<int> CreateCheep(int userId, string userName, string text)
+
+	public async Task<Author?> GetAuthorByIdAsync(int userId)
 	{
-		/*// Retrieve the author by their ID
-		var author = await _context.Authors.FirstOrDefaultAsync(a => a.Id == userId);
-
-		if (author == null)
-		{
-			throw new Exception("Author not found");
-		}
-
-		// Create a new Cheep object
-		var newCheep = new Cheep
-		{
-			CheepId = await GenerateNextCheepIdAsync(),
-			Id = userId,
-			Author = author,
-			Text = text,
-			TimeStamp = DateTime.UtcNow
-		};
-
-		// Add the Cheep to the database context
-		await _context.Cheeps.AddAsync(newCheep);
-
-		// Add the Cheep to the author's list of Cheeps
-		author.Cheeps.Add(newCheep);
-
-		// Persist changes to the database
-		await _context.SaveChangesAsync();
-
-		// Return the ID of the newly created Cheep
-		return newCheep.CheepId;*/
-		Console.WriteLine($"Creating cheep for user {userId} with text: {text}");
-
-		// If the user is anonymous, we don't associate them with an Author.
-		Author? author = null;
-		if (userId != 0)
-		{
-			author = await _context.Authors.FirstOrDefaultAsync(a => a.Id == userId);
-			if (author == null)
-			{
-				throw new Exception("Author not found");
-			}
-		}
-
-		// Create a new Cheep object
-		var newCheep = new Cheep
-		{
-			CheepId = await GenerateNextCheepIdAsync(),
-			Id = userId,
-			Author = author,
-			Text = text,
-			TimeStamp = DateTime.UtcNow
-		};
-
-		if (author != null)
-		{
-			author.Cheeps.Add(newCheep);
-		}
-
-		// Add the Cheep to the database context
-		await _context.Cheeps.AddAsync(newCheep);
-		await _context.SaveChangesAsync();
-		Console.WriteLine("Cheep successfully saved to database.");
-		return newCheep.CheepId;
+		return await _context.Authors.FirstOrDefaultAsync(a => a.Id == userId);
 	}
 
-	private async Task<int> GenerateNextCheepIdAsync()
+	public async Task<int> GenerateNextCheepIdAsync()
 	{
-		// Generate the next Cheep ID
 		return await _context.Cheeps.AnyAsync() ? await _context.Cheeps.MaxAsync(c => c.CheepId) + 1 : 1;
 	}
 
+	public async Task<int> AddCheepAsync(Cheep newCheep)
+	{
+		await _context.Cheeps.AddAsync(newCheep);
+		await _context.SaveChangesAsync();
+		return newCheep.CheepId;
+	}
+
 	public List<CheepDTO> ReadCheeps(int pageNumber)
-  {
-	int pageSize = 32;
+	{
+		int pageSize = 32;
 
-	//query for getting every cheep
-	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
-		//orders by the domainmodel timestamp, which is datetime type
-		.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
-			cheep.CheepId,
-			cheep.Id,
-	 		cheep.Author.UserName,
-			cheep.Text,
-			cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
-		))
-		.Skip((pageNumber - 1) * pageSize)
-		.Take(pageSize);
-
-		var result = query.ToList();
-
-	return result;
-  }
-
-  public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber)
-  {
-	int pageSize = 32;
-
-	//query for getting every cheep
-	var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
-				.Where(Cheep => Cheep.Author.UserName == author)
-		//orders by the domainmodel timestamp, which is datetime type
-				.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
-					cheep.CheepId,
-					cheep.Id,
-					cheep.Author.UserName,
-					cheep.Text,
-					cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
-				))
-				.Skip((pageNumber - 1) * pageSize)
-				.Take(pageSize);
+		//query for getting every cheep
+		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
+			//orders by the domainmodel timestamp, which is datetime type
+			.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
+				cheep.CheepId,
+				cheep.Id,
+				 cheep.Author.UserName,
+				cheep.Text,
+				cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
+			))
+			.Skip((pageNumber - 1) * pageSize)
+			.Take(pageSize);
 
 		var result = query.ToList();
 
-	return result;
-  }
+		return result;
+	}
+
+	public List<CheepDTO> ReadCheepsFromAuthor(string author, int pageNumber)
+	{
+		int pageSize = 32;
+
+		//query for getting every cheep
+		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
+					.Where(Cheep => Cheep.Author.UserName == author)
+					//orders by the domainmodel timestamp, which is datetime type
+					.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
+						cheep.CheepId,
+						cheep.Id,
+						cheep.Author.UserName,
+						cheep.Text,
+						cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
+					))
+					.Skip((pageNumber - 1) * pageSize)
+					.Take(pageSize);
+
+		var result = query.ToList();
+
+		return result;
+	}
 
 
 }

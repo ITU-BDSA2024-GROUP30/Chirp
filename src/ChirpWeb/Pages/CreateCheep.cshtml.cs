@@ -4,18 +4,19 @@ using Microsoft.AspNetCore.Http;
 using ChirpCore.Domain;
 using ChirpRepositories;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace ChirpWeb.Pages
 {
     public class CreateCheepModel : PageModel
     {
         private readonly ICheepRepository _repository;
+        private readonly UserManager<Author> _userManager;
 
-        
-
-        public CreateCheepModel(ICheepRepository repository)
+        public CreateCheepModel(ICheepRepository repository, UserManager<Author> userManager)
         {
             _repository = repository;
+            _userManager = userManager;
         }
         [BindProperty]
         [Required(ErrorMessage = "Please enter a message for your Cheep.")]
@@ -42,8 +43,18 @@ namespace ChirpWeb.Pages
                 }
 
                 Console.WriteLine($"Attempting to create Cheep by userId: {userId}, userName: {userName}");
+                Author author = await _userManager.FindByIdAsync(userId.ToString()) ?? await _userManager.FindByNameAsync(userName);
+                // Create the Cheep object
+                var newCheep = new Cheep
+                {
+                    Id = userId,
+                    Text = CheepText,
+                    TimeStamp = DateTime.UtcNow,
+                    Author = author
+                };
 
-                await _repository.CreateCheep(userId, userName, CheepText);
+                // Save the Cheep using the repository
+                await _repository.AddCheepAsync(newCheep);
 
                 Console.WriteLine("Cheep created successfully!");
 
@@ -80,8 +91,8 @@ namespace ChirpWeb.Pages
             try
             {
                 // Call the repository to create the new Cheep
-                //int cheepId = await _repository.CreateCheep(userId, Text);
-                await _repository.CreateCheep(userId, userName, CheepText);
+                //int cheepId = await _repository.CreateCheepAsync(userId, Text);
+                await _repository.CreateCheepAsync(userId, userName, CheepText);
                 return RedirectToPage("/Timeline"); // Redirect to the homepage
 
             }

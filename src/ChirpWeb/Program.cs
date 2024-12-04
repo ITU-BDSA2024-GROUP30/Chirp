@@ -37,7 +37,7 @@ builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) //removed !  might go back later
+if (app.Environment.IsDevelopment()) //removed !  might go back later´
 {
     // app.UseMigrationsEndPoint();
 }
