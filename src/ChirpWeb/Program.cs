@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 
-//class for API tests in Chirp.ChirpWeb.Tests
+//partial class for API tests in Chirp.ChirpWeb.Tests
 
 public partial class Program
 {
