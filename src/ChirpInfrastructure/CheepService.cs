@@ -1,6 +1,7 @@
-using System.Data;
-using ChirpRepositories;
 using ChirpCore.DTOs;
+using ChirpRepositories;
+
+
 
 
 //namespace confuses the foreach loop on line 23, but we should find a way to implement
