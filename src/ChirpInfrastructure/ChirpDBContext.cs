@@ -1,9 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-//using System.Linq;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
 using ChirpCore.Domain;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ChirpInfrastructure;
 
@@ -15,7 +12,8 @@ public class ChirpDBContext : IdentityDbContext<Author>
 	{
 
 	}
-	/*
+
+
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		base.OnModelCreating(modelBuilder);
@@ -32,6 +30,6 @@ public class ChirpDBContext : IdentityDbContext<Author>
 			.WithMany(a => a.Cheeps)
 			.OnDelete(DeleteBehavior.Cascade);
 		});
-	}*/
+	}
 
 }

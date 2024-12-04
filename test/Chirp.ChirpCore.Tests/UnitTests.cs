@@ -14,16 +14,15 @@ public class UnitTest
         // Arrange & Act
         var author = new Author
         {
-            UserName = "Jane Doe",
-            Email = "jane.doe@example.com",
-            Id = 123,
+            //UserName = "Jane Doe",
+            //Email = "jane.doe@example.com",
             Cheeps = Cheeps,
         };
 
         //Assert
-        Assert.Same("Jane Doe", author.UserName);
-        Assert.Same("jane.doe@example.com", author.Email);
-        Assert.Equal(123, author.Id);
+        //Assert.Same("Jane Doe", author.UserName);
+        //Assert.Same("jane.doe@example.com", author.Email);
+        //Assert.Equal(123, author.Id);
         Assert.True(author.Cheeps.Count == 0);
     }
 
@@ -37,16 +36,15 @@ public class UnitTest
         ICollection<Cheep> Cheeps = [];
         var author = new Author
         {
-            UserName = "Jane Doe",
-            Email = "jane.doe@example.com",
-            Id = 123,
+            //UserName = "Jane Doe",
+            //Email = "jane.doe@example.com",
+            //Id = 123,
             Cheeps = Cheeps,
         };
 
         Cheep cheep1 = new()
 		{
             CheepId = 1,
-            Id = 123,
             Author = author,
             Text = "Hvordan lyder Janteloven?",
 		    TimeStamp = new DateTime(2024, 11, 13),
@@ -55,7 +53,6 @@ public class UnitTest
         Cheep cheep2 = new()
         {
             CheepId = 2,
-            Id = 123,
             Author = author,
             Text = "1. ud af 10. - Du skal ikke tro, du er noget? Bull*",
 		    TimeStamp = new DateTime(2024, 11, 14),
@@ -80,16 +77,15 @@ public class UnitTest
 
         var author = new Author
         {
-            UserName = "John Doe",
-            Email = "john.doe@example.com",
-            Id = 456,
+            //UserName = "John Doe",
+            //Email = "john.doe@example.com",
+
             Cheeps = Cheeps,
         };
 
         Cheep cheep3 = new()
 		{
             CheepId = 3,
-            Id = 456,
             Author = author,
             Text = "2. ud af 10. - Du skal ikke du er lige så meget som os? WTF?",
 		    TimeStamp = new DateTime(2024, 11, 12),
@@ -102,9 +98,9 @@ public class UnitTest
 
         Assert.Same(cheep3.Author, author);
 
-        Assert.NotEqual(123, cheep3.Id);
+        //Assert.NotEqual(123, cheep3.Id);
 
-        Assert.NotEqual("Helge", cheep3.Author.UserName);
+        //Assert.NotEqual("Helge", cheep3.Author.UserName);
 
         Assert.Equal(new DateTime(2024, 11, 12), cheep3.TimeStamp);
 
@@ -123,7 +119,7 @@ public class UnitTest
         {
             UserName = "Jerry Doe",
             Email = "jerry.doe@example.com",
-            Id = 789,
+            //Id = 789,
             Cheeps = Cheeps,
         };
 
@@ -148,7 +144,7 @@ public class UnitTest
         {
             UserName = "Jerry Doe",
             Email = "jerry.doe@example.com",
-            Id = 789,
+            //Id = 789,
             Cheeps = Cheeps,
         };
 

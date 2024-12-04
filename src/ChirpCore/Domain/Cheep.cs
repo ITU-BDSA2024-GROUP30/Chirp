@@ -10,7 +10,6 @@ namespace ChirpCore.Domain
 	{
 		[Key]
 		public int CheepId { get; set; }
-		//public int Id { get; set; }
 		public required Author Author { get; set; }
 		[Required]
 		[StringLength(160, MinimumLength = 1)]
