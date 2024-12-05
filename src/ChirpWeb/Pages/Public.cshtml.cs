@@ -25,12 +25,6 @@ public class PublicModel : PageModel
 		_CheepService = CheepService;
 		_signInManager = signInManager;
 	}
-	/*public PublicModel(ICheepService CheepService, IAuthorService AuthorService)
-	{
-		_CheepService = CheepService;
-		_AuthorService = AuthorService;
-		IsLoggedIn();
-	}*/
 
 	public Boolean IsLoggedIn()
 	{

@@ -24,7 +24,7 @@ public interface ICheepRepository
  */
 	public List<CheepDTO> ReadCheeps(int pageNumber);
 	public Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string author, int pageNumber);
-
+	public Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber);
 	public Task<Author> GetAuthorFromUsernameAsync(string? Username);
 }
 public class CheepRepository : ICheepRepository
@@ -60,6 +60,24 @@ public class CheepRepository : ICheepRepository
 
 
 		return query.ToList();
+	}
+
+	public async Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber){
+		Author Author = await GetAuthorFromUsernameAsync(AuthorName);
+		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
+						.Where(Cheep => Cheep.Id == Author.Id)
+						//orders by the domainmodel timestamp, which is datetime type
+						.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
+							cheep.CheepId,
+							cheep.Id,
+							Author.UserName,
+							cheep.Text,
+							cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
+						))
+						.Skip((PageNumber - 1) * pageSize)
+						.Take(pageSize);
+		var ListOfCheeps = query.ToList();
+		return ListOfCheeps;
 	}
 
 	public async Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string AuthorName, int pageNumber)

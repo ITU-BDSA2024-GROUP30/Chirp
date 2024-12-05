@@ -46,12 +46,12 @@ public class AuthorRepository : IAuthorRepository
 		if (Username == null){
 			throw new ArgumentNullException(Username);
 		}
-		//line below was provided by ChatGPT
 		return await _context.Authors.Include(a=>a.Follows).Where(Author => Author.UserName == Username).FirstAsync();	
 	}
 
 	public async Task<Boolean> IsFollowing(string? LoggedInAuthorUsername, string? AuthorToFollowUsername)
 	{
+		
 		Author? LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
 
     	Author? AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
@@ -76,10 +76,7 @@ public class AuthorRepository : IAuthorRepository
   {
 	Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
 	Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
-	if(LoggedInAuthor.Follows == null){
-		LoggedInAuthor.Follows = new List<Author>();
-		LoggedInAuthor.Follows.Add(LoggedInAuthor);
-	}
+	
 	LoggedInAuthor.Follows.Add(AuthorToFollow);
 	await _context.SaveChangesAsync();
   }
