@@ -1,4 +1,7 @@
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using Xunit;
+using ChirpCore.Domain;
 using ChirpInfrastructure;
 
 namespace Chirp.ChirpInfraStructure.Tests{

@@ -10,10 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Data.Sqlite;
 using AspNet.Security.OAuth.GitHub;
 using ChirpCore;
-using ChirpCore.Domain;
 using ChirpCore.DTOs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
@@ -44,32 +42,32 @@ public partial class Program
 		}
 		else
 		{*/
-			//This is for Global
+		//This is for Global
 		connectionString = builder.Configuration.GetConnectionString("CHIRPDBPATH") ?? throw new InvalidOperationException("Connection string not found.");
 
-		Console.WriteLine("This is from gobal in builder in builder environment development (azure enviorment variabel)");
+		//Console.WriteLine("This is from global in builder in builder environment development (azure enviorment variabel)");
 
 		//}
 		var dbcon = new SqliteConnection(connectionString);
 		dbcon.Open();
 
-
 		//ChirpDBContext created with our database path - which is specified in appsettings.json
 		builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(dbcon));
 
 
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultChallengeScheme = "GitHub";
-    })
-    .AddCookie()
-    .AddGitHub(o =>
-    {
-        o.ClientId = builder.Configuration["authentication_github_clientId"];
-        o.ClientSecret = builder.Configuration["authentication_github_clientSecret"];
-        o.CallbackPath = "/signin-github";
-        o.Scope.Add("user:email");
-    });
+
+		builder.Services.AddAuthentication(options =>
+			{
+				options.DefaultChallengeScheme = "GitHub";
+			})
+			.AddCookie()
+			.AddGitHub(o =>
+			{
+				o.ClientId = builder.Configuration["authentication_github_clientId"];
+				o.ClientSecret = builder.Configuration["authentication_github_clientSecret"];
+				o.CallbackPath = "/signin-github";
+				o.Scope.Add("user:email");
+			});
 
 		builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
 		.AddDefaultUI()
@@ -82,9 +80,8 @@ builder.Services.AddAuthentication(options =>
 		builder.Services.AddScoped<ICheepService, CheepService>();
 		builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 		//for future migrations
-		//builder.Services.AddScoped<IAuthorService, AuthorService>();
-		//builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
-
+		builder.Services.AddScoped<IAuthorService, AuthorService>();
+		builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 		var app = builder.Build();
 
@@ -117,7 +114,7 @@ builder.Services.AddAuthentication(options =>
 
 		app.UseAuthentication();
 		app.UseAuthorization();
-    //app.UseSession();
+		//app.UseSession();
 
 		app.MapRazorPages();
 

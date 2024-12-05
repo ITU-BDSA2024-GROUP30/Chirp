@@ -18,13 +18,31 @@
         <ul id="messagelist" class="cheeps">
             @foreach (var cheep in Model.Cheeps)
             {
+                string Username = cheep.UserName; 
                 <li>
                     <p>
                         <strong>
                             <a href="/@cheep.UserName">@cheep.UserName</a> @* first UserId was UserName, second UserId was AuthorName *@
                         </strong>
+                        @if (Model.IsLoggedIn())
+                        {
+                            <form method="post">
+                            <input type="hidden" name="AuthorToFollowUsername" value="@cheep.UserName" />
+                            <button type="submit">
+
+
+                            @if(!await Model.IsFollowing(Username)){
+                                <span>Follow</span>
+                            } else {
+                                <span>Unfollow</span>
+                            }
+                            </button>
+                            </form>
+                        }
+                        <p></p> <!-- Linebreak -->
                         @cheep.Text
                         <small>&mdash; @cheep.TimeStamp</small>
+                        
                     </p>
                 </li>
             }
@@ -44,5 +62,11 @@
         const url = new URL(window.location.href);
         url.searchParams.set('pageNumber', pageNumber);
         window.location.href = url.toString(); // Navigate to the new URL
+    }
+</script>
+
+<script>
+    function ReloadPage(){
+        window.location.href = window.location.href;
     }
 </script>
