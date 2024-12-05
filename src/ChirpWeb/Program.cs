@@ -1,7 +1,11 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using ChirpRepositories;
+using ChirpCore.Domain;
 using ChirpInfrastructure;
+using ChirpRepositories;
+using ChirpServices;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Builder;
@@ -16,27 +20,43 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 
 
-var builder = WebApplication.CreateBuilder(args);
+//partial class for API tests in Chirp.ChirpWeb.Tests
 
-// Load database connection via configuration, get string of database path from appsettings.json
-string connectionString = builder.Configuration.GetConnectionString("ChirpDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'ChirpDatabaseConnection' not found.");
+public partial class Program
+{
+	private static void Main(string[] args)
+	{
+		var builder = WebApplication.CreateBuilder(args);
 
-//ChirpDBContext created with our database path - which is specified in appsettings.json
-builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
+		string connectionString = "";
+		//outcommented due to workflow on git
+		/*if (builder.Environment.IsDevelopment())
+		{
+			//THIS is for local
+			connectionString = "Data Source=:memory:";
+			//this is showing in the terminal that it is local
+			Console.WriteLine("This is from local in builder environment development");
 
-var dbcon = new SqliteConnection(connectionString);
-//await dbcon.OpenAsync();
+			//This is an exampel for setting enviormentvariabel (of locally path for chirp.db) in the terminal Data Source=C:/tmp/ChirpData/chirp.db;
+			//miljøvariabel i kan være forskellige steder formateringer ifht forskellige terminaler (powershell, linux, mac osv) og computerer
+			//kig hvor jeres chirp.db, stifinder eller miljøvariabler på jeres computer
 
-builder.Services.AddIdentity<Author, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = true)
-.AddDefaultUI()
-.AddDefaultTokenProviders()
-.AddEntityFrameworkStores<ChirpDBContext>();
+		}
+		else
+		{*/
+			//This is for Global
+			connectionString = builder.Configuration["CHIRPDBPATH"] ?? throw new InvalidOperationException("Connectionstring not found locally, must be specified in another way maybe try: $env:CHIRPDBPATH=C:/tmp/ChirpData/chirp.db");
+			//this is showing in the terminal that it is local
+			Console.WriteLine("This is from gobal in builder in builder environment development (azure enviorment variabel)");
 
-builder.Services.AddRazorPages();
+		//}
+		var dbcon = new SqliteConnection(connectionString);
+		dbcon.Open();
 
-//Below 2 lines helps create Cheeps on the website and show Cheeps.
-builder.Services.AddScoped<ICheepService, CheepService>();
-builder.Services.AddScoped<ICheepRepository, CheepRepository>();
+
+		//ChirpDBContext created with our database path - which is specified in appsettings.json
+		builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(dbcon));
+
 
 builder.Services.AddAuthentication(options =>
     {
@@ -51,43 +71,58 @@ builder.Services.AddAuthentication(options =>
         o.Scope.Add("user:email");
     });
 
-var app = builder.Build();
+		builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
+		.AddDefaultUI()
+		.AddDefaultTokenProviders()
+		.AddEntityFrameworkStores<ChirpDBContext>();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) //removed !  might go back later
-{
-    // app.UseMigrationsEndPoint();
+		builder.Services.AddRazorPages();
+
+		//Below 2 lines helps create Cheeps on the website and show Cheeps.
+		builder.Services.AddScoped<ICheepService, CheepService>();
+		builder.Services.AddScoped<ICheepRepository, CheepRepository>();
+		//for future migrations
+		//builder.Services.AddScoped<IAuthorService, AuthorService>();
+		//builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+
+
+		var app = builder.Build();
+
+
+		// Configure the HTTP request pipeline.
+		if (!app.Environment.IsDevelopment()) //removed !  might go back later
+		{
+			app.UseExceptionHandler("/Error");
+			app.UseHsts();     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+		}
+		else
+		{
+			// app.UseMigrationsEndPoint();
+		}
+
+		//Below 'using' block from Group 3. Seeds our database, and ensures that the database is created
+
+		using (var scope = app.Services.CreateScope())
+		{
+			var services = scope.ServiceProvider;
+			var context = services.GetRequiredService<ChirpDBContext>();
+			context.Database.Migrate();
+			DbInitializer.SeedDatabase(context);
+		}
+		app.UseHttpsRedirection();
+
+		app.UseStaticFiles();
+		app.UseRouting();
+
+
+		app.UseAuthentication();
+		app.UseAuthorization();
+    //app.UseSession();
+
+		app.MapRazorPages();
+
+
+
+		app.Run();
+	}
 }
-else
-{
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-}
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-app.UseRouting();
-
-
-app.UseAuthentication();
-app.UseAuthorization();
-//app.UseSession();
-
-
-app.MapRazorPages();
-
-//Below 'using' block from Group 3. Seeds our database, and ensures that the database is created
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ChirpDBContext>();
-    await context.Database.MigrateAsync();
-    context.Database.EnsureCreated();
-    DbInitializer.SeedDatabase(context);
-}
-
-app.Run();
-
-//class for API tests in Chirp.ChirpWeb.Tests
-public partial class Program { }

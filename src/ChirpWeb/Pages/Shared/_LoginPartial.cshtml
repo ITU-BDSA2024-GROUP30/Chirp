@@ -15,12 +15,12 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        @* The block below needs changing or possibly deleting. 
+        @* The block below needs changing or possibly deleting.
            The asp-route-returnUrl @Url.Page("/Index" endpoint page should be the user page instead (My timeline ya'know)
         *@
         <div id="bar">
             <a href="/">Public Timeline</a> |
-            <a href="/@(User.Identity.Name)">My Timeline</a> |
+            <a href="/@(User.Identity?.Name!)">My Timeline</a> |
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
                 asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
                 <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout
