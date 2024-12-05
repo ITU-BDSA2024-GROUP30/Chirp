@@ -8,10 +8,10 @@ public interface IAuthorService
 	public void RegisterAuthor();
 	public void LoginAuthor();
 	public void ForgetAuthor();
-	public void FollowAuthor(string LoggedInAuthor, string AuthorToFollow);
-	public void UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow);
+	public Task FollowAuthor(string LoggedInAuthor, string AuthorToFollow);
+	public Task UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow);
 
-	public bool IsFollowing(string LoggedInAuthor, string AuthorToFollow);
+	public Task<Boolean> IsFollowing(string LoggedInAuthor, string AuthorToFollow);
 }
 
 public class AuthorService : IAuthorService
@@ -39,19 +39,19 @@ public class AuthorService : IAuthorService
 
 	//Method for adding another Author to acting Author's follower list
 	//Probably calls on UpdateAuthor() from AuthorRepo
-	public void FollowAuthor(string LoggedInAuthor, string AuthorToFollow)
+	public async Task FollowAuthor(string LoggedInAuthor, string AuthorToFollow)
 	{
-		_repository.AddAuthorToFollowList(LoggedInAuthor, AuthorToFollow);
+		await _repository.AddAuthorToFollowList(LoggedInAuthor, AuthorToFollow);
 	}
 
 	//Method for removing another Author from acting Author's follower list
 	//Probably calls on UpdateAuthor() from AuthorRepo
-	public void UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow)
+	public async Task UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow)
 	{
-		_repository.RemoveAuthorFromFollowList(LoggedInAuthor, AuthorToFollow);
+		await _repository.RemoveAuthorFromFollowList(LoggedInAuthor, AuthorToFollow);
 	}
 
-	public bool IsFollowing(string LoggedInAuthor, string AuthorToFollow)
+	public Task<Boolean> IsFollowing(string LoggedInAuthor, string AuthorToFollow)
 	{
 		return _repository.IsFollowing(LoggedInAuthor, AuthorToFollow);
 	}

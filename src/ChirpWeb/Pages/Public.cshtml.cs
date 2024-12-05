@@ -14,7 +14,7 @@ public class PublicModel : PageModel
 	private readonly IAuthorService _AuthorService;
 	public required List<CheepDTO> Cheeps { get; set; }
 	public int currentPage;
-	required public string LoggedInAuthorUsername;
+	public string? LoggedInAuthorUsername;
 
 	public PublicModel(
 							IAuthorService AuthorService,
@@ -43,20 +43,26 @@ public class PublicModel : PageModel
 		return IsLoggedIn;
 	}
 
-	public bool FollowAuthorClick(string AuthorToFollowUsername)
-	{
-		_AuthorService.FollowAuthor(LoggedInAuthorUsername, AuthorToFollowUsername);
-		return true;
+	public string GetLoggedInUser(){
+		if(User.Identity.Name == null){
+			throw new ArgumentNullException(User.Identity.Name);
+		}
+		return User.Identity.Name;
 	}
 
-	public void UnfollowAuthorClick(string AuthorToUnfollowUsername)
+	public async Task<ActionResult> OnPostAsync(string AuthorToFollowUsername)
 	{
-		_AuthorService.UnfollowAuthor(LoggedInAuthorUsername, AuthorToUnfollowUsername);
+		if (!await IsFollowing(AuthorToFollowUsername)){
+		await _AuthorService.FollowAuthor(GetLoggedInUser(), AuthorToFollowUsername);
+		} else {
+		await _AuthorService.UnfollowAuthor(GetLoggedInUser(), AuthorToFollowUsername);
+		}
+		return RedirectToPage();
 	}
 
-	public bool IsFollowing(string AuthorToFollowUnfollowUsername)
+	public async Task<Boolean> IsFollowing(string AuthorToFollowUnfollowUsername)
 	{
-		return _AuthorService.IsFollowing(LoggedInAuthorUsername, AuthorToFollowUnfollowUsername);
+		return await _AuthorService.IsFollowing(GetLoggedInUser(), AuthorToFollowUnfollowUsername);
 	}
 
 	public ActionResult OnGet(int pageNumber = 1)

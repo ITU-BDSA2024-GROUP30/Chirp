@@ -26,17 +26,17 @@
                         </strong>
                         @if (Model.IsLoggedIn())
                         {
-                            if(!Model.IsFollowing(Username)){
-                            <FollowUnfollowButton class="FollowUnfollowButton"  button-type="button" onclick="FollowAuthor('@cheep.UserName')" id="followbutton">
-                                Follow    
-                            </FollowUnfollowButton>
+                            <form method="post">
+                            <input type="hidden" name="AuthorToFollowUsername" value="@cheep.UserName" />
+                            <button type="submit">
+
+                            @if(!await Model.IsFollowing(Username)){
+                                <span>Follow</span>
+                            } else {
+                                <span>Unfollow</span>
                             }
-                            else
-                            {
-                            <FollowUnfollowButton class="FollowUnfollowButton"  button-type="button" onclick="UnfollowAuthor('@cheep.UserName')" id="unfollowbutton">
-                                Unfollow
-                            </FollowUnfollowButton>
-                            }
+                            </button>
+                            </form>
                         }
                         <p></p> <!-- Linebreak -->
                         @cheep.Text
@@ -67,19 +67,5 @@
 <script>
     function ReloadPage(){
         window.location.href = window.location.href;
-    }
-</script>
-
-<script>
-    function FollowAuthor(Username){
-        @Model.FollowAuthorClick(Username);
-        ReloadPage();
-    }
-</script>
-
-<script>
-    function UnfollowAuthor(Username){
-        @Model.UnFollowAuthorClick(Username); 
-        ReloadPage();
     }
 </script>

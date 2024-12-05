@@ -1,6 +1,7 @@
 using System.Data;
 using ChirpCore.Domain;
 using ChirpInfrastructure;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace ChirpRepositories;
@@ -10,10 +11,10 @@ public interface IAuthorRepository
 	public void AddAuthorToDatabase();
 	public void LoginAuthor();
 	public void DeleteAuthorFromDatabase();
-	public Author GetAuthorFromUsername(string Username);
-	public Boolean IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername);
-  	public void AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
-  	public void RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
+	public Task<Author> GetAuthorFromUsername(string Username);
+	public Task<Boolean> IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername);
+  	public Task AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
+  	public Task RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
 }
 
 public class AuthorRepository : IAuthorRepository
@@ -39,22 +40,21 @@ public class AuthorRepository : IAuthorRepository
 
 	public void DeleteAuthorFromDatabase() { }
 
-	public Author GetAuthorFromUsername(string Username)
+	public async Task<Author> GetAuthorFromUsername(string? Username)
 	{
 		if (Username == null){
 			throw new ArgumentNullException(Username);
 		}
-		Author LoggedInAuthor = _context.Authors.Where(Author => Author.UserName == Username).First();
-		
-		return LoggedInAuthor;
+		return await _context.Authors.Where(Author => Author.UserName == Username).FirstAsync();	
 	}
-	public Boolean IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername)
+
+	public async Task<Boolean> IsFollowing(string? LoggedInAuthorUsername, string? AuthorToFollowUsername)
 	{
 		if (LoggedInAuthorUsername == null || AuthorToFollowUsername == null) {
 			throw new ArgumentNullException("Usernames null");
 		}
-		Author LoggedInAuthor = GetAuthorFromUsername(LoggedInAuthorUsername);
-		Author AuthorToFollow = GetAuthorFromUsername(AuthorToFollowUsername);
+		Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
+		Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
 		if (LoggedInAuthor.Follows.Contains(AuthorToFollow))
 		{
 			return true;
@@ -65,15 +65,19 @@ public class AuthorRepository : IAuthorRepository
 		}
 	}
 
-  public void AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername)
+  public async Task AddAuthorToFollowList(string LoggedInAuthorUsername, string AuthorToFollowUsername)
   {
-	Author LoggedInAuthor = GetAuthorFromUsername(loggedInAuthorUsername);
-	LoggedInAuthor.Follows.Add(GetAuthorFromUsername(authorToFollowUsername));
+	Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
+	Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
+	LoggedInAuthor.Follows.Add(AuthorToFollow);
+	await _context.SaveChangesAsync();
   }
 
-  public void RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername)
+  public async Task RemoveAuthorFromFollowList(string LoggedInAuthorUsername, string AuthorToUnfollowUsername)
   {
-	Author LoggedInAuthor = GetAuthorFromUsername(loggedInAuthorUsername);
-	LoggedInAuthor.Follows.Remove(GetAuthorFromUsername(authorToFollowUsername));
+	Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
+	Author AuthorToUnfollow = await GetAuthorFromUsername(AuthorToUnfollowUsername);
+	LoggedInAuthor.Follows.Remove(AuthorToUnfollow);
+	await _context.SaveChangesAsync();
   }
 }
