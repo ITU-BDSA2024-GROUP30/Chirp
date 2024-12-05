@@ -3,6 +3,7 @@ using System;
 using ChirpInfrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,27 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChirpInfrastructure.Migrations
 {
     [DbContext(typeof(ChirpDBContext))]
-    partial class ChirpDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241204193939_ChangedIdInCheepRelation")]
+    partial class ChangedIdInCheepRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
-
-            modelBuilder.Entity("AuthorAuthor", b =>
-                {
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("FollowsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AuthorId", "FollowsId");
-
-                    b.HasIndex("FollowsId");
-
-                    b.ToTable("AuthorFollows", (string)null);
-                });
 
             modelBuilder.Entity("ChirpCore.Domain.Author", b =>
                 {
@@ -81,7 +69,6 @@ namespace ChirpInfrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
@@ -258,21 +245,6 @@ namespace ChirpInfrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("AuthorAuthor", b =>
-                {
-                    b.HasOne("ChirpCore.Domain.Author", null)
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ChirpCore.Domain.Author", null)
-                        .WithMany()
-                        .HasForeignKey("FollowsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ChirpCore.Domain.Cheep", b =>

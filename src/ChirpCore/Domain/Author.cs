@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ChirpCore.Domain
 {
-	public class Author : IdentityUser<int>
+	public class Author : IdentityUser
 	{
 		[Required] override public string? UserName {get; set;}
 		public required ICollection<Cheep> Cheeps { get; set; }

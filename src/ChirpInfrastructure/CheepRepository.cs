@@ -3,6 +3,7 @@ Configure the ASP.NET DI container (dependency injection container) so that inst
 CheepRepository are injected into your application wherever needed. That is, none of your views,
 services, etc. has a direct dependency onto CheepRepository.*/
 using System.Data;
+using ChirpCore.Domain;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
 using ChirpCore.Domain;
@@ -15,7 +16,6 @@ public interface ICheepRepository
 {
 	/*Below commented method will be relevant later
  public Cheep CreateCheep();
-
  Below 2 methods will not be implemented. If developers
  wish to implement editing or deleting of Cheeps from an Author,
  this is where to add this functionality.
@@ -34,6 +34,7 @@ public class CheepRepository : ICheepRepository
 	private readonly IAuthorRepository _AuthorRepository;
 
 	public CheepRepository(ChirpDBContext context, IAuthorRepository AuthorRepository)
+
 	{
 		_context = context;
 		_AuthorRepository = AuthorRepository;
@@ -44,13 +45,11 @@ public class CheepRepository : ICheepRepository
 		Above will be relevant later*/
 	public List<CheepDTO> ReadCheeps(int pageNumber)
 	{
-
 		//query for getting every cheep
 		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
 			//orders by the domainmodel timestamp, which is datetime type
 			.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 				cheep.CheepId,
-				cheep.Id,
 				cheep.Author.UserName,
 				cheep.Text,
 				cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
@@ -58,19 +57,17 @@ public class CheepRepository : ICheepRepository
 			.Skip((pageNumber - 1) * pageSize)
 			.Take(pageSize);
 
-
 		return query.ToList();
 	}
 
 	public async Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber){
 		Author Author = await GetAuthorFromUsernameAsync(AuthorName);
 		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
-						.Where(Cheep => Cheep.Id == Author.Id)
+						.Where(Cheep => Cheep.Author.Id == Author.Id)
 						//orders by the domainmodel timestamp, which is datetime type
 						.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 							cheep.CheepId,
-							cheep.Id,
-							Author.UserName,
+							cheep.Author.UserName,
 							cheep.Text,
 							cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
 						))
@@ -92,12 +89,11 @@ public class CheepRepository : ICheepRepository
 			}
 			//query for getting every cheep
 			var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
-						.Where(Cheep => Cheep.Id == author.Id)
+						.Where(Cheep => Cheep.Author.Id == author.Id)
 						//orders by the domainmodel timestamp, which is datetime type
 						.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 							cheep.CheepId,
-							cheep.Id,
-							author.UserName,
+							cheep.Author.UserName,
 							cheep.Text,
 							cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
 						))

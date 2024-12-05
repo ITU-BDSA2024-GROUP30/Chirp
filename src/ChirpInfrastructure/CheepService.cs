@@ -1,10 +1,12 @@
-using System.Data;
-using ChirpRepositories;
 using ChirpCore.DTOs;
+using ChirpRepositories;
+
+
 
 namespace ChirpServices;
 
 //namespace confuses the foreach loop on line 23, but we should find a way to implement
+//namespace ChirpServices;
 
 //public record Cheep(string Author, string Message, string Timestamp);
 
@@ -55,6 +57,7 @@ public class CheepService : ICheepService
     }
     //Sorts cheep after the string author. We use this for author timelines
     public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pagenumber)
+
     {
 
         _cheeps.Clear();
@@ -67,6 +70,5 @@ public class CheepService : ICheepService
         }
 
         return _cheeps;
-        
     }
 }

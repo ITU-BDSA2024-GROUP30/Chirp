@@ -1,6 +1,5 @@
 using ChirpRepositories;
 
-
 namespace ChirpServices;
 
 public interface IAuthorService
@@ -12,6 +11,7 @@ public interface IAuthorService
 	public Task UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow);
 
 	public Task<Boolean> IsFollowing(string LoggedInAuthor, string AuthorToFollow);
+
 }
 
 public class AuthorService : IAuthorService
