@@ -28,6 +28,7 @@ public class ChirpDBContext : IdentityDbContext<Author, IdentityRole<int>, int>
             .HasMany(a => a.Follows)
             .WithMany()
             .UsingEntity(join => join.ToTable("AuthorFollows"));
+			
 
 		// Below lines 33-41 are from ChatGPT to help ensure the Id in Cheep is a foreign key.
 		modelBuilder.Entity<Cheep>(entity =>

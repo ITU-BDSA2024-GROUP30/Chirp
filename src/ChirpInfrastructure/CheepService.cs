@@ -11,7 +11,7 @@ namespace ChirpServices;
 public interface ICheepService
 {
     public List<CheepDTO> GetCheeps(int pageNumber);
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber);
+    public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
 }
 
 public class CheepService : ICheepService
@@ -39,12 +39,12 @@ public class CheepService : ICheepService
     }
 
     //Sorts cheep after the string author. We use this for author timelines
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pagenumber)
+    public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pagenumber)
     {
 
         _cheeps.Clear();
-        var list = _repository.ReadCheepsFromFollowList(author, pagenumber);
-
+        var list = await _repository.ReadCheepsFromFollowListAsync(author, pagenumber);
+        
         //read each CheepObject from CheepRepository
         foreach (CheepDTO cheep in list)
         {

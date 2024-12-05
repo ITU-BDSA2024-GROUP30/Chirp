@@ -18,10 +18,10 @@ public class UserTimelineModel : PageModel
 		_AuthorService = AuthorService;
 	}
 
-	public ActionResult OnGet(string author, int pageNumber = 1)
+	public async Task<ActionResult> OnGetAsync(string author, int pageNumber = 1)
 	{
 		currentPage = pageNumber;
-		Cheeps = _CheepService.GetCheepsFromAuthor(author, currentPage);
+		Cheeps = await _CheepService.GetCheepsFromAuthorAsync(author, currentPage);
 		if (currentPage < 1)
 		{
 			currentPage = 1;

@@ -54,10 +54,12 @@ public class PublicModel : PageModel
 	{
 		if (!await IsFollowing(AuthorToFollowUsername)){
 		await _AuthorService.FollowAuthor(GetLoggedInUser(), AuthorToFollowUsername);
+		return RedirectToPage();
 		} else {
 		await _AuthorService.UnfollowAuthor(GetLoggedInUser(), AuthorToFollowUsername);
-		}
 		return RedirectToPage();
+		}
+		
 	}
 
 	public async Task<Boolean> IsFollowing(string AuthorToFollowUnfollowUsername)

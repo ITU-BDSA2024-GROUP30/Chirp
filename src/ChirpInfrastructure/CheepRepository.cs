@@ -6,6 +6,7 @@ using System.Data;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
 using ChirpCore.Domain;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace ChirpRepositories;
@@ -22,8 +23,9 @@ public interface ICheepRepository
  public void DeleteCheep();
  */
 	public List<CheepDTO> ReadCheeps(int pageNumber);
-	public List<CheepDTO> ReadCheepsFromFollowList(string author, int pageNumber);
+	public Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string author, int pageNumber);
 
+	public Task<Author> GetAuthorFromUsernameAsync(string? Username);
 }
 public class CheepRepository : ICheepRepository
 {
@@ -60,9 +62,9 @@ public class CheepRepository : ICheepRepository
 		return query.ToList();
 	}
 
-	public List<CheepDTO> ReadCheepsFromFollowList(string AuthorName, int pageNumber)
+	public async Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string AuthorName, int pageNumber)
 	{
-		Author AuthorToGetFrom = GetAuthorFromUsername(AuthorName);
+		Author AuthorToGetFrom = await GetAuthorFromUsernameAsync(AuthorName);
 		var ListOfListOfCheeps = new List<List<CheepDTO>>();
 		var ListOfCheeps = new List<CheepDTO>();
 		foreach (Author author in AuthorToGetFrom.Follows)
@@ -97,13 +99,11 @@ public class CheepRepository : ICheepRepository
 		return ListOfCheeps;
 	}
 
-	public Author GetAuthorFromUsername(string Username)
+	public async Task<Author> GetAuthorFromUsernameAsync(string? Username)
 	{
 		if (Username == null){
 			throw new ArgumentNullException(Username);
 		}
-		Author LoggedInAuthor = _context.Authors.Where(Author => Author.UserName == Username).First();
-		
-		return LoggedInAuthor;
+		return await _context.Authors.Include(a=>a.Follows).Where(Author => Author.UserName == Username).FirstAsync();	
 	}
 }

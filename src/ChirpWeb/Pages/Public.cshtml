@@ -30,6 +30,7 @@
                             <input type="hidden" name="AuthorToFollowUsername" value="@cheep.UserName" />
                             <button type="submit">
 
+
                             @if(!await Model.IsFollowing(Username)){
                                 <span>Follow</span>
                             } else {

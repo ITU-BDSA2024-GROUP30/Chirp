@@ -1,6 +1,7 @@
 using System.Data;
 using ChirpCore.Domain;
 using ChirpInfrastructure;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -45,21 +46,27 @@ public class AuthorRepository : IAuthorRepository
 		if (Username == null){
 			throw new ArgumentNullException(Username);
 		}
-		return await _context.Authors.Where(Author => Author.UserName == Username).FirstAsync();	
+		//line below was provided by ChatGPT
+		return await _context.Authors.Include(a=>a.Follows).Where(Author => Author.UserName == Username).FirstAsync();	
 	}
 
 	public async Task<Boolean> IsFollowing(string? LoggedInAuthorUsername, string? AuthorToFollowUsername)
 	{
+		Author? LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
+
+    	Author? AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
 		if (LoggedInAuthorUsername == null || AuthorToFollowUsername == null) {
 			throw new ArgumentNullException("Usernames null");
 		}
-		Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
-		Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
+		
+		//Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
+		//Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
+		
 		if (LoggedInAuthor.Follows.Contains(AuthorToFollow))
 		{
 			return true;
 		}
-		else
+			else
 		{
 			return false;
 		}
@@ -69,6 +76,10 @@ public class AuthorRepository : IAuthorRepository
   {
 	Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
 	Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
+	if(LoggedInAuthor.Follows == null){
+		LoggedInAuthor.Follows = new List<Author>();
+		LoggedInAuthor.Follows.Add(LoggedInAuthor);
+	}
 	LoggedInAuthor.Follows.Add(AuthorToFollow);
 	await _context.SaveChangesAsync();
   }
