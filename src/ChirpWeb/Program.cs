@@ -45,9 +45,9 @@ public partial class Program
 		else
 		{*/
 			//This is for Global
-			connectionString = builder.Configuration["CHIRPDBPATH"] ?? throw new InvalidOperationException("Connectionstring not found locally, must be specified in another way maybe try: $env:CHIRPDBPATH=C:/tmp/ChirpData/chirp.db");
-			//this is showing in the terminal that it is local
-			Console.WriteLine("This is from gobal in builder in builder environment development (azure enviorment variabel)");
+		connectionString = builder.Configuration.GetConnectionString("CHIRPDBPATH") ?? throw new InvalidOperationException("Connection string not found.");
+
+		Console.WriteLine("This is from gobal in builder in builder environment development (azure enviorment variabel)");
 
 		//}
 		var dbcon = new SqliteConnection(connectionString);
