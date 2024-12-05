@@ -6,7 +6,6 @@ using System.Data;
 using ChirpCore.Domain;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
-using ChirpCore.Domain;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -60,7 +59,8 @@ public class CheepRepository : ICheepRepository
 		return query.ToList();
 	}
 
-	public async Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber){
+	public async Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber)
+	{
 		Author Author = await GetAuthorFromUsernameAsync(AuthorName);
 		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
 						.Where(Cheep => Cheep.Author.Id == Author.Id)
@@ -84,7 +84,8 @@ public class CheepRepository : ICheepRepository
 		var ListOfCheeps = new List<CheepDTO>();
 		foreach (Author author in AuthorToGetFrom.Follows)
 		{
-			if (author.UserName == null){
+			if (author.UserName == null)
+			{
 				throw new ArgumentNullException(author.UserName);
 			}
 			//query for getting every cheep
@@ -115,9 +116,10 @@ public class CheepRepository : ICheepRepository
 
 	public async Task<Author> GetAuthorFromUsernameAsync(string? Username)
 	{
-		if (Username == null){
+		if (Username == null)
+		{
 			throw new ArgumentNullException(Username);
 		}
-		return await _context.Authors.Include(a=>a.Follows).Where(Author => Author.UserName == Username).FirstAsync();	
+		return await _context.Authors.Include(a => a.Follows).Where(Author => Author.UserName == Username).FirstAsync();
 	}
 }

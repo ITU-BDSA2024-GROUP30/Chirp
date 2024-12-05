@@ -19,11 +19,11 @@ namespace ChirpInfrastructure.Migrations
 
             modelBuilder.Entity("AuthorAuthor", b =>
                 {
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("FollowsId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("FollowsId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("AuthorId", "FollowsId");
 

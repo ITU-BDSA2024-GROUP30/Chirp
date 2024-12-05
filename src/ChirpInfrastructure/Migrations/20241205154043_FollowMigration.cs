@@ -26,8 +26,8 @@ namespace ChirpInfrastructure.Migrations
                 name: "AuthorFollows",
                 columns: table => new
                 {
-                    AuthorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FollowsId = table.Column<int>(type: "INTEGER", nullable: false)
+                    AuthorId = table.Column<string>(type: "TEXT", nullable: false),
+                    FollowsId = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
