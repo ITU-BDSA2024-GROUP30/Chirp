@@ -26,7 +26,7 @@ public partial class Program
 			//this is showing in the terminal that it is local
 			Console.WriteLine("This is from local in builder environment development");
 
-			//This is an exampel for setting enviormentvariabel (of locally path for chirp.db) in the terminal Data Source=C:\tmp\ChirpData\chirp.db;
+			//This is an exampel for setting enviormentvariabel (of locally path for chirp.db) in the terminal Data Source=C:/tmp/ChirpData/chirp.db;
 			//miljøvariabel i kan være forskellige steder formateringer ifht forskellige terminaler (powershell, linux, mac osv) og computerer
 			//kig hvor jeres chirp.db, stifinder eller miljøvariabler på jeres computer
 
@@ -34,7 +34,7 @@ public partial class Program
 		else
 		{*/
 			//This is for Global
-			connectionString = builder.Configuration["CHIRPDBPATH"] ?? throw new InvalidOperationException("Connectionstring not found locally, must be specified in another way maybe try: $env:CHIRPDBPATH=C:\tmp\ChirpData\chirp.db");
+			connectionString = builder.Configuration["CHIRPDBPATH"] ?? throw new InvalidOperationException("Connectionstring not found locally, must be specified in another way maybe try: $env:CHIRPDBPATH=C:/tmp/ChirpData/chirp.db");
 			//this is showing in the terminal that it is local
 			Console.WriteLine("This is from gobal in builder in builder environment development (azure enviorment variabel)");
 
