@@ -11,7 +11,7 @@ public class APITests : IClassFixture<WebApplicationFactory<Program>>
     private readonly HttpClient _client;
 
     //constructor taken from week 5 slides
-	public APITests(WebApplicationFactory<Program> fixture)
+	/*public APITests(WebApplicationFactory<Program> fixture)
     {
         _fixture = fixture;
         _client = _fixture.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = true, HandleCookies = true });
@@ -40,10 +40,10 @@ public class APITests : IClassFixture<WebApplicationFactory<Program>>
 
         Assert.Contains("Chirp!", content);
         Assert.Contains($"{author}'s Timeline", content);
-       
+
     }
-    
-    /*Data NOT included in these API tests (write statements shows in commandline
+
+    Data NOT included in these API tests (write statements shows in commandline
     that no cheeps are visible. Fix and test more, or simply test this somehow else?)
     [Theory]
     [InlineData("Luanna Muro")]

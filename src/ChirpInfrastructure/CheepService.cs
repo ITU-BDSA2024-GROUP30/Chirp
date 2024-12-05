@@ -1,16 +1,21 @@
-using System.Data;
-using ChirpRepositories;
 using ChirpCore.DTOs;
+using ChirpRepositories;
 
+
+
+namespace ChirpServices;
 
 //namespace confuses the foreach loop on line 23, but we should find a way to implement
+//namespace ChirpServices;
 
 //public record Cheep(string Author, string Message, string Timestamp);
 
 public interface ICheepService
 {
     public List<CheepDTO> GetCheeps(int pageNumber);
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber);
+    public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
+    public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
+    
 }
 
 public class CheepService : ICheepService
@@ -37,13 +42,10 @@ public class CheepService : ICheepService
         return _cheeps;
     }
 
-    //Sorts cheep after the string author. We use this for author timelines
-    public List<CheepDTO> GetCheepsFromAuthor(string author, int pageNumber) 
-    {
-
+    public async Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pagenumber) {
         _cheeps.Clear();
-        var list = _repository.ReadCheepsFromAuthor(author, pageNumber);
-
+        var list = await _repository.ReadCheepsFromFollowListAsync(author, pagenumber);
+        
         //read each CheepObject from CheepRepository
         foreach (CheepDTO cheep in list)
         {
@@ -51,8 +53,22 @@ public class CheepService : ICheepService
         }
 
         return _cheeps;
-        // Below is the old code
-        // filter by the provided author name (will this cause problems if 2 authors share the same name?)
-        //return _cheeps.Where(x => x.UserName == author).ToList();    
+        
+    }
+    //Sorts cheep after the string author. We use this for author timelines
+    public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pagenumber)
+
+    {
+
+        _cheeps.Clear();
+        var list = await _repository.ReadCheepsFromAuthorAsync(author, pagenumber);
+        
+        //read each CheepObject from CheepRepository
+        foreach (CheepDTO cheep in list)
+        {
+            _cheeps.Add(cheep);
+        }
+
+        return _cheeps;
     }
 }
