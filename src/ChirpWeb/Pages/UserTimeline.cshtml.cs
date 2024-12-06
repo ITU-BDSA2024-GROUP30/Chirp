@@ -23,10 +23,12 @@ public class UserTimelineModel : PageModel
 		_signInManager = signInManager;
 	}
 
-	public string GetLoggedInUser(){
-		var IsLoggedIn = _signInManager.IsSignedIn(User);
-		if(User.Identity.Name == null){
-			throw new ArgumentNullException(User.Identity.Name);
+	public string GetLoggedInUser()
+	{
+		//var IsLoggedIn = _signInManager.IsSignedIn(User);
+		if (User.Identity?.Name! == null)
+		{
+			throw new ArgumentNullException(User.Identity?.Name);
 		}
 		return User.Identity.Name;
 	}
@@ -34,13 +36,17 @@ public class UserTimelineModel : PageModel
 	public async Task<ActionResult> OnGetAsync(string author, int pageNumber = 1)
 	{
 		currentPage = pageNumber;
-		if(!_signInManager.IsSignedIn(User)){
+		if (!_signInManager.IsSignedIn(User))
+		{
 			Cheeps = await _CheepService.GetCheepsFromAuthorAsync(author, currentPage);
-		
+
 		}
-		else if (GetLoggedInUser().Equals(author)) {
+		else if (GetLoggedInUser().Equals(author))
+		{
 			Cheeps = await _CheepService.GetCheepsFromOtherAuthorAsync(author, currentPage);
-		} else {
+		}
+		else
+		{
 			Cheeps = await _CheepService.GetCheepsFromAuthorAsync(author, currentPage);
 		}
 		if (currentPage < 1)

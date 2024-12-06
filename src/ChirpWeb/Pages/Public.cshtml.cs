@@ -32,28 +32,33 @@ public class PublicModel : PageModel
 		if (IsLoggedIn)
 		{
 			LoggedInAuthorUsername = User.Identity.Name;
-			
+
 		}
 		return IsLoggedIn;
 	}
 
-	public string GetLoggedInUser(){
-		if(User.Identity.Name == null){
-			throw new ArgumentNullException(User.Identity.Name);
+	public string GetLoggedInUser()
+	{
+		if (User.Identity?.Name! == null)
+		{
+			throw new ArgumentNullException(User.Identity?.Name!);
 		}
 		return User.Identity.Name;
 	}
 
 	public async Task<ActionResult> OnPostAsync(string AuthorToFollowUsername)
 	{
-		if (!await IsFollowing(AuthorToFollowUsername)){
-		await _AuthorService.FollowAuthor(GetLoggedInUser(), AuthorToFollowUsername);
-		return RedirectToPage();
-		} else {
-		await _AuthorService.UnfollowAuthor(GetLoggedInUser(), AuthorToFollowUsername);
-		return RedirectToPage();
+		if (!await IsFollowing(AuthorToFollowUsername))
+		{
+			await _AuthorService.FollowAuthor(GetLoggedInUser(), AuthorToFollowUsername);
+			return RedirectToPage();
 		}
-		
+		else
+		{
+			await _AuthorService.UnfollowAuthor(GetLoggedInUser(), AuthorToFollowUsername);
+			return RedirectToPage();
+		}
+
 	}
 
 	public async Task<Boolean> IsFollowing(string AuthorToFollowUnfollowUsername)
