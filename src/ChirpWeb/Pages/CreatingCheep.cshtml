@@ -1,0 +1,29 @@
+@page
+@model ChirpWeb.Pages.CreateCheepModel
+@{
+    ViewData["Title"] = "Create Cheep";
+    Layout = "_Layout";
+}
+
+<h2>Create a New Cheep</h2>
+
+<form method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <textarea asp-for="CheepText"></textarea>
+    <span asp-validation-for="CheepText" class="text-danger"></span>
+    <button type="submit">Submit</button>
+</form>
+@*
+<form method="post">
+<div class = "form-group">
+<label for= "CheepText" >Your Cheep</label>
+<textarea id="CheepText" name="CheepText" asp-for="CheepText" class="from-control" required></textarea>
+<span asp-validation-for="CheepText" class="text-danger"></span>
+</div>
+<button type = "submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}*@

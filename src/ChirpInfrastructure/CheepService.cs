@@ -1,6 +1,9 @@
-using ChirpCore.DTOs;
+using System.Data;
 using ChirpRepositories;
-
+using ChirpCore.DTOs;
+using ChirpCore.Domain;
+using ChirpInfrastructure;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace ChirpServices;
@@ -15,17 +18,19 @@ public interface ICheepService
     public List<CheepDTO> GetCheeps(int pageNumber);
     public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
     public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
-    
+    public Task<int> CreateCheepAsync(int userId, string userName, string text);
 }
 
 public class CheepService : ICheepService
 {
-	private readonly ICheepRepository _repository;
+    private readonly ICheepRepository _repository;
+    private readonly ChirpDBContext _context;
 
-	public CheepService(ICheepRepository repository)
-	{
-		_repository = repository;
-	}
+    public CheepService(ICheepRepository repository, ChirpDBContext context)
+    {
+        _repository = repository;
+        _context = context;
+    }
     private static readonly List<CheepDTO> _cheeps = [];
 
     public List<CheepDTO> GetCheeps(int pageNumber)
@@ -42,10 +47,11 @@ public class CheepService : ICheepService
         return _cheeps;
     }
 
-    public async Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pagenumber) {
+    public async Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pagenumber)
+    {
         _cheeps.Clear();
         var list = await _repository.ReadCheepsFromFollowListAsync(author, pagenumber);
-        
+
         //read each CheepObject from CheepRepository
         foreach (CheepDTO cheep in list)
         {
@@ -53,7 +59,7 @@ public class CheepService : ICheepService
         }
 
         return _cheeps;
-        
+
     }
     //Sorts cheep after the string author. We use this for author timelines
     public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pagenumber)
@@ -62,7 +68,7 @@ public class CheepService : ICheepService
 
         _cheeps.Clear();
         var list = await _repository.ReadCheepsFromAuthorAsync(author, pagenumber);
-        
+
         //read each CheepObject from CheepRepository
         foreach (CheepDTO cheep in list)
         {
@@ -70,5 +76,41 @@ public class CheepService : ICheepService
         }
 
         return _cheeps;
+    }
+    public async Task<int> CreateCheepAsync(int userId, string userName, string text)
+    {
+        Console.WriteLine($"Creating cheep for user {userId} with text: {text}");
+
+        // If the user is anonymous, we don't associate them with an Author.
+        Author? author = null;
+        if (userId != 0)
+        {
+            author = await _context.Authors.FirstOrDefaultAsync(a => a.Id == userId.ToString());
+            if (author == null)
+            {
+                throw new Exception("Author not found");
+            }
+        }
+
+        // Create a new Cheep object
+        var newCheep = new Cheep
+        {
+            CheepId = await _repository.GenerateNextCheepIdAsync(),
+            //Id = userId,
+            Author = author,
+            Text = text,
+            TimeStamp = DateTime.UtcNow
+        };
+
+        if (author != null)
+        {
+            author.Cheeps.Add(newCheep);
+        }
+
+        // Add the Cheep to the database context
+        await _context.Cheeps.AddAsync(newCheep);
+        await _context.SaveChangesAsync();
+        Console.WriteLine("Cheep successfully saved to database.");
+        return newCheep.CheepId;
     }
 }
