@@ -35,7 +35,7 @@ public class UserTimelineModel : PageModel
 	{
 		currentPage = pageNumber;
 		if(!_signInManager.IsSignedIn(User)){
-Cheeps = await _CheepService.GetCheepsFromAuthorAsync(author, currentPage);
+			Cheeps = await _CheepService.GetCheepsFromAuthorAsync(author, currentPage);
 		
 		}
 		else if (GetLoggedInUser().Equals(author)) {

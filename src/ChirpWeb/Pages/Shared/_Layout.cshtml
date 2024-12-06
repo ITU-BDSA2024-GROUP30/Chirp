@@ -14,13 +14,12 @@
         <h1><img src="/images/icon1.png" alt="Icon1" />Chirp!</h1>
 
         <div class=navigation>
-            @if (User.Identity.IsAuthenticated)
+            <partial name="_LoginPartial" />
+
+            @*@if (User.Identity.IsAuthenticated)
             {
                 <div>
-                    <a href="/@(User.Identity.Name)">my timeline</a> |
-                    <a href="/">public timeline</a> |
-                    <a href="/CreateCheep">Create a Cheep</a> |
-                    <a ...>logout [@(User.Identity.Name)]</a>
+                    <partial name="_LoginPartial" />
                 </div>
             }
             else
@@ -29,8 +28,7 @@
                     <a href="/CreateCheep">Create a Cheep</a> |
                     <partial name="_LoginPartial" />
                 </div>
-            }
-            @*<partial name="_LoginPartial" />*@
+            }*@
         </div>
 
         <div class=body>

@@ -57,8 +57,7 @@ namespace ChirpWeb.Pages
                 await _repository.AddCheepAsync(newCheep);
 
                 Console.WriteLine("Cheep created successfully!");
-
-                return RedirectToPage("/Index"); // Redirect after success
+                return RedirectToPage(); // Redirect after success
             }
             catch (Exception ex)
             {
