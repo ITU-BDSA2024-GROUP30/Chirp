@@ -49,14 +49,14 @@ namespace ChirpWeb.Pages
                 {
                     CheepId = await _repository.GenerateNextCheepIdAsync(),
                     Text = CheepText,
-                    TimeStamp = DateTime.UtcNow,
+                    TimeStamp = DateTime.Now, //UtcNow,
                     Author = author
                 };
 
                 // Save the Cheep using the repository
                 await _repository.AddCheepAsync(newCheep);
 
-                Console.WriteLine("Cheep created successfully!");
+                //Console.WriteLine("Cheep created successfully!");
                 return LocalRedirect("/");
                 //return RedirectToPage(); // Redirect after success
             }
