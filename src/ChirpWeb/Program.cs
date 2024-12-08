@@ -69,7 +69,7 @@ public partial class Program
 				o.Scope.Add("user:email");
 			});
 
-		builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = true)
+		builder.Services.AddDefaultIdentity<Author>(options => options.SignIn.RequireConfirmedAccount = false)
 		.AddDefaultUI()
 		.AddDefaultTokenProviders()
 		.AddEntityFrameworkStores<ChirpDBContext>();
