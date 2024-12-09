@@ -83,19 +83,22 @@ public class CheepService : ICheepService
 			  // should call methods in CheepRepository instead of doing it itseld
         Console.WriteLine($"Creating cheep for user {userId} with text: {text}");
 
+			 // Insert a method to find an author here.
+
         // Create a new Cheep object (should be given to CheepRepository)
+				/*
         var newCheep = new Cheep
         {
             CheepId = await _repository.GenerateNextCheepIdAsync(),
             Author = author,
             Text = text,
             TimeStamp = DateTime.Now
-        };
-
+        }; */
+				/*
         if (author != null)
         {
             author.Cheeps.Add(newCheep);
-        }
+        } */
 
         // Add the Cheep to the database context
         await _context.Cheeps.AddAsync(newCheep);
