@@ -18,7 +18,7 @@ public interface ICheepService
     public List<CheepDTO> GetCheeps(int pageNumber);
     public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
     public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
-    public Task<int> CreateCheepAsync(int userId, string userName, string text);
+    //public Task<int> CreateCheepAsync(int userId, string userName, string text);
 }
 
 public class CheepService : ICheepService
@@ -78,9 +78,10 @@ public class CheepService : ICheepService
     }
 
 	  // Method currently not in use, but should be implemented with calls to CheepRepository
+	  /*
     public async Task<int> CreateCheepAsync(int userId, string userName, string text)
     {
-				/*  
+				 
 		 		// should call methods in CheepRepository instead of doing it itseld
         Console.WriteLine($"Creating cheep for user {userId} with text: {text}");
 
@@ -104,6 +105,6 @@ public class CheepService : ICheepService
         // Add the Cheep to the database context
         await _context.Cheeps.AddAsync(newCheep);
         await _context.SaveChangesAsync();
-        return newCheep.CheepId; */
-    }
+        return newCheep.CheepId; 
+    }*/
 }
