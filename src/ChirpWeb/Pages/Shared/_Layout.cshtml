@@ -15,6 +15,20 @@
 
         <div class=navigation>
             <partial name="_LoginPartial" />
+
+            @*@if (User.Identity.IsAuthenticated)
+            {
+                <div>
+                    <partial name="_LoginPartial" />
+                </div>
+            }
+            else
+            {
+                <div>
+                    <a href="/CreateCheep">Create a Cheep</a> |
+                    <partial name="_LoginPartial" />
+                </div>
+            }*@
         </div>
 
         <div class=body>
@@ -30,3 +44,7 @@
 @await RenderSectionAsync("Scripts", required: false)
 
 </html>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -25,6 +25,9 @@ public interface ICheepRepository
 	public Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string author, int pageNumber);
 	public Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber);
 	public Task<Author> GetAuthorFromUsernameAsync(string? Username);
+	//public Task<Author?> GetAuthorByIdAsync(int userId);
+	Task<int> GenerateNextCheepIdAsync();
+	Task<int> AddCheepAsync(Cheep newCheep);
 }
 public class CheepRepository : ICheepRepository
 {
@@ -38,6 +41,19 @@ public class CheepRepository : ICheepRepository
 		_context = context;
 		_AuthorRepository = AuthorRepository;
 	}
+
+	public async Task<int> GenerateNextCheepIdAsync()
+	{
+		return await _context.Cheeps.AnyAsync() ? await _context.Cheeps.MaxAsync(c => c.CheepId) + 1 : 1;
+	}
+
+	public async Task<int> AddCheepAsync(Cheep newCheep)
+	{
+		await _context.Cheeps.AddAsync(newCheep);
+		await _context.SaveChangesAsync();
+		return newCheep.CheepId;
+	}
+
 	/*public Cheep CreateCheep(){
 
 		}
@@ -62,7 +78,13 @@ public class CheepRepository : ICheepRepository
 	public async Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber)
 	{
 		Author Author = await GetAuthorFromUsernameAsync(AuthorName);
-		var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
+		if (Author == null)
+		{
+			throw new Exception($"Author with username '{AuthorName}' not found.");
+		}
+		var query = _context.Cheeps
+						.Include(cheep => cheep.Author) // Ensure Author is loaded.
+						.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
 						.Where(Cheep => Cheep.Author.Id == Author.Id)
 						//orders by the domainmodel timestamp, which is datetime type
 						.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
@@ -73,7 +95,7 @@ public class CheepRepository : ICheepRepository
 						))
 						.Skip((PageNumber - 1) * pageSize)
 						.Take(pageSize);
-		var ListOfCheeps = query.ToList();
+		var ListOfCheeps = await query.ToListAsync();
 		return ListOfCheeps;
 	}
 
@@ -84,6 +106,10 @@ public class CheepRepository : ICheepRepository
 		var ListOfCheeps = new List<CheepDTO>();
 		foreach (Author author in AuthorToGetFrom.Follows)
 		{
+			if (string.IsNullOrEmpty(author?.UserName))
+			{
+				continue; // Skip this follower if UserName is null.
+			}
 			if (author.UserName == null)
 			{
 				throw new ArgumentNullException(author.UserName);
@@ -120,6 +146,9 @@ public class CheepRepository : ICheepRepository
 		{
 			throw new ArgumentNullException(Username);
 		}
-		return await _context.Authors.Include(a => a.Follows).Where(Author => Author.UserName == Username).FirstAsync();
+		return await _context.Authors
+		.Include(a => a.Follows)
+		.Where(author => author.UserName == Username)
+		.FirstOrDefaultAsync();
 	}
 }
