@@ -65,7 +65,6 @@ public class CheepService : ICheepService
     public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pagenumber)
 
     {
-
         _cheeps.Clear();
         var list = await _repository.ReadCheepsFromAuthorAsync(author, pagenumber);
 
@@ -77,29 +76,20 @@ public class CheepService : ICheepService
 
         return _cheeps;
     }
+
+	  // Method currently not in use, but should be implemented with calls to CheepRepository
     public async Task<int> CreateCheepAsync(int userId, string userName, string text)
     {
+			  // should call methods in CheepRepository instead of doing it itseld
         Console.WriteLine($"Creating cheep for user {userId} with text: {text}");
 
-        // If the user is anonymous, we don't associate them with an Author.
-        Author? author = null;
-        if (userId != 0)
-        {
-            author = await _context.Authors.FirstOrDefaultAsync(a => a.Id == userId.ToString());
-            if (author == null)
-            {
-                throw new Exception("Author not found");
-            }
-        }
-
-        // Create a new Cheep object
+        // Create a new Cheep object (should be given to CheepRepository)
         var newCheep = new Cheep
         {
             CheepId = await _repository.GenerateNextCheepIdAsync(),
-            //Id = userId,
             Author = author,
             Text = text,
-            TimeStamp = DateTime.UtcNow
+            TimeStamp = DateTime.Now
         };
 
         if (author != null)
@@ -110,7 +100,6 @@ public class CheepService : ICheepService
         // Add the Cheep to the database context
         await _context.Cheeps.AddAsync(newCheep);
         await _context.SaveChangesAsync();
-        Console.WriteLine("Cheep successfully saved to database.");
         return newCheep.CheepId;
     }
 }
