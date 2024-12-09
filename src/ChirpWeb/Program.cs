@@ -1,20 +1,20 @@
+using AspNet.Security.OAuth.GitHub;
+using ChirpCore;
 using ChirpCore.Domain;
+using ChirpCore.DTOs;
 using ChirpInfrastructure;
 using ChirpRepositories;
 using ChirpServices;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-using AspNet.Security.OAuth.GitHub;
-using ChirpCore;
-using ChirpCore.DTOs;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 
 
@@ -79,7 +79,6 @@ public partial class Program
 		//Below 2 lines helps create Cheeps on the website and show Cheeps.
 		builder.Services.AddScoped<ICheepService, CheepService>();
 		builder.Services.AddScoped<ICheepRepository, CheepRepository>();
-		//for future migrations
 		builder.Services.AddScoped<IAuthorService, AuthorService>();
 		builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 

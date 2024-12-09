@@ -1,9 +1,9 @@
-using System.Data;
-using ChirpRepositories;
-using ChirpCore.DTOs;
 using ChirpCore.Domain;
+using ChirpCore.DTOs;
 using ChirpInfrastructure;
+using ChirpRepositories;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 
 namespace ChirpServices;
