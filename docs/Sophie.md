@@ -1,4 +1,5 @@
 $$
+MATH
 \begin{document}
     \section{Testing functionalities}
     This is a test.\newline
