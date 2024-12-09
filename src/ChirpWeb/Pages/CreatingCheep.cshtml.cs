@@ -20,7 +20,7 @@ namespace ChirpWeb.Pages
         }
         [BindProperty]
         [Required(ErrorMessage = "Please enter a message for your Cheep.")]
-        [StringLength(280, ErrorMessage = "Cheep cannot exceed 280 characters.")]
+        [StringLength(160, ErrorMessage = "Cheep cannot exceed 160 characters.")]
         public string CheepText { get; set; }
 
         //currently chat
@@ -33,32 +33,23 @@ namespace ChirpWeb.Pages
 
             try
             {
-                /*int userId = 0;
-                string userName = "Anonymous";
-
-                if (User.Identity.IsAuthenticated)
-                {
-                    userId = int.Parse(User.FindFirst("sub")?.Value ?? "0");
-                    userName = User.Identity.Name ?? "Anonymous";
-                }*/
-
                 //Console.WriteLine($"Attempting to create Cheep by userId: {userId}, userName: {userName}");
-                Author author = await _userManager.FindByNameAsync(User.Identity.Name); // await _userManager.FindByIdAsync(userId.ToString()) ??
-                // Create the Cheep object
+                Author author = await _userManager.FindByNameAsync(User.Identity.Name);
+                
+								// Create the Cheep object (should be moved to CheepService and from there to CheepRepository)
                 var newCheep = new Cheep
                 {
                     CheepId = await _repository.GenerateNextCheepIdAsync(),
                     Text = CheepText,
-                    TimeStamp = DateTime.Now, //UtcNow,
+                    TimeStamp = DateTime.Now,
                     Author = author
                 };
 
-                // Save the Cheep using the repository
+                // Save the new Cheep using the CheepRepository (should be CheepService instead)
                 await _repository.AddCheepAsync(newCheep);
 
-                //Console.WriteLine("Cheep created successfully!");
+                //After creating the cheep, redirect to Public Timeline
                 return LocalRedirect("/");
-                //return RedirectToPage(); // Redirect after success
             }
             catch (Exception ex)
             {
@@ -67,42 +58,5 @@ namespace ChirpWeb.Pages
                 return Page();
             }
         }
-
-        /*public async Task<IActionResult> OnPostAsync()
-        {   
-            // Validate input
-            if (string.IsNullOrWhiteSpace(CheepText))
-            {
-                ModelState.AddModelError(string.Empty, "Message cannot be empty.");
-                return Page();
-            }
-
-                // Get the user ID, or 0 for anonymous
-            int userId = 0; // default for anonymous user
-            string userName = "Anonymous";
-
-            if (User.Identity.IsAuthenticated)
-            {
-                // Get the user ID if the user is authenticated (e.g., from a ClaimsPrincipal)
-                //userId = int.Parse(User.Identity.Name);
-                userName = User.Identity.Name; // Or use User.Claims for more specific handling
-            }
-
-            try
-            {
-                // Call the repository to create the new Cheep
-                //int cheepId = await _repository.CreateCheepAsync(userId, Text);
-                await _repository.CreateCheepAsync(userId, userName, CheepText);
-                return RedirectToPage("/Timeline"); // Redirect to the homepage
-
-            }
-            catch (Exception ex)
-            {
-                //ErrorMessage = $"Error creating Cheep: {ex.Message}";
-                ModelState.AddModelError(string.Empty, $"Error creating Cheep: {ex.Message}");
-                return Page();
-            }
-        }*/
-
     }
 }
