@@ -8,10 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChirpServices;
 
-//namespace confuses the foreach loop on line 23, but we should find a way to implement
-//namespace ChirpServices;
-
-//public record Cheep(string Author, string Message, string Timestamp);
 
 public interface ICheepService
 {
@@ -81,30 +77,30 @@ public class CheepService : ICheepService
 	  /*
     public async Task<int> CreateCheepAsync(int userId, string userName, string text)
     {
-				 
+
 		 		// should call methods in CheepRepository instead of doing it itseld
         Console.WriteLine($"Creating cheep for user {userId} with text: {text}");
 
 			 // Insert a method to find an author here.
 
         // Create a new Cheep object (should be given to CheepRepository)
-				
+
         var newCheep = new Cheep
         {
             CheepId = await _repository.GenerateNextCheepIdAsync(),
             Author = author,
             Text = text,
             TimeStamp = DateTime.Now
-        }; 
-				
+        };
+
         if (author != null)
         {
             author.Cheeps.Add(newCheep);
-        } 
+        }
 
         // Add the Cheep to the database context
         await _context.Cheeps.AddAsync(newCheep);
         await _context.SaveChangesAsync();
-        return newCheep.CheepId; 
+        return newCheep.CheepId;
     }*/
 }

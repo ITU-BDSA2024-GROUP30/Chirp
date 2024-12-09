@@ -14,8 +14,8 @@ public interface IAuthorRepository
 	public void DeleteAuthorFromDatabase();
 	public Task<Author> GetAuthorFromUsername(string Username);
 	public Task<Boolean> IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername);
-  	public Task AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
-  	public Task RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
+	public Task AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
+	public Task RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
 }
 
 public class AuthorRepository : IAuthorRepository
@@ -43,49 +43,51 @@ public class AuthorRepository : IAuthorRepository
 
 	public async Task<Author> GetAuthorFromUsername(string? Username)
 	{
-		if (Username == null){
+		if (Username == null)
+		{
 			throw new ArgumentNullException(Username);
 		}
-		return await _context.Authors.Include(a=>a.Follows).Where(Author => Author.UserName == Username).FirstAsync();	
+		return await _context.Authors.Include(a => a.Follows).Where(Author => Author.UserName == Username).FirstAsync();
 	}
 
 	public async Task<Boolean> IsFollowing(string? LoggedInAuthorUsername, string? AuthorToFollowUsername)
 	{
-		
+
 		Author? LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
 
-    	Author? AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
-		if (LoggedInAuthorUsername == null || AuthorToFollowUsername == null) {
+		Author? AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
+		if (LoggedInAuthorUsername == null || AuthorToFollowUsername == null)
+		{
 			throw new ArgumentNullException("Usernames null");
 		}
-		
+
 		//Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
 		//Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
-		
+
 		if (LoggedInAuthor.Follows.Contains(AuthorToFollow))
 		{
 			return true;
 		}
-			else
+		else
 		{
 			return false;
 		}
 	}
 
-  public async Task AddAuthorToFollowList(string LoggedInAuthorUsername, string AuthorToFollowUsername)
-  {
-	Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
-	Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
-	
-	LoggedInAuthor.Follows.Add(AuthorToFollow);
-	await _context.SaveChangesAsync();
-  }
+	public async Task AddAuthorToFollowList(string LoggedInAuthorUsername, string AuthorToFollowUsername)
+	{
+		Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
+		Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
 
-  public async Task RemoveAuthorFromFollowList(string LoggedInAuthorUsername, string AuthorToUnfollowUsername)
-  {
-	Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
-	Author AuthorToUnfollow = await GetAuthorFromUsername(AuthorToUnfollowUsername);
-	LoggedInAuthor.Follows.Remove(AuthorToUnfollow);
-	await _context.SaveChangesAsync();
-  }
+		LoggedInAuthor.Follows.Add(AuthorToFollow);
+		await _context.SaveChangesAsync();
+	}
+
+	public async Task RemoveAuthorFromFollowList(string LoggedInAuthorUsername, string AuthorToUnfollowUsername)
+	{
+		Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
+		Author AuthorToUnfollow = await GetAuthorFromUsername(AuthorToUnfollowUsername);
+		LoggedInAuthor.Follows.Remove(AuthorToUnfollow);
+		await _context.SaveChangesAsync();
+	}
 }
