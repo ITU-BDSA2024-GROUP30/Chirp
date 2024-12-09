@@ -1,5 +1,4 @@
-$$
-MATH
+$
 \begin{document}
     \section{Testing functionalities}
     This is a test.\newline
@@ -13,4 +12,4 @@ MATH
         \label{fig: CheepCheep}
     \end{figure}
 \end{document}
-$$
+$
