@@ -54,7 +54,7 @@ public class CheepRepository : ICheepRepository
 		return newCheep.CheepId;
 	}
 
-	
+
 	public List<CheepDTO> ReadCheeps(int pageNumber)
 	{
 		//query for getting every cheep

@@ -1,6 +1,7 @@
+using ChirpCore.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using ChirpCore.Domain;
+
 
 namespace ChirpInfrastructure;
 
@@ -21,10 +22,10 @@ public class ChirpDBContext : IdentityDbContext<Author>
 		modelBuilder.Entity<Author>().HasIndex(a => a.Email).IsUnique();
 		//Below method structure from ChatGpt
 		modelBuilder.Entity<Author>()
-            .HasMany(a => a.Follows)
-            .WithMany()
-            .UsingEntity(join => join.ToTable("AuthorFollows"));
-			
+						.HasMany(a => a.Follows)
+						.WithMany()
+						.UsingEntity(join => join.ToTable("AuthorFollows"));
+
 		// Below lines 30-37 are from ChatGPT to help ensure the Id in Cheep is a foreign key.
 		/*
 		modelBuilder.Entity<Cheep>(entity =>

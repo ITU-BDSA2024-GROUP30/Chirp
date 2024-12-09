@@ -11,96 +11,96 @@ namespace ChirpServices;
 
 public interface ICheepService
 {
-    public List<CheepDTO> GetCheeps(int pageNumber);
-    public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
-    public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
-    //public Task<int> CreateCheepAsync(int userId, string userName, string text);
+	public List<CheepDTO> GetCheeps(int pageNumber);
+	public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
+	public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
+	//public Task<int> CreateCheepAsync(int userId, string userName, string text);
 }
 
 public class CheepService : ICheepService
 {
-    private readonly ICheepRepository _repository;
-    private readonly ChirpDBContext _context;
+	private readonly ICheepRepository _repository;
+	private readonly ChirpDBContext _context;
 
-    public CheepService(ICheepRepository repository, ChirpDBContext context)
-    {
-        _repository = repository;
-        _context = context;
-    }
-    private static readonly List<CheepDTO> _cheeps = [];
+	public CheepService(ICheepRepository repository, ChirpDBContext context)
+	{
+		_repository = repository;
+		_context = context;
+	}
+	private static readonly List<CheepDTO> _cheeps = [];
 
-    public List<CheepDTO> GetCheeps(int pageNumber)
-    {
-        _cheeps.Clear();
-        var list = _repository.ReadCheeps(pageNumber);
+	public List<CheepDTO> GetCheeps(int pageNumber)
+	{
+		_cheeps.Clear();
+		var list = _repository.ReadCheeps(pageNumber);
 
-        //read each CheepObject from CheepRepository
-        foreach (CheepDTO cheep in list)
-        {
-            _cheeps.Add(cheep);
-        }
+		//read each CheepObject from CheepRepository
+		foreach (CheepDTO cheep in list)
+		{
+			_cheeps.Add(cheep);
+		}
 
-        return _cheeps;
-    }
+		return _cheeps;
+	}
 
-    public async Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pagenumber)
-    {
-        _cheeps.Clear();
-        var list = await _repository.ReadCheepsFromFollowListAsync(author, pagenumber);
+	public async Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pagenumber)
+	{
+		_cheeps.Clear();
+		var list = await _repository.ReadCheepsFromFollowListAsync(author, pagenumber);
 
-        //read each CheepObject from CheepRepository
-        foreach (CheepDTO cheep in list)
-        {
-            _cheeps.Add(cheep);
-        }
+		//read each CheepObject from CheepRepository
+		foreach (CheepDTO cheep in list)
+		{
+			_cheeps.Add(cheep);
+		}
 
-        return _cheeps;
+		return _cheeps;
 
-    }
-    //Sorts cheep after the string author. We use this for author timelines
-    public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pagenumber)
+	}
+	//Sorts cheep after the string author. We use this for author timelines
+	public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pagenumber)
 
-    {
-        _cheeps.Clear();
-        var list = await _repository.ReadCheepsFromAuthorAsync(author, pagenumber);
+	{
+		_cheeps.Clear();
+		var list = await _repository.ReadCheepsFromAuthorAsync(author, pagenumber);
 
-        //read each CheepObject from CheepRepository
-        foreach (CheepDTO cheep in list)
-        {
-            _cheeps.Add(cheep);
-        }
+		//read each CheepObject from CheepRepository
+		foreach (CheepDTO cheep in list)
+		{
+			_cheeps.Add(cheep);
+		}
 
-        return _cheeps;
-    }
+		return _cheeps;
+	}
 
-	  // Method currently not in use, but should be implemented with calls to CheepRepository
-	  /*
-    public async Task<int> CreateCheepAsync(int userId, string userName, string text)
-    {
+	// Method currently not in use, but should be implemented with calls to CheepRepository
+	/*
+	public async Task<int> CreateCheepAsync(int userId, string userName, string text)
+	{
 
-		 		// should call methods in CheepRepository instead of doing it itseld
-        Console.WriteLine($"Creating cheep for user {userId} with text: {text}");
+			// should call methods in CheepRepository instead of doing it itseld
+			Console.WriteLine($"Creating cheep for user {userId} with text: {text}");
 
-			 // Insert a method to find an author here.
+		 // Insert a method to find an author here.
 
-        // Create a new Cheep object (should be given to CheepRepository)
+			// Create a new Cheep object (should be given to CheepRepository)
 
-        var newCheep = new Cheep
-        {
-            CheepId = await _repository.GenerateNextCheepIdAsync(),
-            Author = author,
-            Text = text,
-            TimeStamp = DateTime.Now
-        };
+			var newCheep = new Cheep
+			{
+					CheepId = await _repository.GenerateNextCheepIdAsync(),
+					Author = author,
+					Text = text,
+					TimeStamp = DateTime.Now
+			};
 
-        if (author != null)
-        {
-            author.Cheeps.Add(newCheep);
-        }
+			if (author != null)
+			{
+					author.Cheeps.Add(newCheep);
+			}
 
-        // Add the Cheep to the database context
-        await _context.Cheeps.AddAsync(newCheep);
-        await _context.SaveChangesAsync();
-        return newCheep.CheepId;
-    }*/
+			// Add the Cheep to the database context
+			await _context.Cheeps.AddAsync(newCheep);
+			await _context.SaveChangesAsync();
+			return newCheep.CheepId;
+	}*/
 }
