@@ -150,7 +150,5 @@ public class CheepRepository : ICheepRepository
 		.Include(a => a.Follows)
 		.Where(author => author.UserName == Username)
 		.FirstOrDefaultAsync();
-
-		//return await _context.Authors.Include(a => a.Follows).Where(Author => Author.UserName == Username).FirstAsync();
 	}
 }
