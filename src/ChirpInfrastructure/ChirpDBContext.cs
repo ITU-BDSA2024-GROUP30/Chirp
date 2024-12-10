@@ -2,7 +2,6 @@ using ChirpCore.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-
 namespace ChirpInfrastructure;
 
 public class ChirpDBContext : IdentityDbContext<Author>
@@ -39,4 +38,8 @@ public class ChirpDBContext : IdentityDbContext<Author>
 		});*/
 	}
 
+  internal void RemoveRange(object cheepToRemove)
+  {
+	throw new NotImplementedException();
+  }
 }

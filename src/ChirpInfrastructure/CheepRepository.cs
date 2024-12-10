@@ -28,6 +28,8 @@ public interface ICheepRepository
 	//public Task<Author?> GetAuthorByIdAsync(int userId);
 	Task<int> GenerateNextCheepIdAsync();
 	Task<int> AddCheepAsync(Cheep newCheep);
+
+	public Task forgetCheepsFromUser(string userName);
 }
 public class CheepRepository : ICheepRepository
 {
@@ -148,4 +150,16 @@ public class CheepRepository : ICheepRepository
 		.Where(author => author.UserName == Username)
 		.FirstOrDefaultAsync();
 	}
+
+	public async Task forgetCheepsFromUser(string userName) {
+		var cheepToRemove = _context.Cheeps.Where(h => h.Author!.UserName == userName);
+		_context.RemoveRange(cheepToRemove);
+		//await _context.SaveChangeAsync(); //would save changes in database as well
+		return;
+	}
+
+  Task ICheepRepository.forgetCheepsFromUser(string userName)
+  {
+	throw new NotImplementedException();
+  }
 }

@@ -56,4 +56,17 @@ public class UserTimelineModel : PageModel
 		return Page();
 	}
 
+	public async Task<IActionResult> OnPostAsync() {
+		var user = await _CheepService.GetCheepsFromAuthorAsync(User.Identity?.Name!, currentPage);
+		if (user == null) {
+			return NotFound($"Unable to forget others that you are not logged in to");
+		}
+
+		var resultOfForgetingThese = await _CheepService.forgetThese(User.Identity?.Name!);
+
+		await _signInManager.SignOutAsync();
+
+		return Redirect("~/");
+	}
+
 }

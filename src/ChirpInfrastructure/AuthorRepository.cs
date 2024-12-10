@@ -11,11 +11,13 @@ public interface IAuthorRepository
 {
 	public void AddAuthorToDatabase();
 	public void LoginAuthor();
-	public void DeleteAuthorFromDatabase();
+	public Task DeleteAuthorFromDatabase(string UserName);
 	public Task<Author> GetAuthorFromUsername(string Username);
 	public Task<Boolean> IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername);
 	public Task AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
 	public Task RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
+
+	//public Task RemoveAuthor(string Username);
 }
 
 public class AuthorRepository : IAuthorRepository
@@ -39,7 +41,14 @@ public class AuthorRepository : IAuthorRepository
 
 	//this method is used when an Author unfollows another Author
 
-	public void DeleteAuthorFromDatabase() { }
+	public async Task DeleteAuthorFromDatabase(string userName)
+	{
+
+		Author author = _context.Authors.Single(h => h.UserName == userName);
+		_context.Remove(author);
+
+		await _context.SaveChangesAsync();
+	}
 
 	public async Task<Author> GetAuthorFromUsername(string? Username)
 	{
@@ -90,4 +99,15 @@ public class AuthorRepository : IAuthorRepository
 		LoggedInAuthor.Follows.Remove(AuthorToUnfollow);
 		await _context.SaveChangesAsync();
 	}
+
+
+	/*public async Task RemoveAuthor(string Username) {
+		if (Username != null)
+		{
+			Author LoggedInAuthorToRemove = await GetAuthorFromUsername(Username);
+		}
+		else {
+			Console.WriteLine("User not found, Log in to continue!:3");
+		}
+	}*/
 }

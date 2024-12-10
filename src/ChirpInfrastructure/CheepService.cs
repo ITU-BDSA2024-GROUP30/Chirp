@@ -15,16 +15,18 @@ public interface ICheepService
 	public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
 	public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
 	//public Task<int> CreateCheepAsync(int userId, string userName, string text);
+	public Task<Boolean> forgetThese(string userName);
 }
 
 public class CheepService : ICheepService
 {
-	private readonly ICheepRepository _repository;
+	private readonly ICheepRepository _cheepRepository;
+	//private readonly IAuthorRepository _authorRepository;
 	private readonly ChirpDBContext _context;
 
-	public CheepService(ICheepRepository repository, ChirpDBContext context)
+	public CheepService(ICheepRepository cheepRepository, ChirpDBContext context)
 	{
-		_repository = repository;
+		_cheepRepository = cheepRepository;
 		_context = context;
 	}
 	private static readonly List<CheepDTO> _cheeps = [];
@@ -32,7 +34,7 @@ public class CheepService : ICheepService
 	public List<CheepDTO> GetCheeps(int pageNumber)
 	{
 		_cheeps.Clear();
-		var list = _repository.ReadCheeps(pageNumber);
+		var list = _cheepRepository.ReadCheeps(pageNumber);
 
 		//read each CheepObject from CheepRepository
 		foreach (CheepDTO cheep in list)
@@ -46,7 +48,7 @@ public class CheepService : ICheepService
 	public async Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pagenumber)
 	{
 		_cheeps.Clear();
-		var list = await _repository.ReadCheepsFromFollowListAsync(author, pagenumber);
+		var list = await _cheepRepository.ReadCheepsFromFollowListAsync(author, pagenumber);
 
 		//read each CheepObject from CheepRepository
 		foreach (CheepDTO cheep in list)
@@ -62,7 +64,7 @@ public class CheepService : ICheepService
 
 	{
 		_cheeps.Clear();
-		var list = await _repository.ReadCheepsFromAuthorAsync(author, pagenumber);
+		var list = await _cheepRepository.ReadCheepsFromAuthorAsync(author, pagenumber);
 
 		//read each CheepObject from CheepRepository
 		foreach (CheepDTO cheep in list)
@@ -72,6 +74,21 @@ public class CheepService : ICheepService
 
 		return _cheeps;
 	}
+
+	public async Task<Boolean> forgetThese(string userName) {
+		try
+		{
+			await _cheepRepository.forgetCheepsFromUser(userName);
+			return true;
+
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e.Message);
+			return false;
+		 }
+	}
+
 
 	// Method currently not in use, but should be implemented with calls to CheepRepository
 	/*
@@ -87,7 +104,7 @@ public class CheepService : ICheepService
 
 			var newCheep = new Cheep
 			{
-					CheepId = await _repository.GenerateNextCheepIdAsync(),
+					CheepId = await _cheepRepository.GenerateNextCheepIdAsync(),
 					Author = author,
 					Text = text,
 					TimeStamp = DateTime.Now

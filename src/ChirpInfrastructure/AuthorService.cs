@@ -16,11 +16,11 @@ public interface IAuthorService
 
 public class AuthorService : IAuthorService
 {
-	private readonly IAuthorRepository _repository;
+	private readonly IAuthorRepository _AuthorRepository;
 	public AuthorService(IAuthorRepository repository)
 	{
 		//used when methods underneathe will be implemented
-		_repository = repository;
+		_AuthorRepository = repository;
 	}
 	//Used when an Author initially registers for our website.
 	//This method needs to invoke AddAuthor() from AuthorRepo, in order to add
@@ -41,19 +41,19 @@ public class AuthorService : IAuthorService
 	//Probably calls on UpdateAuthor() from AuthorRepo
 	public async Task FollowAuthor(string LoggedInAuthor, string AuthorToFollow)
 	{
-		await _repository.AddAuthorToFollowList(LoggedInAuthor, AuthorToFollow);
+		await _AuthorRepository.AddAuthorToFollowList(LoggedInAuthor, AuthorToFollow);
 	}
 
 	//Method for removing another Author from acting Author's follower list
 	//Probably calls on UpdateAuthor() from AuthorRepo
 	public async Task UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow)
 	{
-		await _repository.RemoveAuthorFromFollowList(LoggedInAuthor, AuthorToFollow);
+		await _AuthorRepository.RemoveAuthorFromFollowList(LoggedInAuthor, AuthorToFollow);
 	}
 
 	public Task<Boolean> IsFollowing(string LoggedInAuthor, string AuthorToFollow)
 	{
-		return _repository.IsFollowing(LoggedInAuthor, AuthorToFollow);
+		return _AuthorRepository.IsFollowing(LoggedInAuthor, AuthorToFollow);
 	}
 
 }
