@@ -10,20 +10,12 @@
 > "List all necessary steps that Adrian or Helge have to perform to execute your test suites. Here, you can assume that we already cloned your repository in the step above.
 >
 > Briefly describe what kinds of tests you have in your test suites and what they are testing."
--
--
 
 Assuming the repository is cloned:
 - Open a command line tool
-- Navigate to the root directory (/Chirp)
+- Navigate to the root directory (/Chirp) OR a specific test directory (e.g /Chirp/test/Chirp.ChirpCore.Tests)
 - Enter 'dotnet test' in the command line and press enter
-- All tests will now run
-
-Alternatively, testing from each testing directory:
-- Open a command line tool
-- Navigate to the specific test directory (e.g /Chirp/test/Chirp.ChirpCore.Tests)
-- Enter 'dotnet test' in the command line and press enter
-- Tests in the chosen test directory will now run
+- All tests will now run - if you're in a specific test directory, only tests for this directory run.
 
 Without cloning the repository:
 - Navigate to the website for the Chirp30 repository
