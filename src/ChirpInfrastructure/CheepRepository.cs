@@ -154,7 +154,7 @@ public class CheepRepository : ICheepRepository
 	public async Task forgetCheepsFromUser(string userName) {
 		var cheepToRemove = _context.Cheeps.Where(h => h.Author!.UserName == userName);
 		_context.RemoveRange(cheepToRemove);
-		//await _context.SaveChangeAsync(); //would save changes in database as well
+		await _context.SaveChangesAsync(); //would save changes in database as well
 		return;
 	}
 

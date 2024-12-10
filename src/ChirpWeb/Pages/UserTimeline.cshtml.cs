@@ -62,8 +62,8 @@ public class UserTimelineModel : PageModel
 			return NotFound($"Unable to forget others that you are not logged in to");
 		}
 
-		var resultOfForgetingThese = await _CheepService.forgetThese(User.Identity?.Name!);
-
+		var resultOfForgetingThese = await _CheepService.forgetThese(user.);
+		var resultOfForgetingThese2 = await _AuthorService.;
 		await _signInManager.SignOutAsync();
 
 		return Redirect("~/");
