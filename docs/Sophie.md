@@ -6,7 +6,7 @@
 
 
 ## How to run test suite locally
-![Illustration of the testing from the _Chirp!_ root directory.](/images/BDSA-testing-diagram.jpg)
+![Illustration of the testing from the _Chirp!_ root directory.](docs/images/BDSA-testing-diagram.jpg)
 <b>Assuming the repository is cloned:</b>
 - Open a command line tool
 - Navigate to the root directory (/Chirp) OR a specific test directory (e.g /Chirp/test/Chirp.ChirpCore.Tests)
