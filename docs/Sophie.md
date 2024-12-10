@@ -34,12 +34,10 @@ Up until the final few weeks we had API tests in Chirp.ChirpWeb.Tests, which tes
 >The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
 >THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
->>See our License.MD file in the root of our directory for associated Microsoft licenses.
+>>See our License.MD file in the root of our directory for the associated Microsoft licenses.
 
-We have used packages from Microsoft in our program (.NET, EFCore), from which all fall under the MIT License. As the MIT License is [GPL compatible][1], it means we could have chosen a different Open Source license for our [project][2]. However this would have been more intricate, as the different license we would choose would need to be compatible with the MIT license.
+We have used packages from Microsoft in our program (.NET, EFCore), from which all fall under the MIT License. As the MIT License is GPL compatible[^1], it means we could have chosen a different Open Source license for our project[^2]. However this would have been more intricate, as the different license we would choose would still need to be compatible with the MIT license.
 Therefore we too have decided to use the MIT license, such that all code in the program is under the same license.
 
-Helge's code under the MIT license? Only got this through verbal communication.
-
-[1]: <https://pitt.libguides.com/openlicensing/MIT#:~:text=MIT%20License%20Compatibility,project%20must%20of%20GPL%20compliant.>'Name for footnote here'
-[2]:<https://en.wikipedia.org/w/index.php?title=License_compatibility&section=3#Compatibility_of_FOSS_licenses>'NAme for footnote on license compat.'
+[^1]:'University of Pittsburgh, "Course & Subject Guides: MIT License Compatibility"' <https://pitt.libguides.com/openlicensing/MIT#:~:text=MIT%20License%20Compatibility,project%20must%20of%20GPL%20compliant.>
+[^2]:'Wikipedia: "License Compatibility: Compatibility of FOSS licenses"' <https://en.wikipedia.org/w/index.php?title=License_compatibility&section=3#Compatibility_of_FOSS_licenses>
