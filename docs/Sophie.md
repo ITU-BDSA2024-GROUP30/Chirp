@@ -24,10 +24,9 @@ Without cloning the repository:
 - Choose 'Run workflow' twice - let branch remain as 'main'
 - Observe the workflow where each test directory has its own job, which states the passes and fails of the tests
 
-
-- We have some unit tests, that test the chirp core part of the program, such as whether our domain entities can be created correctly and be related to each other.
-- We have a standard test in infrastructure, that should ALWAYS pass - this is our canary in the coalmine, if this test fails, our test suite is not functioning.
-- Some API tests in chirpweb, that test if we get expected outputs from the public and private timelines.
+In Chirp.ChirpCore.Tests we have unit tests. These test the ChirpCore part of the program by creating entities of our domain model types and testing whether they can be created correctly as well as test that Cheeps and Authors can be related to each other.
+We have a test in Chirp.ChirpInfrastructure.Tests that is independent of the program code. This test should ALWAYS pass - it is our canary in the coal mine. If this test fails, our test suite is not functioning.
+Up until the final few weeks we had API tests in Chirp.ChirpWeb.Tests, which tested if we got expected outputs from the public and private timelines. These tests were removed as we changed our database to run using an environment variable.
 
 
 ## License
