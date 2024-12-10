@@ -10,11 +10,32 @@
 > "List all necessary steps that Adrian or Helge have to perform to execute your test suites. Here, you can assume that we already cloned your repository in the step above.
 >
 > Briefly describe what kinds of tests you have in your test suites and what they are testing."
+-
+-
 
--Run dotnet test from src path (check if this is the correct placement) OR run 'build and test' workflow on github actions, which has a manual trigger and will run through each test folder.
--We have some unit tests, that test the chirp core part of the program, such as whether our domain entities can be created correctly and be related to each other.
--We have a standard test in infrastructure, that should ALWAYS pass - this is our canary in the coalmine, if this test fails, our test suite is not functioning.
--Some API tests in chirpweb, that test if we get expected outputs from the public and private timelines.
+Assuming the repository is cloned:
+- Open a command line tool
+- Navigate to the root directory (/Chirp)
+- Enter 'dotnet test' in the command line and press enter
+- All tests will now run
+
+Alternatively, testing from each testing directory:
+- Open a command line tool
+- Navigate to the specific test directory (e.g /Chirp/test/Chirp.ChirpCore.Tests)
+- Enter 'dotnet test' in the command line and press enter
+- Tests in the chosen test directory will now run
+
+Without cloning the repository:
+- Navigate to the website for the Chirp30 repository
+- Press 'Actions' in the upper toolbar
+- Choose workflow 'Build and Test .NET' in the list of workflows to the left
+- Choose 'Run workflow' twice - let branch remain as 'main'
+- Observe the workflow where each test directory has its own job, which states the passes and fails of the tests
+
+
+- We have some unit tests, that test the chirp core part of the program, such as whether our domain entities can be created correctly and be related to each other.
+- We have a standard test in infrastructure, that should ALWAYS pass - this is our canary in the coalmine, if this test fails, our test suite is not functioning.
+- Some API tests in chirpweb, that test if we get expected outputs from the public and private timelines.
 
 
 ## License
