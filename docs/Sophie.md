@@ -6,18 +6,13 @@
 
 
 ## How to run test suite locally
-
-> "List all necessary steps that Adrian or Helge have to perform to execute your test suites. Here, you can assume that we already cloned your repository in the step above.
->
-> Briefly describe what kinds of tests you have in your test suites and what they are testing."
-
-Assuming the repository is cloned:
+<b>Assuming the repository is cloned:</b>
 - Open a command line tool
 - Navigate to the root directory (/Chirp) OR a specific test directory (e.g /Chirp/test/Chirp.ChirpCore.Tests)
 - Enter 'dotnet test' in the command line and press enter
 - All tests will now run - if you're in a specific test directory, only tests for this directory run.
 
-Without cloning the repository:
+<b>Without cloning the repository:</b>
 - Navigate to the website for the Chirp30 repository
 - Press 'Actions' in the upper toolbar
 - Choose workflow 'Build and Test .NET' in the list of workflows to the left
@@ -26,7 +21,7 @@ Without cloning the repository:
 
 In Chirp.ChirpCore.Tests we have unit tests. These test the ChirpCore part of the program by creating entities of our domain model types and testing whether they can be created correctly as well as test that Cheeps and Authors can be related to each other.
 We have a test in Chirp.ChirpInfrastructure.Tests that is independent of the program code. This test should ALWAYS pass - it is our canary in the coal mine. If this test fails, our test suite is not functioning.
-Up until the final few weeks we had API tests in Chirp.ChirpWeb.Tests, which tested if we got expected outputs from the public and private timelines. These tests were removed as we changed our database to run using an environment variable.
+Up until the final few weeks we had API tests in Chirp.ChirpWeb.Tests, which tested if we got expected outputs from the public and private timelines. These tests were removed when we changed our database to run using an environment variable.
 
 
 ## License
