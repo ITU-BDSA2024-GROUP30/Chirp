@@ -9,11 +9,12 @@
 ![Illustration of the testing from the _Chirp!_ root directory.](/docs/images/BDSA-testing-diagram.png)
 <p></p>
 <b>Assuming the repository is cloned:</b>
+<p></p>
 - Open a command line tool
 - Navigate to the root directory (/Chirp) OR a specific test directory (e.g /Chirp/test/Chirp.ChirpCore.Tests)
 - Enter 'dotnet test' in the command line and press enter
 - All tests will now run - if you're in a specific test directory, only tests for this directory run.
-
+<p></p>
 <b>Without cloning the repository:</b>
 - Navigate to the website for the Chirp30 repository
 - Press 'Actions' in the upper toolbar
