@@ -18,7 +18,21 @@
 
 
 ## License
+>The MIT License (MIT)
+>
+>Copyright (c) 2024 ITU-BDSA2024-GROUP30
+>
+>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation >files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, >modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the >Software is furnished to do so, subject to the following conditions:
+>
+>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the >Software.
+>
+>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE >WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR >COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, >ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+>>See our License.MD file in the root of our directory for associated Microsoft licenses.
 
-> "State which software license you chose for your application."
+We have used packages from Microsoft in our program (.NET, EFCore), from which all fall under the MIT License. As the MIT License is [GPL compatible][1], it means we could have chosen a different Open Source license for our [project][2]. However this would have been more intricate, as the different license we would choose would need to be compatible with the MIT license.
+Therefore we too have decided to use the MIT license, such that all code in the program is under the same license.
 
--MIT License, based on .NET and/or Microsoft, also based on Helge's license
+Helge's code under the MIT license? Only got this through verbal communication.
+
+[1]: <https://pitt.libguides.com/openlicensing/MIT#:~:text=MIT%20License%20Compatibility,project%20must%20of%20GPL%20compliant.>'Name for footnote here'
+[2]:<https://en.wikipedia.org/w/index.php?title=License_compatibility&section=3#Compatibility_of_FOSS_licenses>'NAme for footnote on license compat.'
