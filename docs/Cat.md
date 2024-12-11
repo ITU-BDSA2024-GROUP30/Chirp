@@ -36,7 +36,17 @@ Insert picture here:
 
 ## Process of creating issues 
 
-Diagram in process. Once it is done it will be added here and explananing
+(OBS: the diagram is still prone to be changed).
+
+The overall process of creating and fulfilling the acceptance criteria of an issue is shown in the diagram further below.
+
+Issues were titled as user stories following the guide-line below:
+
+    As a <ROLE>, I want <GOAL> [so that <BENEFIT>]
+All issues included a list of acceptance criteria, with varying degrees
+
+
+![Illustration of GitHub issue creation and completion process](../docs/images/BDSA-TeamWork-diagram.png)
 
 ---
 
