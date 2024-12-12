@@ -29,18 +29,24 @@ Make sure that your illustration is complete. That is, likely for many of you th
 
 ## Current Status (Rename this to a better title)
 
-Two project boards were made for group 30's `Chirp!` repository. One titled `ITU-BDSA2024-GROUP30 Chirp` containing all issues made from official task descriptions, and a second `Improvement board` for all the things that needed improving, fixing, or general nice to implement, but which weren't part of any task description. 
+Two project boards were made for group 30's `Chirp!` repository. One containing issues made from official task descriptions titled `ITU-BDSA2024-GROUP30 Chirp`, and a second called `Improvement board` for all the things that needed improving, fixing, or general nice to implement, but which weren't part of any given task description. 
 
-(Add pictures of both boards)
-
-XX issues have been completed, while N issues are still unresolved. Majority of these unresolved issues are related to testing. 
+### Official Task Project Board:
 
 Insert 1st project board picture here: 
 
+XX issues have been completed, while N issues are still unresolved. Majority of these unresolved issues are related to testing. 
 
-Insert 2nd project board picture here:
+### Board for Improvements
 
-(Also write about this second board being created late in the process and therefore not containing that many issues. Maybe also mention that before the board was created, minor problems were written wherever we saw fit, sometimes in SCRUM meeting notes and sometimes elsewhere)
+Below is a screenshot of the second project board[^improvementDate]. It contains 9 issues [^tenth ticket], 4 of which are marked as done while the last 5 are either in the **No Status** or **Todo** column. The low number of issues is due to the project board's comparatively late creation from around session 13. It was created to give the group easy access to what non-official task elements needed improvements, fixing or other work. As such, issues on this board are all prioritised as nice-to-have, while the other project board is prioritised as need-to-have.
+
+![Illustration of GitHub issue creation and completion process](../docs/images/BDSA-improvementBoard.png)
+
+
+[^improvementDate]: Taken on december 12th 2024.
+
+[^tenth ticket]: The tenth element on the board is a pull request.
 
 ## Process of creating issues 
 
