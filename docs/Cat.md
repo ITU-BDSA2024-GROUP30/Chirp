@@ -57,7 +57,7 @@ The process of creating issues, working on them until completion and merging the
 
 Issues on both project boards follow the same *User Story* setup for titleing and content description. All issues made from official task descriptions were additionally named after which session and task number they already had. For example, the task 1.b) "Add Pagination of Cheeps" from session 5, would be written as first the session number, then the task number and letter, and optionally a third number depending on how many issues will be made from the one task. So the issue title would start with **(5.1.b.1)** and then followed by a short user story title. 
 
-Below is the guideline we used for writing titles: (exluding the numbering system) 
+Below is the guideline we used for writing titles: (excluding the numbering system) 
 
     As a <ROLE>, I want <GOAL> [so that <BENEFIT>]
 
@@ -70,10 +70,3 @@ Issues contain a list of acceptance criteria and depending on the original task,
 *From README_REPORT.md week 12*
 
 Show a screenshot of your project board right before hand-in. Briefly describe which tasks are still unresolved, i.e., which features are missing from your applications or which functionality is incomplete.
-
-What to get through/include:
-- User story setup
-- Two project boards
-- Issues created individually 
-- Issues created one person whole week (most times)
-- Show leftover issues
