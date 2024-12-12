@@ -29,24 +29,35 @@ Make sure that your illustration is complete. That is, likely for many of you th
 
 ## Current Status (Rename this to a better title)
 
+Two project boards were made for group 30's `Chirp!` repository. One titled `ITU-BDSA2024-GROUP30 Chirp` containing all issues made from official task descriptions, and a second `Improvement board` for all the things that needed improving, fixing, or general nice to implement, but which weren't part of any task description. 
+
+(Add pictures of both boards)
+
 XX issues have been completed, while N issues are still unresolved. Majority of these unresolved issues are related to testing. 
 
-Insert picture here: 
+Insert 1st project board picture here: 
 
+
+Insert 2nd project board picture here:
+
+(Also write about this second board being created late in the process and therefore not containing that many issues. Maybe also mention that before the board was created, minor problems were written wherever we saw fit, sometimes in SCRUM meeting notes and sometimes elsewhere)
 
 ## Process of creating issues 
 
-(OBS: the diagram is still prone to be changed).
-
-The overall process of creating and fulfilling the acceptance criteria of an issue is shown in the diagram further below.
-
-Issues were titled as user stories following the guide-line below:
-
-    As a <ROLE>, I want <GOAL> [so that <BENEFIT>]
-All issues included a list of acceptance criteria, with varying degrees
-
+The process of creating issues, working on them until completion and merging them into the code on main, is shown in the diagram below. Following the diagram is a description on the set up of issues. 
 
 ![Illustration of GitHub issue creation and completion process](../docs/images/BDSA-TeamWork-diagram.png)
+
+
+Issues on both project boards follow the same *User Story* setup for titleing and content description. All issues made from official task descriptions were additionally named after which session and task number they already had. For example, the task 1.b) "Add Pagination of Cheeps" from session 5, would be written as first the session number, then the task number and letter, and optionally a third number depending on how many issues will be made from the one task. So the issue title would start with **(5.1.b.1)** and then followed by a short user story title. 
+
+Below is the guideline we used for writing titles: (exluding the numbering system) 
+
+    As a <ROLE>, I want <GOAL> [so that <BENEFIT>]
+
+Issues contain a list of acceptance criteria and depending on the original task, more sections with neccessary information such as "advice", "hints", or "pre-requisite" would be included.
+
+(Notes: should the section below the diagram be moved above it instead?)
 
 ---
 
@@ -54,12 +65,9 @@ All issues included a list of acceptance criteria, with varying degrees
 
 Show a screenshot of your project board right before hand-in. Briefly describe which tasks are still unresolved, i.e., which features are missing from your applications or which functionality is incomplete.
 
-Briefly describe and illustrate the flow of activities that happen from the new creation of an issue (task description), over development, etc. until a feature is finally merged into the main branch of your repository.
-
 What to get through/include:
 - User story setup
 - Two project boards
 - Issues created individually 
 - Issues created one person whole week (most times)
 - Show leftover issues
-- Walkthrough from create issue till implemented feature on main.
