@@ -39,14 +39,14 @@ XX issues have been completed, while N issues are still unresolved. Majority of 
 
 ### Board for Improvements
 
-Below is a screenshot of the second project board[^improvementDate]. It contains 9 issues [^tenth ticket], 4 of which are marked as done while the last 5 are either in the **No Status** or **Todo** column. The low number of issues is due to the project board's comparatively late creation from around session 13. It was created to give the group easy access to what non-official task elements needed improvements, fixing or other work. As such, issues on this board are all prioritised as nice-to-have, while the other project board is prioritised as need-to-have.
+Below is a screenshot of the second project board[^improvementDate]. It contains 9 issues [^tenth], 4 of which are marked as done while the last 5 are either in the **No Status** or **Todo** column. The low number of issues is due to the project board's comparatively late creation from around session 13. It was created to give the group easy access to what non-official task elements needed improvements, fixing or other work. As such, issues on this board are all prioritised as nice-to-have, while the other project board is prioritised as need-to-have.
 
 ![Illustration of GitHub issue creation and completion process](../docs/images/BDSA-improvementBoard.png)
 
 
 [^improvementDate]: Taken on december 12th 2024.
 
-[^tenth ticket]: The tenth element on the board is a pull request.
+[^tenth]: The tenth element on the board is a pull request.
 
 ## Process of creating issues 
 
