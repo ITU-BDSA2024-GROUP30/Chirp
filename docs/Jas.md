@@ -6,7 +6,7 @@ Make sure that the illustrations are in line with the actual behavior of your ap
 # User Activities
 For unauthenticated users, common actions could include browsing cheeps on the public timeline or viewing detailed information about an author. This might include the author's posted cheeps, total number of cheeps, and other relevant details, accessible via the author's private timeline. The corresponding user journey for this Chirp! use case is illustrated in the following User Flow Diagram:
 
-![User Flow Diagram for the Chirp! application](Chirp/docs/images/UserFlowDiagram.png)
+![User Flow Diagram for the Chirp! application](../docs/images/UserFlowDiagram.png)
 
 LLMs, ChatGPT, CoPilot, and others
 
