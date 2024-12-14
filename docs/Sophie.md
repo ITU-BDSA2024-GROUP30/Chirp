@@ -4,10 +4,29 @@
 >
 > Describe the illustration briefly, i.e., how your application is built, tested, released, and deployed."
 
+![Illustration of the building process for _Chirp!_](../docs/images/BDSA-build.png)
+<linebreak>
+Figure XXX above illustrates the build process. By running dotnet build in the terminal, an implicit run of dotnet restore is triggered. After restoring, .dll files are created for each .csproj file. When all .dll files are created, the terminal will output a 'Build Successful!' message.
+<linebreak>
+![Illustration of the testing from the _Chirp!_ root directory.](../docs/images/BDSA-testing.png)
+<linebreak>
+Figure XXXX above details how our program is tested. After inputting dotnet test in the terminal from the source directory, dotnet restore will run. Hereafter, all testfiles will run, and the terminal will output Success/Failure states for each testing directory. Alternative methods to testing are described in the "How to run test suite locally" section. 
+<linebreak>
+![Illustration of the release process for _Chirp!_](../docs/images/BDSA-release.png)
+<linebreak>
+Figure XXXXX above is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern '*.*.*'.
+Upon pushing a tag, the release workflow will activate and create releases for 3 operating systems: Windows, MacOS and Linux. Depending on whether the sub-release targets Windows or one of the two others, the executablefile will be respectively Chirp.exe or Chirp.
+Our release is created from the ChirpWeb.csproj file, zipped and uploaded to Github where anyone can download them.
+
+[MAYBE MENTION THAT RELEASE DOESN'T WORK]
+<linebreak>
+![Illustration of the deployment process for _Chirp!_](../docs/images/BDSA-deployment.png)
+<linebreak>
+Figure XXXXXX shows how our program deploys by way of our Github workflow. Upon a push to main, the workflow will always be triggered, ensuring automatic deployment. For more control, we also have a Workflow trigger on Github where we can deploy from any branch.
+The workflow takes care of building and publishing the project, as well as sending artifacts and secrets to the Azure host. When the workflow is finished, the website is updated.
+
 
 ## How to run test suite locally
-![Illustration of the testing from the _Chirp!_ root directory.](../docs/images/BDSA-testing-diagram.png)
-<linebreak>
 <b>Assuming the repository is cloned:</b>
 - Open a command line tool
 - Navigate to the root directory (/Chirp) OR a specific test directory (e.g /Chirp/test/Chirp.ChirpCore.Tests)
