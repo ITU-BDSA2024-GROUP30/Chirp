@@ -27,6 +27,7 @@ Our release is created from the ChirpWeb.csproj file, zipped and uploaded to Git
 The workflow takes care of building and publishing the project, as well as sending artifacts and secrets to the Azure host. When the workflow is finished, the website is updated.</p>
 
 <p></p>
+
 ## How to run test suite locally
 <b>Assuming the repository is cloned:</b>
 - Open a command line tool
