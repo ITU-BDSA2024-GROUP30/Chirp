@@ -6,7 +6,7 @@ The primary goal of this report is to document the technical and collaborative a
 # User Activities
 For unauthenticated users, common actions could include browsing cheeps on the public timeline or viewing detailed information about an author. This might include the author's posted cheeps, total number of cheeps, and other relevant details, accessible via the author's private timeline. The corresponding user journey for this Chirp! use case is illustrated in the following User Flow Diagram:
 
-![User Flow Diagram for the _Chirp!_ application](../docs/images/UserFlowDiagram.png)
+![User Flow Diagram for the _Chirp!_ application](../docs/images/UserFlowDiagramf.png)
 
 
 # Usage of Large Language Models
