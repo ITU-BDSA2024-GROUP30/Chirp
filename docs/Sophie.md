@@ -44,7 +44,7 @@ The workflow takes care of building and publishing the project, as well as sendi
 - All tests will now run - if you're in a specific test directory, only tests for this directory run.
 
 <b>Without cloning the repository:</b>
-- Navigate to the website for the Chirp30 repository
+- Navigate to the Github website for the Chirp30 repository
 - Press 'Actions' in the upper toolbar
 - Choose workflow 'Build and Test .NET' in the list of workflows to the left
 - Choose 'Run workflow' twice - let branch remain as 'main'
