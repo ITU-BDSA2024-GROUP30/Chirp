@@ -1,19 +1,24 @@
 ﻿@page "/{author}"
 @model ChirpWeb.Pages.UserTimelineModel
 @{
-    ViewData["Title"] = "Chirp!";
-    Layout = "Shared/_Layout";
-    var routeName = HttpContext.GetRouteValue("author");
+	ViewData["Title"] = "Chirp!";
+	Layout = "Shared/_Layout";
+	var routeName = HttpContext.GetRouteValue("author");
 
-    <!-- Pagination -->
-    int next = Model.currentPage + 1;
-    int previous = Model.currentPage > 1 ? Model.currentPage - 1 : 1;
+	<!-- Pagination -->
+	int next = Model.currentPage + 1;
+	int previous = Model.currentPage > 1 ? Model.currentPage - 1 : 1;
 }
 
 <div>
-    <h2> @routeName's Timeline </h2>
-
-    @if (Model.Cheeps.Any())
+	<h2> @routeName's Timeline </h2>
+	@if(Model.User != null && routeName.Equals(Model.GetLoggedInUser()))
+	{
+		<form method="post">
+			<button type="submit">Delete me</button>
+		</form>
+	}
+	@if (Model.Cheeps.Any())
     {
         <ul id="messagelist" class="cheeps">
             @foreach (var cheep in Model.Cheeps)
@@ -23,6 +28,16 @@
                         <strong>
                             <a href="/@cheep.UserName">@cheep.UserName</a>
                         </strong>
+                        @if (Model.IsLoggedIn() && !Model.GetLoggedInUser().Equals(@cheep.UserName))
+                        {
+                            <form method="post">
+                            <input type="hidden" name="Username" value="@cheep.UserName" />
+                            <button type="submit">
+                                <span>Unfollow</span>
+                            
+                            </button>
+                            </form>
+                        }
                         @cheep.Text
                         <small>&mdash; @cheep.TimeStamp</small>
                     </p>

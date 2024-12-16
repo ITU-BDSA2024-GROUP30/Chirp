@@ -23,6 +23,13 @@ public class UserTimelineModel : PageModel
 		_signInManager = signInManager;
 	}
 
+	public Boolean IsLoggedIn()
+	{
+		Boolean IsLoggedIn = _signInManager.IsSignedIn(User);
+		
+		return IsLoggedIn;
+	}
+
 	public string GetLoggedInUser()
 	{
 		//var IsLoggedIn = _signInManager.IsSignedIn(User);
@@ -54,6 +61,28 @@ public class UserTimelineModel : PageModel
 			currentPage = 1;
 		}
 		return Page();
+	}
+
+	public async Task<IActionResult> OnPostAsync(string Username) {
+		if(Username != null) {
+			await _AuthorService.UnfollowAuthor(GetLoggedInUser(), Username);
+			return RedirectToPage();
+		} else {
+		var WasForgettingOfCheepsSuccessful = await _CheepService.ForgetCheepsAsync(GetLoggedInUser());
+		//var resultOfForgetingThese2 = await _CheepService.;
+		if (!WasForgettingOfCheepsSuccessful){
+			Console.WriteLine("Unable to forget user cheeps! Try again");
+		}
+
+		var WasForgettingOfAuthorSuccessful = await _AuthorService.ForgetAuthorAsync(GetLoggedInUser());
+		if (!WasForgettingOfCheepsSuccessful){
+			Console.WriteLine("Unable to forget user! Try again");
+		}
+
+		await _signInManager.SignOutAsync();
+
+		return Redirect("~/");
+		}
 	}
 
 }

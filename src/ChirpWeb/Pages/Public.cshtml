@@ -24,7 +24,7 @@
                         <strong>
                             <a href="/@cheep.UserName">@cheep.UserName</a> 
                         </strong>
-                        @if (Model.IsLoggedIn())
+                        @if (Model.IsLoggedIn() && !Model.GetLoggedInUser().Equals(Username))
                         {
                             <form method="post">
                             <input type="hidden" name="AuthorToFollowUsername" value="@cheep.UserName" />

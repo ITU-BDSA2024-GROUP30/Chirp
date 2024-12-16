@@ -2,11 +2,11 @@
 Configure the ASP.NET DI container (dependency injection container) so that instances of
 CheepRepository are injected into your application wherever needed. That is, none of your views,
 services, etc. has a direct dependency onto CheepRepository.*/
-using System.Data;
 using ChirpCore.Domain;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 
 namespace ChirpRepositories;
@@ -28,6 +28,8 @@ public interface ICheepRepository
 	//public Task<Author?> GetAuthorByIdAsync(int userId);
 	Task<int> GenerateNextCheepIdAsync();
 	Task<int> AddCheepAsync(Cheep newCheep);
+
+	public Task ForgetCheepsFromAuthorAsync(string userName);
 }
 public class CheepRepository : ICheepRepository
 {
@@ -54,10 +56,7 @@ public class CheepRepository : ICheepRepository
 		return newCheep.CheepId;
 	}
 
-	/*public Cheep CreateCheep(){
 
-		}
-		Above will be relevant later*/
 	public List<CheepDTO> ReadCheeps(int pageNumber)
 	{
 		//query for getting every cheep
@@ -151,4 +150,18 @@ public class CheepRepository : ICheepRepository
 		.Where(author => author.UserName == Username)
 		.FirstOrDefaultAsync();
 	}
+
+	public async Task ForgetCheepsFromAuthorAsync(string userName) {
+		Author LoggedInAuthor = await GetAuthorFromUsernameAsync(userName);
+		var CheepsToRemove = _context.Cheeps.Where(C => C.Author!.UserName == userName);
+		foreach (Cheep cheep in CheepsToRemove){
+			_context.Cheeps.Remove(cheep);
+		}
+		
+		//_context.RemoveRange(CheepsToRemove);
+		await _context.SaveChangesAsync(); //would save changes in database as well
+		return;
+	}
+
+
 }
