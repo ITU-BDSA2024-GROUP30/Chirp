@@ -1,20 +1,25 @@
-﻿@page "/{author}"
-@model ChirpWeb.Pages.UserTimelineModel
+@page "/AboutMe"
+@model ChirpWeb.Pages.AboutMeModel
 @{
 	ViewData["Title"] = "Chirp!";
 	Layout = "Shared/_Layout";
-	var routeName = HttpContext.GetRouteValue("author");
-
+	
 	<!-- Pagination -->
 	int next = Model.currentPage + 1;
 	int previous = Model.currentPage > 1 ? Model.currentPage - 1 : 1;
 }
 
 <div>
-	<h2> @routeName's Timeline </h2>
-    
+	<h2> About @Model.GetLoggedInUser()</h2>
+	@if(Model.User != null)
+	{
+		<form method="post">
+			<button type="submit">Delete me</button>
+		</form>
+	}
 	@if (Model.Cheeps.Any())
     {
+        <em>These are your cheeps:</em>
         <ul id="messagelist" class="cheeps">
             @foreach (var cheep in Model.Cheeps)
             {
@@ -23,16 +28,6 @@
                         <strong>
                             <a href="/@cheep.UserName">@cheep.UserName</a>
                         </strong>
-                        @if (Model.IsLoggedIn() && !Model.GetLoggedInUser().Equals(@cheep.UserName))
-                        {
-                            <form method="post">
-                            <input type="hidden" name="Username" value="@cheep.UserName" />
-                            <button type="submit">
-                                <span>Unfollow</span>
-                            
-                            </button>
-                            </form>
-                        }
                         @cheep.Text
                         <small>&mdash; @cheep.TimeStamp</small>
                     </p>
@@ -42,7 +37,24 @@
     }
     else
     {
-        <em>There are no cheeps so far.</em>
+        <em>User @Model.GetLoggedInUser() has no cheeps.</em>
+    }
+    <p></p>
+    @if (Model.Follows.Any()){
+        <em>If your follow any users, they are listed here:</em>
+            @foreach (var Username in Model.Follows)
+            {
+                
+                    @if (!Username.Equals(Model.GetLoggedInUser())){
+                        <li>
+                            <strong>
+                                <a href="/@Username">@Username</a>
+                            </strong>
+                        </li>
+                    }
+               
+            }
+        
     }
     @if (Model.currentPage > 1)
     {

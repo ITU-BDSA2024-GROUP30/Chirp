@@ -7,6 +7,7 @@ public interface IAuthorService
 	public void RegisterAuthor();
 	public void LoginAuthor();
 	public Task<Boolean> ForgetAuthorAsync(string Username);
+	public Task<List<string>> ReturnFollowListAsync(string Username);
 	public Task FollowAuthor(string LoggedInAuthor, string AuthorToFollow);
 	public Task UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow);
 
@@ -45,6 +46,10 @@ public class AuthorService : IAuthorService
 		{
 			return false;
 		}
+	}
+
+	public async Task<List<string>> ReturnFollowListAsync(string Username) {
+		return await _AuthorRepository.GetFollowlistAsync(Username);
 	}
 
 	//Method for adding another Author to acting Author's follower list
