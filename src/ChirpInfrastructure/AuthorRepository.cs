@@ -11,7 +11,7 @@ public interface IAuthorRepository
 {
 	public void AddAuthorToDatabase();
 	public void LoginAuthor();
-	public Task DeleteAuthorFromDatabase(string UserName);
+	public Task DeleteAuthorFromDatabaseAsync(string UserName);
 	public Task<Author> GetAuthorFromUsername(string Username);
 	public Task<Boolean> IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername);
 	public Task AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
@@ -41,7 +41,7 @@ public class AuthorRepository : IAuthorRepository
 
 	//this method is used when an Author unfollows another Author
 
-	public async Task DeleteAuthorFromDatabase(string Username)
+	public async Task DeleteAuthorFromDatabaseAsync(string Username)
 	{
 		Author AuthorToDelete = await GetAuthorFromUsername(Username);
 		_context.Authors.Remove(AuthorToDelete);

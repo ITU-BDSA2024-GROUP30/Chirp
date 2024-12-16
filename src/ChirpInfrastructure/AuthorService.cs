@@ -38,7 +38,7 @@ public class AuthorService : IAuthorService
 	public async Task<Boolean> ForgetAuthorAsync(string Username) { 
 		try
 		{
-			await _AuthorRepository.DeleteAuthorFromDatabase(Username);
+			await _AuthorRepository.DeleteAuthorFromDatabaseAsync(Username);
 			return true;
 		}
 		catch (Exception)
