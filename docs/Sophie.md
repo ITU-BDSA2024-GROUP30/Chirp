@@ -1,6 +1,6 @@
 ## Build, test, release, and deployment
 ### Build
-<p>Figure XXX above illustrates the build process. By running dotnet build in the terminal, an implicit run of dotnet restore is triggered. After restoring, .dll files are created for each .csproj file. When all .dll files are created, the terminal will output a 'Build Successful!' message.</p>
+<p>Figure XXX below illustrates the build process. By running dotnet build in the terminal, an implicit run of dotnet restore is triggered. After restoring, .dll files are created for each .csproj file. When all .dll files are created, the terminal will output a 'Build Successful!' message.</p>
 
 ![Illustration of the building process for _Chirp!_](../docs/images/BDSA-build.png)
 
