@@ -46,7 +46,11 @@ public class AuthorRepository : IAuthorRepository
 		Author AuthorToDelete = await GetAuthorFromUsername(Username);
 		_context.Authors.Remove(AuthorToDelete);
 
-		
+		var query = _context.Authors.Where(A => A.Follows.Contains(AuthorToDelete));
+
+		foreach (Author author in query) {
+			author.Follows.Remove(AuthorToDelete);
+		}
 
 		await _context.SaveChangesAsync();
 	}
