@@ -37,22 +37,27 @@ This workflow takes care of building and publishing the project, as well as send
 \pagebreak
 
 ## How to run test suite locally
-<b>Assuming the repository is cloned:</b>
-- Open a command line tool
-- Navigate to the root directory (/Chirp) OR a specific test directory (e.g /Chirp/test/Chirp.ChirpCore.Tests)
-- Enter 'dotnet test' in the command line and press enter
-- All tests will now run - if you're in a specific test directory, only tests for this directory run.
 
-<b>Without cloning the repository:</b>
-- Navigate to the Github website for the Chirp30 repository
+**Assuming the repository has been cloned:**
+
+- Open a command line tool
+- Navigate to the root directory (`/Chirp`) OR a specific test directory (e.g `/Chirp/test/Chirp.ChirpCore.Tests`)
+- Enter `dotnet test` in the command line and press enter
+- All tests will now run - If you're in a specific test directory, only tests for this directory run.
+
+**Without cloning the repository:**
+
+- Navigate to the GitHub website for the Chirp30 repository
 - Press 'Actions' in the upper toolbar
 - Choose workflow 'Build and Test .NET' in the list of workflows to the left
 - Choose 'Run workflow' twice - let branch remain as 'main'
-- Observe the workflow where each test directory has its own job, which states the passes and fails of the tests
+- Observe the workflow where each test directory has its own job, which states whether the tests have passed and failed.
 
-In Chirp.ChirpCore.Tests we have unit tests. These test the ChirpCore part of the program by creating entities of our domain model types and testing whether they can be created correctly as well as test that Cheeps and Authors can be related to each other.
-We have a test in Chirp.ChirpInfrastructure.Tests that is independent of the program code. This test should ALWAYS pass - it is our canary in the coal mine. If this test fails, our test suite is not functioning.
-Up until the final few weeks we had API tests in Chirp.ChirpWeb.Tests, which tested if we got expected outputs from the public and private timelines. These tests were removed when we changed our database to run using an environment variable.
+<p></p>
+
+In `Chirp.ChirpCore.Tests` we have unit tests for testing the ChirpCore part of the program, by creating entities of our domain model types and testing whether they can be created correctly, as well as test that Cheeps and Authors can be related to each other.
+We have a test in `Chirp.ChirpInfrastructure.Tests` that is independent of the program code, and should ALWAYS pass - it is our canary in the coal mine[^CanaryFootnote]. If this test fails, our test suite is not functioning.
+Up until the final few weeks we had API tests in `Chirp.ChirpWeb.Tests`, which tested if we got the expected outputs from both the public and private timelines. These tests became unusable and were removed when we changed our database to run using an environment variable.
 
 
 ## License
@@ -72,3 +77,4 @@ Therefore we too have decided to use the MIT license, such that all code in the 
 
 [^UniOfPitts]:'University of Pittsburgh, "Course & Subject Guides: MIT License Compatibility"' <https://pitt.libguides.com/openlicensing/MIT#:~:text=MIT%20License%20Compatibility,project%20must%20of%20GPL%20compliant.>
 [^LicenseCompat]:'Wikipedia: "License Compatibility: Compatibility of FOSS licenses"' <https://en.wikipedia.org/w/index.php?title=License_compatibility&section=3#Compatibility_of_FOSS_licenses>
+[^CanaryFootnote]: A 'canary in the coal mine' refers to the practice of using canaries to alert miners of dangerous air quality. Thus, it is an indicator of *something* being wrong. <https://en.wiktionary.org/wiki/canary_in_a_coal_mine>
