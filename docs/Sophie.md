@@ -11,7 +11,7 @@
 
 ![Illustration of the testing from the _Chirp!_ root directory.](../docs/images/BDSA-testing.png)
 
-<p>Figure XXXX above details how our program is tested. After inputting dotnet test in the terminal from the source directory, dotnet restore will run. Hereafter, all testfiles will run, and the terminal will output Success/Failure states for each testing directory. Alternative methods to testing are described in the "How to run test suite locally" section. </p>
+<p>Figure XXXX below details how our program is tested. After inputting dotnet test in the terminal from the source directory, dotnet restore will run. Hereafter, all testfiles will run, and the terminal will output Success/Failure states for each testing directory. Alternative methods to testing are described in the "How to run test suite locally" section. </p>
 
 \pagebreak
 
@@ -19,7 +19,7 @@
 
 ![Illustration of the release process for _Chirp!_](../docs/images/BDSA-release.png)
 
-<p>Figure XXXXX above is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern '*.*.*'.
+<p>Figure XXXXX below is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern '*.*.*'.
 Upon pushing a tag, the release workflow will activate and create releases for 3 operating systems: Windows, MacOS and Linux. Depending on whether the sub-release targets Windows or one of the two others, the executablefile will be respectively Chirp.exe or Chirp.
 Our release is created from the ChirpWeb.csproj file, zipped and uploaded to Github where anyone can download them.</p>
 
