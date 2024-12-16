@@ -15,10 +15,11 @@ namespace ChirpServices;
 
 public interface ICheepService
 {
+
     public List<CheepDTO> GetCheeps(int pageNumber);
     public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
     public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
-    //public Task<int> CreateCheepAsync(int userId, string userName, string text);
+    public Task<int> CreateCheepAsync(string userName, string text); 
 }
 
 public class CheepService : ICheepService
@@ -75,6 +76,28 @@ public class CheepService : ICheepService
         }
 
         return _cheeps;
+    }
+
+    public async Task<int> CreateCheepAsync(string userName, string text)
+    {  
+    // Find the author based on the username
+    var author = await _repository.GetAuthorFromUsernameAsync(userName);
+    if (author == null)
+    {
+        throw new Exception($"Author with username '{userName}' not found.");
+    }
+
+    // Create the new Cheep
+    var newCheep = new Cheep
+    {
+        CheepId = await _repository.GenerateNextCheepIdAsync(),
+        Text = text,
+        TimeStamp = DateTime.Now,
+        Author = author
+    };
+
+    // Save the Cheep using the repository
+    return await _repository.AddCheepAsync(newCheep);
     }
 
 	  // Method currently not in use, but should be implemented with calls to CheepRepository
