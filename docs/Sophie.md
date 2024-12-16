@@ -4,14 +4,16 @@
 ![Illustration of the building process for _Chirp!_](../docs/images/BDSA-build.png)
 
 <p>Figure XXX above illustrates the build process. By running dotnet build in the terminal, an implicit run of dotnet restore is triggered. After restoring, .dll files are created for each .csproj file. When all .dll files are created, the terminal will output a 'Build Successful!' message.</p>
-<newpage></newpage>
+
+\pagebreak
 
 ### Test
 
 ![Illustration of the testing from the _Chirp!_ root directory.](../docs/images/BDSA-testing.png)
 
 <p>Figure XXXX above details how our program is tested. After inputting dotnet test in the terminal from the source directory, dotnet restore will run. Hereafter, all testfiles will run, and the terminal will output Success/Failure states for each testing directory. Alternative methods to testing are described in the "How to run test suite locally" section. </p>
-<newpage></newpage>
+
+\pagebreak
 
 ### Release
 
@@ -22,7 +24,8 @@ Upon pushing a tag, the release workflow will activate and create releases for 3
 Our release is created from the ChirpWeb.csproj file, zipped and uploaded to Github where anyone can download them.</p>
 
 [MAYBE MENTION THAT RELEASE DOESN'T WORK]
-<newpage></newpage>
+
+\pagebreak
 
 ### Deployment
 
@@ -31,7 +34,7 @@ Our release is created from the ChirpWeb.csproj file, zipped and uploaded to Git
 <p>Figure XXXXXX shows how our program deploys by way of our Github workflow. Upon a push to main, the workflow will always be triggered, ensuring automatic deployment. For more control, we also have a Workflow trigger on Github where we can deploy from any branch.
 The workflow takes care of building and publishing the project, as well as sending artifacts and secrets to the Azure host. When the workflow is finished, the website is updated.</p>
 
-<newpage></newpage>
+\pagebreak
 
 ## How to run test suite locally
 <b>Assuming the repository is cloned:</b>
