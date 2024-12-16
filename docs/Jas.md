@@ -1,18 +1,13 @@
-User activities
+# Introduction
+This is the official project report for the _Chirp!_ application developed as part of the Analysis, Design, and Software Architecture course at ITU. The report provides an overview of the projects design, architecture, development process, and ethical considerations.
 
-Illustrate typical scenarios of a user journey through your Chirp! application. That is, start illustrating the first page that is presented to a non-authorized user, illustrate what a non-authorized user can do with your Chirp! application, and finally illustrate what a user can do after authentication.
+The primary goal of this report is to document the technical and collaborative aspect of the project. The application is an X-like (previously known as Twitter) application, that share a lot the same functionalities. To create the application, a number of different technologies were used, e.g., ASP.NET Core and SQLite.
 
-Make sure that the illustrations are in line with the actual behavior of your application.
 # User Activities
 For unauthenticated users, common actions could include browsing cheeps on the public timeline or viewing detailed information about an author. This might include the author's posted cheeps, total number of cheeps, and other relevant details, accessible via the author's private timeline. The corresponding user journey for this Chirp! use case is illustrated in the following User Flow Diagram:
 
-![User Flow Diagram for the Chirp! application](../docs/images/UserFlowDiagram.png)
+![User Flow Diagram for the _Chirp!_ application](../docs/images/UserFlowDiagram.png)
 
-LLMs, ChatGPT, CoPilot, and others
-
-State which LLM(s) were used during development of your project. In case you were not using any, just state so. In case you were using an LLM to support your development, briefly describe when and how it was applied. Reflect in writing to which degree the responses of the LLM were helpful. Discuss briefly if application of LLMs sped up your development or if the contrary was the case.
-
-Maybe add short discription of Gemini and ChatGPT. AND conclusion.
 
 # Usage of Large Language Models
 During the development of our project, we utilised large language models (LLMs) to varied extents to assist different aspects of our work. 
