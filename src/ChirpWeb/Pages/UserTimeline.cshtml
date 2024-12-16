@@ -28,6 +28,16 @@
                         <strong>
                             <a href="/@cheep.UserName">@cheep.UserName</a>
                         </strong>
+                        @if (Model.IsLoggedIn() && !Model.GetLoggedInUser().Equals(@cheep.UserName))
+                        {
+                            <form method="post">
+                            <input type="hidden" name="Username" value="@cheep.UserName" />
+                            <button type="submit">
+                                <span>Unfollow</span>
+                            
+                            </button>
+                            </form>
+                        }
                         @cheep.Text
                         <small>&mdash; @cheep.TimeStamp</small>
                     </p>

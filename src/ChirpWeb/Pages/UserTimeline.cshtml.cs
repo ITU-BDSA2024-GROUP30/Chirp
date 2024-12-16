@@ -23,6 +23,13 @@ public class UserTimelineModel : PageModel
 		_signInManager = signInManager;
 	}
 
+	public Boolean IsLoggedIn()
+	{
+		Boolean IsLoggedIn = _signInManager.IsSignedIn(User);
+		
+		return IsLoggedIn;
+	}
+
 	public string GetLoggedInUser()
 	{
 		//var IsLoggedIn = _signInManager.IsSignedIn(User);
@@ -56,7 +63,11 @@ public class UserTimelineModel : PageModel
 		return Page();
 	}
 
-	public async Task<IActionResult> OnPostAsync() {
+	public async Task<IActionResult> OnPostAsync(string Username) {
+		if(Username != null) {
+			await _AuthorService.UnfollowAuthor(GetLoggedInUser(), Username);
+			return RedirectToPage();
+		} else {
 		var WasForgettingOfCheepsSuccessful = await _CheepService.ForgetCheepsAsync(GetLoggedInUser());
 		//var resultOfForgetingThese2 = await _CheepService.;
 		if (!WasForgettingOfCheepsSuccessful){
@@ -71,6 +82,7 @@ public class UserTimelineModel : PageModel
 		await _signInManager.SignOutAsync();
 
 		return Redirect("~/");
+		}
 	}
 
 }
