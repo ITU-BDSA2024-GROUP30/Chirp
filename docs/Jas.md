@@ -4,9 +4,9 @@ This is the official project report for the _Chirp!_ application developed as pa
 The primary goal of this report is to document the technical and collaborative aspect of the project. The application is an X-like (previously known as Twitter) application, that share a lot the same functionalities. To create the application, a number of different technologies were used, e.g., ASP.NET Core and SQLite.
 
 # User Activities
-For unauthenticated users, common actions could include browsing cheeps on the public timeline or viewing detailed information about an author. This might include the author's posted cheeps, total number of cheeps, and other relevant details, accessible via the author's private timeline. The corresponding user journey for this Chirp! use case is illustrated in the following User Flow Diagram:
-
-![User Flow Diagram for the _Chirp!_ application](../docs/images/UserFlowDiagramf.png)
+For unauthenticated users, common actions could include browsing Cheeps on the public timeline or viewing a specific Author's timeline, which shows only Cheeps made by that Author. The user journey for this _Chirp!_ use case is illustrated in the following User Flow diagram:
+\pagebreak
+![User Flow Diagram for the _Chirp!_ application](../docs/images/UserFlowDiagram.png)
 
 
 # Usage of Large Language Models
