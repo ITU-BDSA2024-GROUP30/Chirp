@@ -6,7 +6,7 @@ public interface IAuthorService
 {
 	public void RegisterAuthor();
 	public void LoginAuthor();
-	public void ForgetAuthor();
+	public Task<Boolean> ForgetAuthorAsync(string Username);
 	public Task FollowAuthor(string LoggedInAuthor, string AuthorToFollow);
 	public Task UnfollowAuthor(string LoggedInAuthor, string AuthorToFollow);
 
@@ -35,7 +35,17 @@ public class AuthorService : IAuthorService
 
 	//This method is invoked when an Author clicks the 'Forget Me!' button.
 	//Needs to call upon DeleteAuthorFromDatabase() from AuthorRepo to remove Author from DB.
-	public void ForgetAuthor() { }
+	public async Task<Boolean> ForgetAuthorAsync(string Username) { 
+		try
+		{
+			await _AuthorRepository.DeleteAuthorFromDatabase(Username);
+			return true;
+		}
+		catch (Exception)
+		{
+			return false;
+		}
+	}
 
 	//Method for adding another Author to acting Author's follower list
 	//Probably calls on UpdateAuthor() from AuthorRepo

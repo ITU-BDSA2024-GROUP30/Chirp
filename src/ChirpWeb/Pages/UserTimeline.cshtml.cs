@@ -57,13 +57,17 @@ public class UserTimelineModel : PageModel
 	}
 
 	public async Task<IActionResult> OnPostAsync() {
-		var user = await _CheepService.GetCheepsFromAuthorAsync(User.Identity?.Name!, currentPage);
-		if (user == null) {
-			return NotFound($"Unable to forget others that you are not logged in to");
+		var WasForgettingOfCheepsSuccessful = await _CheepService.ForgetCheepsAsync(GetLoggedInUser());
+		//var resultOfForgetingThese2 = await _CheepService.;
+		if (!WasForgettingOfCheepsSuccessful){
+			Console.WriteLine("Unable to forget user cheeps! Try again");
 		}
 
-		var resultOfForgetingThese = await _CheepService.forgetThese(user.GetType._context.author.Name);
-		//var resultOfForgetingThese2 = await _CheepService.;
+		var WasForgettingOfAuthorSuccessful = await _AuthorService.ForgetAuthorAsync(GetLoggedInUser());
+		if (!WasForgettingOfCheepsSuccessful){
+			Console.WriteLine("Unable to forget user! Try again");
+		}
+
 		await _signInManager.SignOutAsync();
 
 		return Redirect("~/");

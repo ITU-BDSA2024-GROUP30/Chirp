@@ -41,11 +41,12 @@ public class AuthorRepository : IAuthorRepository
 
 	//this method is used when an Author unfollows another Author
 
-	public async Task DeleteAuthorFromDatabase(string userName)
+	public async Task DeleteAuthorFromDatabase(string Username)
 	{
+		Author AuthorToDelete = await GetAuthorFromUsername(Username);
+		_context.Authors.Remove(AuthorToDelete);
 
-		Author author = _context.Authors.Single(h => h.UserName == userName);
-		_context.Remove(author);
+		
 
 		await _context.SaveChangesAsync();
 	}

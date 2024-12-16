@@ -12,10 +12,10 @@
 
 <div>
 	<h2> @routeName's Timeline </h2>
-	@if(Model.User != null)
+	@if(Model.User != null && routeName.Equals(Model.GetLoggedInUser()))
 	{
 		<form method="post">
-			<Button class="forgetButton">Delete me</Button>
+			<button type="submit">Delete me</button>
 		</form>
 	}
 	@if (Model.Cheeps.Any())

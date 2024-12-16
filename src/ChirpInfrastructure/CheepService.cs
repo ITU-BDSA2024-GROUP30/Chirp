@@ -15,7 +15,7 @@ public interface ICheepService
 	public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
 	public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
 	//public Task<int> CreateCheepAsync(int userId, string userName, string text);
-	public Task<Boolean> forgetThese(string userName);
+	public Task<Boolean> ForgetCheepsAsync(string userName);
 }
 
 public class CheepService : ICheepService
@@ -75,16 +75,14 @@ public class CheepService : ICheepService
 		return _cheeps;
 	}
 
-	public async Task<Boolean> forgetThese(string userName) {
+	public async Task<Boolean> ForgetCheepsAsync(string userName) {
 		try
 		{
-			await _cheepRepository.forgetCheepsFromUser(userName);
+			await _cheepRepository.ForgetCheepsFromAuthorAsync(userName);
 			return true;
-
 		}
-		catch (Exception e)
+		catch (Exception)
 		{
-			Console.WriteLine(e.Message);
 			return false;
 		 }
 	}
