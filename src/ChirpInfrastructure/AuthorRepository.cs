@@ -17,6 +17,8 @@ public interface IAuthorRepository
 	public Task AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
 	public Task RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
 
+	public Task<List<string>> GetFollowlistAsync(string Username);
+
 	//public Task RemoveAuthor(string Username);
 }
 
@@ -105,14 +107,12 @@ public class AuthorRepository : IAuthorRepository
 		await _context.SaveChangesAsync();
 	}
 
-
-	/*public async Task RemoveAuthor(string Username) {
-		if (Username != null)
-		{
-			Author LoggedInAuthorToRemove = await GetAuthorFromUsername(Username);
+	public async Task<List<string>> GetFollowlistAsync(string Username){
+		List<string> FollowlistUsernames = new List<string>();
+		Author Me = await GetAuthorFromUsername(Username);
+		foreach (Author author in Me.Follows){
+			FollowlistUsernames.Add(author.UserName);
 		}
-		else {
-			Console.WriteLine("User not found, Log in to continue!:3");
-		}
-	}*/
+		return FollowlistUsernames;
+	}
 }
