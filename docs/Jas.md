@@ -13,7 +13,7 @@ For unauthenticated users, common actions could include browsing cheeps on the p
 During the development of our project, we utilised large language models (LLMs) to varied extents to assist different aspects of our work. 
 
 ## Applications of ChatGPT and Gemini
-We worked with *ChatGPT* and *Gemini* the same way, just depended on the individual person in the groups preferance.
+We worked with *ChatGPT* and *Gemini* the same way, just depended on the individual person in the groups preference.
 
 The LLMs were mainly used to resolve unclear errors, especially when other resouces like Google searches did not yeild sufficient answers. Framing questions such as "I expect to get (...), but I got (...). Why?" let us receive targeted and actionable feedback. It was also instrumental in explaining why certain pieces of code behaved in unexpected ways and clarifying frameworks or technoglogies we could not directly inspect, such as Razor pages. Along with connecting the dots regarding the theory and in practice.
 
