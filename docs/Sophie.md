@@ -1,6 +1,6 @@
 ## Build, test, release, and deployment
 ### Build
-<p>Figure XXX below illustrates the build process. By running dotnet build in the terminal, an implicit run of dotnet restore is triggered. After restoring, .dll files are created for each .csproj file. When all .dll files are created, the terminal will output a 'Build Successful!' message.</p>
+Figure XXX below illustrates the build process. By running `dotnet build` in the terminal, an implicit run of `dotnet restore` is triggered. After restoring, .dll files are created for each .csproj file. When all .dll files are created, the terminal will output a `Build Successful!` message.
 
 ![Illustration of the building process for _Chirp!_](../docs/images/BDSA-build.png)
 
@@ -8,7 +8,7 @@
 
 ### Test
 
-<p>Figure XXXX below details how our program is tested. After inputting dotnet test in the terminal from the source directory, dotnet restore will run. Hereafter, all testfiles will run, and the terminal will output Success/Failure states for each testing directory. Alternative methods to testing are described in the "How to run test suite locally" section. </p>
+Figure XXXX below details how our program is tested. After inputting `dotnet test` in the terminal from the source directory, `dotnet restore` will run. Hereafter, all test files will run, and the terminal will output `Success`/`Failure` states for each testing directory. Alternative methods to testing are described in the "How to run test suite locally" section.
 
 ![Illustration of the testing from the _Chirp!_ root directory.](../docs/images/BDSA-testing.png)
 
@@ -17,9 +17,9 @@
 
 ### Release
 
-<p>Figure XXXXX below is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern '*.*.*'.
-Upon pushing a tag, the release workflow will activate and create releases for 3 operating systems: Windows, MacOS and Linux. Depending on whether the sub-release targets Windows or one of the two others, the executablefile will be respectively Chirp.exe or Chirp.
-Our release is created from the ChirpWeb.csproj file, zipped and uploaded to Github where anyone can download them.</p>
+Figure XXXXX below is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern '*.*.*', e.g. 1.0.0.
+Upon pushing a tag, the release workflow will activate and create three releases for each of the following operating systems: Windows, MacOS and Linux. Depending on whether the sub-release targets Windows or one of the other two operating systems, the executable file will be named Chirp.exe or Chirp respectively.
+Our release is created from the `ChirpWeb.csproj` file, zipped and uploaded to GitHub where anyone can download them.
 
 [MAYBE MENTION THAT RELEASE DOESN'T WORK]
 
@@ -29,8 +29,8 @@ Our release is created from the ChirpWeb.csproj file, zipped and uploaded to Git
 
 ### Deployment
 
-<p>Figure XXXXXX shows how our program deploys by way of our Github workflow. Upon a push to main, the workflow will always be triggered, ensuring automatic deployment. For more control, we also have a Workflow trigger on Github where we can deploy from any branch.
-The workflow takes care of building and publishing the project, as well as sending artifacts and secrets to the Azure host. When the workflow is finished, the website is updated.</p>
+Figure XXXXXX shows how our program deploys from the GitHub workflow *Executable Release of Chirp*. The workflow is always triggered by a push to main, ensuring automatic deployment. For more control, we also have a workflow trigger on GitHub, where we can deploy from any branch.
+This workflow takes care of building and publishing the project, as well as sending artifacts and secrets to the Azure host. When the workflow is finished, the website is updated.
 
 ![Illustration of the deployment process for _Chirp!_](../docs/images/BDSA-deployment.png)
 
