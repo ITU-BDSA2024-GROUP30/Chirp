@@ -61,7 +61,7 @@ public class AuthorRepository : IAuthorRepository
 		{
 			throw new ArgumentNullException(Username);
 		}
-		return await _context.Authors.Include(a => a.Follows).Where(Author => Author.UserName == Username).FirstAsync();
+		return await _context.Authors.Include(A => A.Follows).Where(Author => Author.UserName == Username).FirstAsync();
 	}
 
 	public async Task<Boolean> IsFollowing(string? LoggedInAuthorUsername, string? AuthorToFollowUsername)
