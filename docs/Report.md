@@ -1,6 +1,8 @@
 ---
 title: _Chirp!_ Project Report
 subtitle: ITU BDSA 2024 Group `30`
+subtitle: Analysis, Design and Software Architecture (Autumn 2024)
+subtitle: Course code: BSANDSA1KU
 author:
 - "Henriette Østergaard <hoes@itu.dk>"
 - "Jasmin Salma-Noria Olivia Hollenborg <jsho@itu.dk>"
@@ -9,6 +11,8 @@ author:
 - "Sophie Gabriela Laksø <slak@itu.dk>"
 numbersections: true
 ---
+
+\pagebreak
 
 # Introduction
 This is the official project report for the _Chirp!_ application developed as part of the Analysis, Design, and Software Architecture course at ITU in 2024. The report provides an overview of the project's design, architecture, development process, and ethical considerations.
@@ -23,7 +27,7 @@ The primary goal of this report is to document the technical and collaborative a
 
 ![Illustration of Chirp Domain Model](../docs/images/BDSA-domain-model.png)
 
-The figure above illustrates our domain model. 
+Figure 1 illustrates our domain model. 
 
 ChirpCore contains the core entities, Author and Cheep. These reside in the folder Domain. We have Data Transfer Objects (DTOs) for Authors called AuthorDTO and for Cheeps called CheepDTO. These reside in the folder DTOs.
 
@@ -37,8 +41,6 @@ The figure above illustrates the organization of our code base.
 
 The architecture of our code is divided into three layers. The first layer holds ChirpCore. This folder contains our domain model entities and DTOs. The second layer contains ChirpInfrastructure, which contains our service classes and our repository classes, separated into ChirpServices and ChirpRepositories. ChirpInfrastructure also contains the classes DBInitializer and ChirpDBContext as well as our migrations folder. 
 The final layer consists of the ChirpWeb folder, which contains the program class and the RazorPages,  and our test directory. 
-
-\pagebreak
 
 ## Architecture of deployed application
 
@@ -92,7 +94,7 @@ The first action made by the *Authorized User* is an HTTP request to the website
 ## Build, test, release, and deployment
 
 ### Build
-Figure XXX below illustrates the build process. By running `dotnet build` in the terminal, an implicit run of `dotnet restore` is triggered. After restoring, .dll files are created for each .csproj file. When all .dll files are created, the terminal will output a `Build Successful!` message.
+Figure 7 illustrates the build process. By running `dotnet build` in the terminal, an implicit run of `dotnet restore` is triggered. After restoring, .dll files are created for each .csproj file. When all .dll files are created, the terminal will output a `Build Successful!` message.
 
 ![Illustration of the building process for _Chirp!_](../docs/images/BDSA-build.png)
 
@@ -100,16 +102,15 @@ Figure XXX below illustrates the build process. By running `dotnet build` in the
 
 ### Test
 
-Figure XXXX below details how our program is tested. After inputting `dotnet test` in the terminal from the source directory, `dotnet restore` will run. Hereafter, all test files will run, and the terminal will output `Success`/`Failure` states for each testing directory. Alternative methods to testing are described in the "How to run test suite locally" section.
+Figure 8 details how our program is tested. After inputting `dotnet test` in the terminal from the source directory, `dotnet restore` will run. Hereafter, all test files will run, and the terminal will output `Success`/`Failure` states for each testing directory. Alternative methods to testing are described in the "How to run test suite locally" section.
 
 ![Illustration of the testing from the _Chirp!_ root directory.](../docs/images/BDSA-testing.png)
 
 
-\pagebreak
 
 ### Release
 
-Figure XXXXX below is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern '*.*.*', e.g. 1.0.0.
+Figure 9 is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern '*.*.*', e.g. 1.0.0.
 Upon pushing a tag, the release workflow will activate and create three releases for each of the following operating systems: Windows, MacOS and Linux. Depending on whether the sub-release targets Windows or one of the other two operating systems, the executable file will be named Chirp.exe or Chirp respectively.
 Our release is created from the `ChirpWeb.csproj` file, zipped and uploaded to GitHub where anyone can download them[^releasenote]
 
@@ -119,7 +120,7 @@ Our release is created from the `ChirpWeb.csproj` file, zipped and uploaded to G
 
 ### Deployment
 
-Figure XXXXXX shows how our program deploys from the GitHub workflow *Executable Release of Chirp*. The workflow is always triggered by a push to main, ensuring automatic deployment. For more control, we also have a workflow trigger on GitHub, where we can deploy from any branch.
+Figure 10 shows how our program deploys from the GitHub workflow *Executable Release of Chirp*. The workflow is always triggered by a push to main, ensuring automatic deployment. For more control, we also have a workflow trigger on GitHub, where we can deploy from any branch.
 This workflow takes care of building and publishing the project, as well as sending artifacts and secrets to the Azure host. When the workflow is finished, the website is updated.
 
 ![Illustration of the deployment process for _Chirp!_](../docs/images/BDSA-deployment.png)
@@ -174,6 +175,8 @@ Below is the guideline we used for writing titles: (excluding the numbering syst
     As a <ROLE>, I want <GOAL> [so that <BENEFIT>]
 
 Issues contain a list of acceptance criteria and depending on the original task, more sections with neccessary information such as "advice", "hints", or "pre-requisite" would be included.
+
+\pagebreak
 
 ## How to make _Chirp!_ work locally
 
