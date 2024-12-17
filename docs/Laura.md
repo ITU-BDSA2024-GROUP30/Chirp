@@ -1,11 +1,21 @@
 
+### Architecture — In the small
+
+![Illustration of Chirp Architecture](../docs/images/ChirpArchitecture.png)
+
+The figure above illustrates the organization of our code base. 
+
+The architecture of our code is divided into three layers. The first layer holds ChirpCore. This folder contains our domain model entities and DTOs. The second layer contains ChirpInfrastructure, which contains our service classes and our repository classes, separated into ChirpServices and ChirpRepositories. ChirpInfrastructure also contains the classes DBInitializer and ChirpDBContext as well as our migrations folder. 
+The final layer consists of the ChirpWeb folder, which contains the program class and the RazorPages,  and our test directory. 
+
+
 ### How to make _Chirp!_ work locally
 
 1. Clone Project by running the following command from your terminal
 
     `git clone https://github.com/ITU-BDSA2024-GROUP30/Chirp.git`
 
-2. Navigate to this project directory (Chirp/src/ChirpWeb)
+2. Navigate to the project directory (Chirp/src/ChirpWeb)
 
 3. From the ChirpWeb project folder, run the following commands in the terminal
 
@@ -24,7 +34,10 @@
 
 
 <br>
-*We are aware that we should not include our ClientID and ClientSecret like this in the repository, but it is needed for someone to run the program locally. 
+
+#### Notes 
+
+- We are aware that we should not include our ClientID and ClientSecret like this in the repository, but it is needed for someone to run the program locally. 
 
 
-\*\*While running our program locally, there is a problem with OAuth and github register/login when using the Safari browser. This is not the case for Chrome or Firefox. Safari does not cause problems for our global Chirp app. 
+- While running our program locally, there is a problem with OAuth and Github register/login when using the Safari browser. This is not the case for Chrome or Firefox. Safari does not cause problems for our global Chirp app. 
