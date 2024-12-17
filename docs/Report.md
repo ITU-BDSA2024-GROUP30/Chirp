@@ -21,6 +21,14 @@ The primary goal of this report is to document the technical and collaborative a
 
 ## Domain model
 
+![Illustration of Chirp Architecture](../docs/images/ChirpArchitecture.png)
+
+The figure above illustrates our domain model. 
+
+ChirpCore contains the core entities, Author and Cheep. These reside in the folder Domain. We have Data Transfer Objects (DTOs) for Authors called AuthorDTO and for Cheeps called CheepDTO. These reside in the folder DTOs.
+
+
+
 ## Architecture — In the small
 
 ![Illustration of Chirp Architecture](../docs/images/ChirpArchitecture.png)
