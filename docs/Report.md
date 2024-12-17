@@ -21,13 +21,13 @@ The primary goal of this report is to document the technical and collaborative a
 
 ## Domain model
 
-![Illustration of Chirp Architecture](../docs/images/ChirpArchitecture.png)
+![Illustration of Chirp Domain Model](../docs/images/BDSA-domain-model.png)
 
 The figure above illustrates our domain model. 
 
 ChirpCore contains the core entities, Author and Cheep. These reside in the folder Domain. We have Data Transfer Objects (DTOs) for Authors called AuthorDTO and for Cheeps called CheepDTO. These reside in the folder DTOs.
 
-
+\pagebreak
 
 ## Architecture — In the small
 
@@ -42,6 +42,12 @@ The final layer consists of the ChirpWeb folder, which contains the program clas
 
 ## Architecture of deployed application
 
+![Illustration of Deployed Architecture](../docs/images/BDSA-deploymentarchitecture.png)
+
+The Chirp! Application is hosted on Azure. The Client device communicates with  the web-server through HTTPs. 
+
+\pagebreak
+
 ## User activities
 
 For unauthenticated users, common actions could include browsing Cheeps on the public timeline or viewing a specific Author's timeline, which shows only Cheeps made by that Author. The user journey for this _Chirp!_ use case is illustrated in the following User Flow diagram:
@@ -52,7 +58,7 @@ For unauthenticated users, common actions could include browsing Cheeps on the p
 
 ## Sequence of functionality/calls trough _Chirp!_
 
-## Sequence Diagram of Unauthorized User
+### Sequence Diagram of Unauthorized User
 
 Below is a diagram showing the sequence of steps for an unauthorized user[^userStatus] attempting to access the root web page, *Public Timeline* on the Chirp30 application[^chirpLink]. 
 
@@ -70,7 +76,7 @@ The first action made by the unauthorized user is an HTTP `GET` request to the r
 
 [^userStatus]: The report task description used the word "unauthorized" to likely describe "a user who is not logged in (has not received extra authorization)", even though it could also be interpreted as "a user who does not have the authority to access the webpage (no authorization at all)". While the last interpretation could also be a fun diagram to look at, we went with the first interpretation as that is what the course material (Andrew Lock, *ASP.NET Core in Action* (Shelter Island: Manning Publications Co. 2023)) seem to suggest. 
 
-## Sequence Diagram of Authorized User:
+### Sequence Diagram of Authorized User:
 The second diagram focuses on which changes occur in the program when a user has been authenticated (logged in). The total number of lifelines remains the same, although the *ChirpDBContext* lifeline has been absorbed into *ChirpInfrastructure* lifeline and the *Public* lifeline has been split into two, namely `Public.cshtml` and `Public.cshtml.cs`. Note that although the latter object is shown to occur first, the two objects are started concurrently. 
 
 ![Illustration of sequential calls to get a rendered Public Timeline page for a user who is logged in](../docs/images/BDSA-sequence-diagramAuthorized.png)
@@ -150,6 +156,7 @@ Below is a screenshot of the second project board[^improvementDate]. It contains
 
 ![Illustration of group 30 main GitHub improvement board](../docs/images/BDSA-improvementBoard.png)
 
+\pagebreak
 
 [^improvementDate]: Taken on December 17th 2024.
 
@@ -201,6 +208,8 @@ Issues contain a list of acceptance criteria and depending on the original task,
 
 - While running our program locally, there is a problem with OAuth and Github register/login when using the Safari browser. This is not the case for Chrome or Firefox. Safari does not cause problems for our global Chirp app. 
 
+\pagebreak
+
 ## How to run test suite locally
 
 **Assuming the repository has been cloned:**
@@ -224,6 +233,8 @@ In `Chirp.ChirpCore.Tests` we have unit tests for testing the ChirpCore part of 
 We have a test in `Chirp.ChirpInfrastructure.Tests` that is independent of the program code, and should ALWAYS pass - it is our canary in the coal mine[^CanaryFootnote]. If this test fails, our test suite is not functioning.
 Up until the final few weeks we had API tests in `Chirp.ChirpWeb.Tests`, which tested if we got the expected outputs from both the public and private timelines. These tests became unusable and were removed when we changed our database to run using an environment variable.
 
+\pagebreak
+
 # Ethics
 
 ## License
@@ -242,6 +253,8 @@ Up until the final few weeks we had API tests in `Chirp.ChirpWeb.Tests`, which t
 
 We have used packages from Microsoft in our program (.NET, EFCore), from which all fall under the MIT License. As the MIT License is GPL compatible[^UniOfPitts], it means we could have chosen a different Open Source license for our project[^LicenseCompat]. However this would have been more intricate, as the different license we would choose would still need to be compatible with the MIT license.
 Therefore we too have decided to use the MIT license, such that all code in the program is under the same license.
+
+\pagebreak
 
 ## LLMs, ChatGPT, CoPilot, and others
 
