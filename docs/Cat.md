@@ -46,11 +46,11 @@ Overall, only one feature is left un-implemented. Session 13's "Wild Style" neve
 
 [^projectBoardDate]: Taken on December 16th 2024.
 
-#### Wild Style - Hate-Meter and Love-Meter
+#### Wild Style Feature - Hate-Meter and Love-Meter
 
-A final missing feature with no related issues whatsoever, is the wild style feature from session 13. Below is a mock-up showing a possible inclusion of a "Love-Meter" and a "Hate-Meter" where logged in users can click either the whole heart icon or the broken heart icon to give *love* or *hate* respectively to a Cheep. There would be no limit on how much *love* or *hate* a single user can give per Cheep. A bonus feature would be when the "Hate-Meter" reaches maximum capacity and the Cheep's author has their account deleted from the application. The user would be free to re-register an account, but all of their follows and Cheeps would be gone.
+A final missing feature with no related issues whatsoever, is the wild style feature from session 13. Below is a mock-up showing a possible inclusion of a "Love-Meter" and a "Hate-Meter" where logged in users can click either the whole heart icon or the broken heart icon to give *love* or *hate* respectively to a Cheep. There would be no limit on how much *love* or *hate* a single user can give per Cheep. A bonus feature would be that when the "Hate-Meter" reaches maximum capacity, the Cheep's author has their account deleted from the application. The user would be free to re-register an account, but all of their follows and Cheeps would be gone.
 
-![Mockup illustration of implemented Hate-Meter and Love-Meter into Chirp project](../docs/images/BDSA-mockUpHateLoveMeter.png)
+![Mockup illustration of implemented Hate-Meter and Love-Meter in the _Chirp!_ project](../docs/images/BDSA-mockUpHateLoveMeter.png)
 
 ### Board for Improvements
 
