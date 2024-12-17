@@ -35,16 +35,16 @@ The first action made by the *Authorized User* is an HTTP request to the website
 
 Two project boards were made for group 30's `Chirp!` repository. One containing issues made from official task descriptions titled `ITU-BDSA2024-GROUP30 Chirp`, and a second called `Improvement board` for all the things that needed improving, fixing, or general nice to implement, but which weren't part of any given task description. 
 
-### Official Task Project Board: CHANGES ARE WAITING
+### Official Task Project Board
 
-As shown in the screenshot below[^projectBoardDate], a total of 110 issues and pull requests have been completed and placed in the **Done** column. That leaves a total of 10 issues that have not been completed, six of which are not started and waiting in the **Todo** column to be assigned. Three of the final four issues are in the **In Progress** column and the last one is in **Needs TA help**. This extra category was created to temporarily put away difficult issues in favour of working on easier issues, until it would be possible to get a TAs help with the stumped one.
+As shown in the screenshot below[^projectBoardDate], a total of 116 issues and pull requests have been completed and placed in the **Done** column. That leaves a total of 6 issues that have not been completed, 5 of which are not started and waiting in the **Todo** column to be assigned. The last issue is in the **Needs TA help**. This extra category was created to temporarily put away difficult issues in favour of working on easier issues, until it would be possible to get a TAs help with the stumped one.
 
 ![Illustration of group 30 main GitHub project board](../docs/images/BDSA-mainProjectBoard.png)
 
 
-Overall, only one feature is left un-implemented. Session 13's "Wild Style" never got any issues on GitHub and is further described in the following section. The issues placed in **Todo** are primarily related to testing, orignating from session 7 up till session 12 (excluding the weeks 8 and 10). 
+Overall, only one feature is left un-implemented. Session 13's "Wild Style" never got any issues on GitHub and is further described in the following section. The issues placed in **Todo** are all related to testing, orignating from session 7 up till session 12 (excluding the weeks 8 and 10).
 
-[^projectBoardDate]: Taken on December 16th 2024.
+[^projectBoardDate]: Taken on December 17th 2024.
 
 #### Wild Style Feature - Hate-Meter and Love-Meter
 
@@ -54,14 +54,12 @@ A final missing feature with no related issues whatsoever, is the wild style fea
 
 ### Board for Improvements
 
-Below is a screenshot of the second project board[^improvementDate]. It contains 9 issues [^tenth], 4 of which are marked as done while the last 5 are either in the **No Status** or **Todo** column. The low number of issues is due to the project board's comparatively late creation from around session 13. It was created to give the group easy access to what non-official task elements needed improvements, fixing or other work. As such, issues on this board are all prioritised as "nice-to-have", while the other project board is prioritised as "need-to-have".
+Below is a screenshot of the second project board[^improvementDate]. It contains 10 issues, 7 of which are marked as done while the last 3 are either in the **Todo** column. The low number of issues is due to the project board's comparatively late creation from around session 13. It was created to give the group easy access to what non-official task elements needed improvements, fixing or other work. As such, issues on this board are all prioritised as "nice-to-have", while the other project board is prioritised as "need-to-have".
 
 ![Illustration of group 30 main GitHub improvement board](../docs/images/BDSA-improvementBoard.png)
 
 
-[^improvementDate]: Taken on December 12th 2024.
-
-[^tenth]: The tenth element on the board is a pull request.
+[^improvementDate]: Taken on December 17th 2024.
 
 ## Process of Creating Issues 
 
