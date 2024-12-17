@@ -11,6 +11,7 @@ numbersections: true
 ---
 
 Analysis, Design and Software Architecture (Autumn 2024)
+<p></p>
 Course code: BSANDSA1KU
 
 
