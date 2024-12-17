@@ -22,6 +22,7 @@
             <a href="/">Public Timeline</a> |
             <a href="/@(User.Identity?.Name!)">My Timeline</a> |
             <a href="/CreateCheep">Create a Cheep</a> |
+            <a href="/AboutMe">About Me</a> |
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
                 asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
                 <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout

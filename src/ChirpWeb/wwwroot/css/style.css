@@ -264,14 +264,6 @@ button:hover {
 	background-color: #8b4949;
 }
 
-FollowUnfollowButton {
-	display: initial;
-	background-color: none;
-	color: #cc6e6e;
-	text-decoration: underline;
-	cursor: pointer;
-}
-
 ul.nav {
 	list-style-type: none;
 	margin: 0;

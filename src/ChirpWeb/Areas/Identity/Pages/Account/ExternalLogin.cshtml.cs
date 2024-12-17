@@ -152,7 +152,7 @@ namespace ChirpWeb.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
+                user.Follows.Add(user);
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None); // Email -> Username
                 //await _emailStore.SetEmailAsync(user, Input.Username, CancellationToken.None);
 
