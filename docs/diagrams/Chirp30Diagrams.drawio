@@ -1310,15 +1310,20 @@
     </mxGraphModel>
   </diagram>
   <diagram id="WKT6MF54LAC3B-Jsk0Ne" name="Design Architecture">
-    <mxGraphModel dx="4601" dy="1309" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="5506" dy="1832" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="8HycOxPNVuwju9w4fo5Y-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="URMgHDU15jMgwSstMzV2-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="3640" y="2290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="URMgHDU15jMgwSstMzV2-1" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#EDFAED;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="520" y="880" width="2880" height="2880" as="geometry" />
         </mxCell>
         <mxCell id="QuFyLZhIpoXY37kpk7Qc-1" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#EFF4FC;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="1910" y="1270" width="1860" height="1860" as="geometry" />
+          <mxGeometry x="1530" y="1160" width="2030" height="2030" as="geometry" />
         </mxCell>
         <mxCell id="wG3fY6weTpkfZAImKLRU-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;ChirpCore&lt;/font&gt;" style="shape=folder;fontStyle=1;tabWidth=100;tabHeight=40;tabPosition=left;html=1;boundedLbl=1;labelInHeader=1;container=1;collapsible=0;whiteSpace=wrap;fillColor=#FFE6E6;strokeColor=#BD97BD;" parent="1" vertex="1">
           <mxGeometry x="200" y="160" width="590" height="370" as="geometry" />
