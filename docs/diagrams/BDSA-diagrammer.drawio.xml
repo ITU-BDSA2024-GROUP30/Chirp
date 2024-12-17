@@ -132,11 +132,17 @@
             <mxPoint x="430" y="140" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="CJJtsKKeH3djiyCbq5hA-1" value="Process&lt;div&gt;successful or failed&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
-          <mxGeometry x="328" y="794" width="140" height="90" as="geometry" />
+        <mxCell id="CJJtsKKeH3djiyCbq5hA-1" value="Process&lt;div&gt;succeeded or failed&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="328" y="810" width="140" height="75" as="geometry" />
         </mxCell>
         <mxCell id="Ch6vVmfs2DqnsjKaPy9j-1" value="ad Deployment Process" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="120" y="-110" width="670" height="1150" as="geometry" />
+        </mxCell>
+        <mxCell id="nrBZp28v-EsMZ2N_413x-1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="szBT9XCSLgr0orJO3mHx-21" target="CJJtsKKeH3djiyCbq5hA-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="780" as="sourcePoint" />
+            <mxPoint x="430" y="740" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
