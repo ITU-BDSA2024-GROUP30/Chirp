@@ -1,7 +1,9 @@
 # Introduction
-This is the official project report for the _Chirp!_ application developed as part of the Analysis, Design, and Software Architecture course at ITU. The report provides an overview of the projects design, architecture, development process, and ethical considerations.
+This is the official project report for the _Chirp!_ application developed as part of the Analysis, Design, and Software Architecture course at ITU. The report provides an overview of the project's design, architecture, development process, and ethical considerations.
 
-The primary goal of this report is to document the technical and collaborative aspect of the project. The application is an X-like (previously known as Twitter) application, that share a lot the same functionalities. To create the application, a number of different technologies were used, e.g., ASP.NET Core and SQLite.
+The primary goal of this report is to document the technical and collaborative aspect of the project. The application is an X-like[^whatisx] application, that share a lot of the same functionalities. In order to create the application a number of different technologies were used, e.g. ASP.NET Core and SQLite.
+
+ [^whatisx]:'Reminicent of the website 'X', previously known as Twitter'
 
 # User Activities
 For unauthenticated users, common actions could include browsing Cheeps on the public timeline or viewing a specific Author's timeline, which shows only Cheeps made by that Author. The user journey for this _Chirp!_ use case is illustrated in the following User Flow diagram:
