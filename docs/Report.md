@@ -47,9 +47,7 @@ Figure XXXX below details how our program is tested. After inputting `dotnet tes
 
 Figure XXXXX below is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern '*.*.*', e.g. 1.0.0.
 Upon pushing a tag, the release workflow will activate and create three releases for each of the following operating systems: Windows, MacOS and Linux. Depending on whether the sub-release targets Windows or one of the other two operating systems, the executable file will be named Chirp.exe or Chirp respectively.
-Our release is created from the `ChirpWeb.csproj` file, zipped and uploaded to GitHub where anyone can download them.
-
-[MAYBE MENTION THAT RELEASE DOESN'T WORK]
+Our release is created from the `ChirpWeb.csproj` file, zipped and uploaded to GitHub where anyone can download them[^releasenote]
 
 ![Illustration of the release process for _Chirp!_](../docs/images/BDSA-release.png)
 
@@ -112,7 +110,7 @@ Therefore we too have decided to use the MIT license, such that all code in the 
 
 ## LLMs, ChatGPT, CoPilot, and others
 
-
+[^releasenote]:'Note that our release .exe displays an error.'
 [^UniOfPitts]:'University of Pittsburgh, "Course & Subject Guides: MIT License Compatibility"' <https://pitt.libguides.com/openlicensing/MIT#:~:text=MIT%20License%20Compatibility,project%20must%20of%20GPL%20compliant.>
 [^LicenseCompat]:'Wikipedia: "License Compatibility: Compatibility of FOSS licenses"' <https://en.wikipedia.org/w/index.php?title=License_compatibility&section=3#Compatibility_of_FOSS_licenses>
 [^CanaryFootnote]: A 'canary in the coal mine' refers to the practice of using canaries to alert miners of dangerous air quality. Thus, it is an indicator of *something* being wrong. <https://en.wiktionary.org/wiki/canary_in_a_coal_mine>
