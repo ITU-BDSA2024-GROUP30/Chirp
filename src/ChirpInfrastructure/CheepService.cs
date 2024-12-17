@@ -11,6 +11,7 @@ namespace ChirpServices;
 
 public interface ICheepService
 {
+
 	public List<CheepDTO> GetCheeps(int pageNumber);
 	public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
 	public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
