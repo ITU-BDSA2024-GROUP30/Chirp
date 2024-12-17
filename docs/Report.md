@@ -1,7 +1,6 @@
 ---
 title: _Chirp!_ Project Report
 subtitle: ITU BDSA 2024 Group `30`
-subsubtitle: Analysis, Design and Software Architecture (Autumn 2024), Course code: BSANDSA1KU
 author:
 - "Henriette Østergaard <hoes@itu.dk>"
 - "Jasmin Salma-Noria Olivia Hollenborg <jsho@itu.dk>"
@@ -10,6 +9,8 @@ author:
 - "Sophie Gabriela Laksø <slak@itu.dk>"
 numbersections: true
 ---
+
+Analysis, Design and Software Architecture (Autumn 2024), Course code: BSANDSA1KU
 
 
 \pagebreak
