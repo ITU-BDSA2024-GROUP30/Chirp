@@ -34,7 +34,7 @@ Figure 1 illustrates our domain model.
 
 ChirpCore contains the core entities, Author and Cheep. These reside in the folder Domain. We have Data Transfer Objects (DTOs) for Authors called AuthorDTO and for Cheeps called CheepDTO. These reside in the folder DTOs.
 
-\pagebreak
+<br>
 
 ## Architecture — In the small
 
