@@ -23,6 +23,15 @@ The primary goal of this report is to document the technical and collaborative a
 
 ## Architecture — In the small
 
+![Illustration of Chirp Architecture](../docs/images/ChirpArchitecture.png)
+
+The figure above illustrates the organization of our code base. 
+
+The architecture of our code is divided into three layers. The first layer holds ChirpCore. This folder contains our domain model entities and DTOs. The second layer contains ChirpInfrastructure, which contains our service classes and our repository classes, separated into ChirpServices and ChirpRepositories. ChirpInfrastructure also contains the classes DBInitializer and ChirpDBContext as well as our migrations folder. 
+The final layer consists of the ChirpWeb folder, which contains the program class and the RazorPages,  and our test directory. 
+
+\pagebreak
+
 ## Architecture of deployed application
 
 ## User activities
@@ -136,7 +145,7 @@ Below is a screenshot of the second project board[^improvementDate]. It contains
 
 [^improvementDate]: Taken on December 17th 2024.
 
-## Process of Creating Issues 
+### Process of Creating Issues 
 
 The process of creating issues, working on them until completion and merging them into the code on main, is shown in the diagram below. Following the diagram is a description on the set up of issues. 
 
@@ -152,6 +161,37 @@ Below is the guideline we used for writing titles: (excluding the numbering syst
 Issues contain a list of acceptance criteria and depending on the original task, more sections with neccessary information such as "advice", "hints", or "pre-requisite" would be included.
 
 ## How to make _Chirp!_ work locally
+
+1. Clone Project by running the following command from your terminal
+
+    `git clone https://github.com/ITU-BDSA2024-GROUP30/Chirp.git`
+
+2. Navigate to the project directory (Chirp/src/ChirpWeb)
+
+3. From the ChirpWeb project folder, run the following commands in the terminal
+
+    `dotnet user-secrets set "authentication_github_clientId" "Ov23li1DOiXTMCfh0Wxn"`
+
+    `dotnet user-secrets set "authentication_github_clientSecret" "6afb7425e1d9b80b84c43372a2f4c5e35506b0f"`
+	
+
+
+4. Run the program by using the following command in the terminal (Still from ChirpWeb). 
+
+    `dotnet run`
+
+
+5. After running the command, you should see output indicating that the app is running (`Now listening on: http://localhost:5273`).    Open your browser and go to the URL provided in the terminal (e.g., `http://localhost:5273`) to access the application.
+
+
+<br>
+
+#### Notes 
+
+- We are aware that we should not include our ClientID and ClientSecret like this in the repository, but it is needed for someone to run the program locally. 
+
+
+- While running our program locally, there is a problem with OAuth and Github register/login when using the Safari browser. This is not the case for Chrome or Firefox. Safari does not cause problems for our global Chirp app. 
 
 ## How to run test suite locally
 
