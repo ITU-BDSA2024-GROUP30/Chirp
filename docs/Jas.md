@@ -1,5 +1,5 @@
 # Introduction
-This is the official project report for the _Chirp!_ application developed as part of the Analysis, Design, and Software Architecture course at ITU. The report provides an overview of the project's design, architecture, development process, and ethical considerations.
+This is the official project report for the _Chirp!_ application developed as part of the Analysis, Design, and Software Architecture course at ITU in 2024. The report provides an overview of the project's design, architecture, development process, and ethical considerations.
 
 The primary goal of this report is to document the technical and collaborative aspect of the project. The application is an X-like[^whatisx] application, that share a lot of the same functionalities. In order to create the application a number of different technologies were used, e.g. ASP.NET Core and SQLite.
 
