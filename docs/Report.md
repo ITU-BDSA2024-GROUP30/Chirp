@@ -10,7 +10,8 @@ author:
 numbersections: true
 ---
 
-Analysis, Design and Software Architecture (Autumn 2024), Course code: BSANDSA1KU
+Analysis, Design and Software Architecture (Autumn 2024)
+Course code: BSANDSA1KU
 
 
 \pagebreak
