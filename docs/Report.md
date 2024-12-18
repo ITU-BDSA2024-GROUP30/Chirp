@@ -13,7 +13,8 @@ numbersections: true
 Analysis, Design and Software Architecture (Autumn 2024)
 <p></p>
 Course code: BSANDSA1KU
-
+<p></p>
+GitHub repository: https://github.com/ITU-BDSA2024-GROUP30/Chirp/tree/main
 
 \pagebreak
 
@@ -30,7 +31,7 @@ The primary goal of this report is to document the technical and collaborative a
 
 ![Illustration of Chirp Domain Model](../docs/images/BDSA-domain-model.png)
 
-Figure 1 illustrates our domain model. 
+Figure 1 illustrates our domain model.
 
 ChirpCore contains the core entities, Author and Cheep. These reside in the folder Domain. We have Data Transfer Objects (DTOs) for Authors called AuthorDTO and for Cheeps called CheepDTO. These reside in the folder DTOs.
 
@@ -42,22 +43,25 @@ ChirpCore contains the core entities, Author and Cheep. These reside in the fold
 
 ![Illustration of Chirp Architecture](../docs/images/ChirpArchitecture.png)
 
-The figure above illustrates the organization of our code base. 
+The figure above illustrates the organization of our code base.
 
-The architecture of our code is divided into three layers. The first layer holds ChirpCore. This folder contains our domain model entities and DTOs. The second layer contains ChirpInfrastructure, which contains our service classes and our repository classes, separated into ChirpServices and ChirpRepositories. ChirpInfrastructure also contains the classes DBInitializer and ChirpDBContext as well as our migrations folder. 
-The final layer consists of the ChirpWeb folder, which contains the program class and the RazorPages,  and our test directory. 
+The architecture of our code is divided into three layers. The first layer holds ChirpCore. This folder contains our domain model entities and DTOs. The second layer contains ChirpInfrastructure, which contains our service classes and our repository classes, separated into ChirpServices and ChirpRepositories. ChirpInfrastructure also contains the classes DBInitializer and ChirpDBContext as well as our migrations folder.
+The final layer consists of the ChirpWeb folder, which contains the program class and the RazorPages,  and our test directory.
+
+\pagebreak
 
 ## Architecture of deployed application
 
 ![Illustration of Deployed Architecture](../docs/images/BDSA-deploymentarchitecture.png)
 
-The Chirp! Application is hosted on Azure. The Client device communicates with  the web-server through HTTPs. 
+The Chirp! Application is hosted on Azure. The Client device communicates with  the web-server through HTTPs.
 
 \pagebreak
 
 ## User activities
 
-For unauthenticated users, common actions could include browsing Cheeps on the public timeline or viewing a specific Author's timeline, which shows only Cheeps made by that Author. The user journey for this _Chirp!_ use case is illustrated in the following User Flow diagram:
+For unauthenticated users, common actions could include browsing Cheeps on the public timeline or viewing a specific Author's timeline, which shows only Cheeps made by that Author. If a user is authenticated they are also able to create Cheeps as well as follow and unfollow other Authors. They can also see their own private timeline, see a page with info about themselves, and delete (forget) their account.
+The user journey of _Chirp!_ is illustrated in the following User Flow diagram:
 
 ![User Flow Diagram for the _Chirp!_ application](../docs/images/UserFlowDiagram.png)
 
@@ -67,7 +71,7 @@ For unauthenticated users, common actions could include browsing Cheeps on the p
 
 ### Sequence Diagram of Unauthorized User
 
-Below is a diagram showing the sequence of steps for an unauthorized user[^userStatus] attempting to access the root web page, *Public Timeline* on the Chirp30 application[^chirpLink]. 
+Figure 6 shows the sequence of steps for an unauthorized user[^userStatus] attempting to access the root web page, *Public Timeline* on the Chirp30 application[^chirpLink].
 
 The diagram below has five lifelines, *Unauthorized User*, *Public*[^publicTimeline], *ChirpInfrastructure*, *ChirpDBContext*, and `chirp.db`. The third one, *ChirpInfrastructure*, represents all classes contained in this layer of the implemented Onion Architecture, specifically the two classes `CheepService.cs` and `CheepRepository.cs`. Note that while `ChirpDBContext.cs` is also a part of this onion layer, eventhough it has been made explicit here for the purpose of showing how this is the class actually responsible for accessing the database.
 
@@ -79,18 +83,18 @@ The diagram below has five lifelines, *Unauthorized User*, *Public*[^publicTimel
 
 Description of *Sequence Diagram of Unauthorized User* in case of technical issues or otherwise:
 
-The first action made by the unauthorized user is an HTTP `GET` request to the root endpoint `"/"`, which is received by the *Public* object (containing the two classes `Public.cshtml` and `Public.cshtml.cs`). This is followed with a `GetCheeps(PageNumber)` call to *ChirpInfrastructure* to get the necessary Cheeps to display on the Public Timeline. The integer variable `PageNumber` is transported all the way to *ChirpDBContext* which uses it to ensure only the correct 32 Cheeps are saved and returned. After *ChirpInfrastructure* has received the `GetCheeps(PageNumber)` call, it calls a method on itself `ReadCheeps(PageNumber)` from which the call to make Cheep Data Transferable Objects (CheepDTOs) in `ChirpDBContext` begins. Finally, *ChirpDBContext* accesses `chirp.db` to get the relevant data before it is all sent back through the objects. 
+The first action made by the unauthorized user is an HTTP `GET` request to the root endpoint `"/"`, which is received by the *Public* object (containing the two classes `Public.cshtml` and `Public.cshtml.cs`). This is followed with a `GetCheeps(PageNumber)` call to *ChirpInfrastructure* to get the necessary Cheeps to display on the Public Timeline. The integer variable `PageNumber` is transported all the way to *ChirpDBContext* which uses it to ensure only the correct 32 Cheeps are saved and returned. After *ChirpInfrastructure* has received the `GetCheeps(PageNumber)` call, it calls a method on itself `ReadCheeps(PageNumber)` from which the call to make Cheep Data Transferable Objects (CheepDTOs) in `ChirpDBContext` begins. Finally, *ChirpDBContext* accesses `chirp.db` to get the relevant data before it is all sent back through the objects.
 
-[^userStatus]: The report task description used the word "unauthorized" to likely describe "a user who is not logged in (has not received extra authorization)", even though it could also be interpreted as "a user who does not have the authority to access the webpage (no authorization at all)". While the last interpretation could also be a fun diagram to look at, we went with the first interpretation as that is what the course material (Andrew Lock, *ASP.NET Core in Action* (Shelter Island: Manning Publications Co. 2023)) seem to suggest. 
+[^userStatus]: We have interpreted "unauthorized user" as a user who is not logged in (has not received extra authorization).
 
 ### Sequence Diagram of Authorized User:
-The second diagram focuses on which changes occur in the program when a user has been authenticated (logged in). The total number of lifelines remains the same, although the *ChirpDBContext* lifeline has been absorbed into *ChirpInfrastructure* lifeline and the *Public* lifeline has been split into two, namely `Public.cshtml` and `Public.cshtml.cs`. Note that although the latter object is shown to occur first, the two objects are started concurrently. 
+The second diagram focuses on which changes occur in the program when a user has been authenticated (logged in). The total number of lifelines remains the same, although the *ChirpDBContext* lifeline has been absorbed into *ChirpInfrastructure* lifeline and the *Public* lifeline has been split into two, namely `Public.cshtml` and `Public.cshtml.cs`. Note that although the latter object is shown to occur first, the two objects are started concurrently.
 
 ![Illustration of sequential calls to get a rendered Public Timeline page for a user who is logged in](../docs/images/BDSA-sequence-diagramAuthorized.png)
 
 Description of *Sequence Diagram of Authorized User* in case of technical issues or otherwise:
 
-The first action made by the *Authorized User* is an HTTP request to the website, which starts two calls. An `OnGet()` call to the *Public.cshtml.cs* lifeline and a `GET` request received by the *Public.cshtml* lifeline. The first call, `OnGet()` starts a process matching the process shown in the *Sequence Diagram of Unauthorized User*. After *Public.cshtml.cs* receives the list of `CheepDTOs` from *ChirpInfrastructure*, it is given to *Public.cshtml* who then checks if the *User* is logged in or not through the model in *Public.cshtml.cs*. If the *User* is logged in, which is the case for this *Authorized User*, an alternative box is placed, which shows the two cases of if a *User* is following the owner of a cheep or not. If the *Authorized User* is not following the other user, then the *Follow* button will be shown, otherwise the *Unfollow* button will be shown. A similar alternative box appears for when the *Follow*/*Unfollow* button is clicked.
+The first action made by the *Authorized User* is an HTTP request to the website, which starts two calls. An `OnGet()` call to the *Public.cshtml.cs* lifeline and a `GET` request received by the *Public.cshtml* lifeline. The first call, `OnGet()` starts a process matching the process shown in the *Sequence Diagram of Unauthorized User*. After *Public.cshtml.cs* receives the list of `CheepDTOs` from *ChirpInfrastructure*, it is given to *Public.cshtml* who then checks if the *User* is logged in or not through the model in *Public.cshtml.cs*. If the *User* is logged in, which is the case for this *Authorized User*, an alternative box is placed, which shows the two cases of if a *User* is following the owner of a Cheep or not. If the *Authorized User* is not following the other user, then the *Follow* button will be shown, otherwise the *Unfollow* button will be shown. A similar alternative box appears for when the *Follow*/*Unfollow* button is clicked.
 
 \pagebreak
 
@@ -115,7 +119,7 @@ Figure 8 details how our program is tested. After inputting `dotnet test` in the
 
 ### Release
 
-Figure 9 is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern '*.*.*', e.g. 1.0.0.
+Figure 9 is an illustration of our release process. A release can be triggered on push from any branch, but requires a tag that matches the pattern `'*.*.*'`, e.g. 1.0.0.
 Upon pushing a tag, the release workflow will activate and create three releases for each of the following operating systems: Windows, MacOS and Linux. Depending on whether the sub-release targets Windows or one of the other two operating systems, the executable file will be named Chirp.exe or Chirp respectively.
 Our release is created from the `ChirpWeb.csproj` file, zipped and uploaded to GitHub where anyone can download them[^releasenote]
 
@@ -137,7 +141,7 @@ This workflow takes care of building and publishing the project, as well as send
 
 ### Project Boards Overview
 
-Two project boards were made for group 30's `Chirp!` repository. One containing issues made from official task descriptions titled `ITU-BDSA2024-GROUP30 Chirp`, and a second called `Improvement board` for all the things that needed improving, fixing, or general nice to implement, but which weren't part of any given task description. 
+Two project boards were made for group 30's `Chirp!` repository. One containing issues made from official task descriptions titled `ITU-BDSA2024-GROUP30 Chirp`, and a second called `Improvement board` for all the things that needed improving, fixing, or general nice to implement, but which weren't part of any given task description.
 
 ### Official Task Project Board
 
@@ -158,7 +162,7 @@ A final missing feature with no related issues whatsoever, is the wild style fea
 
 ### Board for Improvements
 
-Below is a screenshot of the second project board[^improvementDate]. It contains 10 issues, 7 of which are marked as done while the last 3 are either in the **Todo** column. The low number of issues is due to the project board's comparatively late creation from around session 13. It was created to give the group easy access to what non-official task elements needed improvements, fixing or other work. As such, issues on this board are all prioritised as "nice-to-have", while the other project board is prioritised as "need-to-have".
+Below is a screenshot of the second project board[^improvementDate]. It contains 10 issues, 7 of which are marked as done while the last 3 are either in the **Todo** column.
 
 ![Illustration of group 30 main GitHub improvement board](../docs/images/BDSA-improvementBoard.png)
 
@@ -166,20 +170,24 @@ Below is a screenshot of the second project board[^improvementDate]. It contains
 
 [^improvementDate]: Taken on December 17th 2024.
 
-### Process of Creating Issues 
+### Process of Creating Issues
 
-The process of creating issues, working on them until completion and merging them into the code on main, is shown in the diagram below. Following the diagram is a description on the set up of issues. 
+Issues on both project boards follow the same _User Story_ setup for titleing and content description. All issues made from official task descriptions were additionally named after which session and task number they already had. So the issue title would start with **(5.1.b.1)** and then followed by a short user story title.
 
-![Illustration of GitHub issue creation and completion process](../docs/images/BDSA-TeamWork-diagram.png)
-
-
-Issues on both project boards follow the same *User Story* setup for titleing and content description. All issues made from official task descriptions were additionally named after which session and task number they already had. For example, the task 1.b) "Add Pagination of Cheeps" from session 5, would be written as first the session number, then the task number and letter, and optionally a third number depending on how many issues will be made from the one task. So the issue title would start with **(5.1.b.1)** and then followed by a short user story title. 
-
-Below is the guideline we used for writing titles: (excluding the numbering system) 
+Below is the guideline we used for writing titles: (excluding the numbering system)
 
     As a <ROLE>, I want <GOAL> [so that <BENEFIT>]
 
 Issues contain a list of acceptance criteria and depending on the original task, more sections with neccessary information such as "advice", "hints", or "pre-requisite" would be included.
+
+### Flow of activities
+
+The process of creating issues, working on them until completion and merging them into the code on main, is shown in the diagram below.
+
+![Illustration of GitHub issue creation and completion process](../docs/images/BDSA-TeamWork-ad.png)
+
+After a task was assigned the creation of issues began, and were added to the `main` project board on GitHub. Issues would then be divided between group members and each would create a separate branch from main to work on the feature.
+If a member got stuck on an issue for too long, they would either work on a different issue or consult with a group member or TA. When a feature was completed, a pull request would be created for the other team members to review. If the pull request wasn't approved, the code would be revised before creating a new pull request. When the pull request was approved, the branch would be merged into main. In cases of merge conflicts, the members responsible for the branch would handle them, typically together with the rest of the group. A deployment of the main branch to Azure would automatically be triggered, when the main branch was updated. The issues would then be closed. And the working branch is deleted.
 
 \pagebreak
 
@@ -196,10 +204,10 @@ Issues contain a list of acceptance criteria and depending on the original task,
     `dotnet user-secrets set "authentication_github_clientId" "Ov23li1DOiXTMCfh0Wxn"`
 
     `dotnet user-secrets set "authentication_github_clientSecret" "6afb7425e1d9b80b84c43372a2f4c5e35506b0f"`
-	
 
 
-4. Run the program by using the following command in the terminal (Still from ChirpWeb). 
+
+4. Run the program by using the following command in the terminal (Still from ChirpWeb).
 
     `dotnet run`
 
@@ -209,12 +217,12 @@ Issues contain a list of acceptance criteria and depending on the original task,
 
 <br>
 
-#### Notes 
+### Notes
 
-- We are aware that we should not include our ClientID and ClientSecret like this in the repository, but it is needed for someone to run the program locally. 
+- We are aware that we should not include our ClientID and ClientSecret like this in the repository, but it is needed for someone to run the program locally.
 
 
-- While running our program locally, there is a problem with OAuth and Github register/login when using the Safari browser. This is not the case for Chrome or Firefox. Safari does not cause problems for our global Chirp app. 
+- While running our program locally, there is a problem with OAuth and Github register/login when using the Safari browser. This is not the case for Chrome or Firefox. Safari does not cause problems for our global Chirp app.
 
 \pagebreak
 
@@ -222,18 +230,18 @@ Issues contain a list of acceptance criteria and depending on the original task,
 
 **Assuming the repository has been cloned:**
 
-- Open a command line tool
-- Navigate to the root directory (`/Chirp`) OR a specific test directory (e.g `/Chirp/test/Chirp.ChirpCore.Tests`)
-- Enter `dotnet test` in the command line and press enter
-- All tests will now run - If you're in a specific test directory, only tests for this directory run.
+1. Open a command line tool
+2. Navigate to the root directory (`/Chirp`) OR a specific test directory (e.g `/Chirp/test/Chirp.ChirpCore.Tests`)
+3. Enter `dotnet test` in the command line and press enter
+4. All tests will now run - If you're in a specific test directory, only tests for this directory run.
 
 **Without cloning the repository:**
 
-- Navigate to the GitHub website for the Chirp30 repository
-- Press 'Actions' in the upper toolbar
-- Choose workflow 'Build and Test .NET' in the list of workflows to the left
-- Choose 'Run workflow' twice - let branch remain as 'main'
-- Observe the workflow where each test directory has its own job, which states whether the tests have passed and failed.
+1. Navigate to the GitHub website for the Chirp30 repository
+2. Press 'Actions' in the upper toolbar
+3. Choose workflow 'Build and Test .NET' in the list of workflows to the left
+4. Choose 'Run workflow' twice - let branch remain as 'main'
+5. Observe the workflow where each test directory has its own job, which states whether the tests have passed and failed.
 
 <p></p>
 
@@ -266,24 +274,24 @@ Therefore we too have decided to use the MIT license, such that all code in the 
 
 ## LLMs, ChatGPT, CoPilot, and others
 
-During the development of our project, we utilised large language models (LLMs) to varied extents to assist different aspects of our work. 
+During the development of our project, we utilised large language models (LLMs) to varied extents to assist different aspects of our work.
 
 ### Applications of ChatGPT and Gemini
 We worked with *ChatGPT* and *Gemini* the same way, just depended on the individual person in the groups preference.
 
-The LLMs were mainly used to resolve unclear errors, especially when other resouces like Google searches did not yeild sufficient answers. Framing questions such as "I expect to get (...), but I got (...). Why?" let us receive targeted and actionable feedback. It was also instrumental in explaining why certain pieces of code behaved in unexpected ways and clarifying frameworks or technoglogies we could not directly inspect, such as Razor pages. Along with connecting the dots regarding the theory and in practice.
+The LLMs were mainly used to resolve unclear errors, especially when other resouces like Google searches did not yield sufficient answers. Framing questions such as "I expect to get (...), but I got (...). Why?" let us receive targeted and actionable feedback. It was also instrumental in explaining why certain pieces of code behaved in unexpected ways and clarifying frameworks or technoglogies we could not directly inspect, such as Razor pages. Along with connecting the dots regarding the theory and in practice.
 
 ChatGPT and Gemini also helped us better understand error messages and validate our assumptions about problems. For example, we often prompted it with questions like “Can you explain…” or “I think my problem is… why?” These interactions often provided clearer explanations that improved our understanding of the issues at hand.
 
 ### Effectiveness
 The used LLMs proved to be helpful for the majority of tasks we encountered. It was particularly effective for troubleshooting and error resolution, often serving as a substitute for consulting teaching assistants (when they were unavailable) or spending hours researching. The ability to quickly identify issues and gain insights into complex concepts sped up our development process.
 
-However, there were some limitations. Responses could occasionally be overly complex or repetitive, particularly in specific areas like EF Core, where the tools sometimes struggled to provide unique or actionable suggestions. Despite these occasional inefficiencies, ChatGPT and Gemini were overall more helpful than not, acting as a useful sparring partner when tackling challenging problems. 
+However, there were some limitations. Responses could occasionally be overly complex or repetitive, particularly in specific areas like EF Core, where the tools sometimes struggled to provide unique or actionable suggestions. Despite these occasional inefficiencies, ChatGPT and Gemini were overall more helpful than not, acting as a useful sparring partner when tackling challenging problems.
 
 ### Impact on Development Workflow
-The use of LLMs accelerated our development process by enabling faster understanding of problems and solutions. It allowed us to spend less time searching for answers and more time implementing and refining our code. In areas where traditional resources were insufficient or time-consuming, ChatGPT and Gemini filled the gap. While there were moments where its responses fell short, its overall impact was positive, contributing to our efficiency and learning throughout the project.      
+The use of LLMs accelerated our development process by enabling faster understanding of problems and solutions. It allowed us to spend less time searching for answers and more time implementing and refining our code. In areas where traditional resources were insufficient or time-consuming, ChatGPT and Gemini filled the gap. While there were moments where its responses fell short, its overall impact was positive, contributing to our efficiency and learning throughout the project.
 
-[^releasenote]:'Note that our release .exe displays an error.'
-[^UniOfPitts]:'University of Pittsburgh, "Course & Subject Guides: MIT License Compatibility"' <https://pitt.libguides.com/openlicensing/MIT#:~:text=MIT%20License%20Compatibility,project%20must%20of%20GPL%20compliant.>
-[^LicenseCompat]:'Wikipedia: "License Compatibility: Compatibility of FOSS licenses"' <https://en.wikipedia.org/w/index.php?title=License_compatibility&section=3#Compatibility_of_FOSS_licenses>
+[^releasenote]: Note that our release .exe displays an error.
+[^UniOfPitts]: University of Pittsburgh, "Course & Subject Guides: MIT License Compatibility" <https://pitt.libguides.com/openlicensing/MIT#:~:text=MIT%20License%20Compatibility,project%20must%20of%20GPL%20compliant.>
+[^LicenseCompat]: Wikipedia: "License Compatibility: Compatibility of FOSS licenses" <https://en.wikipedia.org/w/index.php?title=License_compatibility&section=3#Compatibility_of_FOSS_licenses>
 [^CanaryFootnote]: A 'canary in the coal mine' refers to the practice of using canaries to alert miners of dangerous air quality. Thus, it is an indicator of *something* being wrong. <https://en.wiktionary.org/wiki/canary_in_a_coal_mine>
