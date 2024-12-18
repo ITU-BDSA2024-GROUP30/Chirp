@@ -162,7 +162,7 @@ A final missing feature with no related issues whatsoever, is the wild style fea
 
 ### Board for Improvements
 
-Below is a screenshot of the second project board[^improvementDate]. It contains 10 issues, 7 of which are marked as done while the last 3 are either in the **Todo** column. The low number of issues is due to the project board's comparatively late creation from around session 13. It was created to give the group easy access to what non-official task elements needed improvements, fixing or other work. As such, issues on this board are all prioritised as "nice-to-have", while the other project board is prioritised as "need-to-have".
+Below is a screenshot of the second project board[^improvementDate]. It contains 10 issues, 7 of which are marked as done while the last 3 are either in the **Todo** column. 
 
 ![Illustration of group 30 main GitHub improvement board](../docs/images/BDSA-improvementBoard.png)
 
@@ -174,7 +174,7 @@ Below is a screenshot of the second project board[^improvementDate]. It contains
 
 The process of creating issues, working on them until completion and merging them into the code on main, is shown in the diagram below.
 
-![Illustration of GitHub issue creation and completion process](../docs/images/BDSA-TeamWork-diagram.png)
+![Illustration of GitHub issue creation and completion process](../docs/images/BDSA-TeamWork-ad.png)
 
 
 Issues on both project boards follow the same *User Story* setup for titleing and content description. All issues made from official task descriptions were additionally named after which session and task number they already had. For example, the task 1.b) "Add Pagination of Cheeps" from session 5, would be written as first the session number, then the task number and letter, and optionally a third number depending on how many issues will be made from the one task. So the issue title would start with **(5.1.b.1)** and then followed by a short user story title. 
