@@ -13,6 +13,7 @@ numbersections: true
 Analysis, Design and Software Architecture (Autumn 2024)
 <p></p>
 Course code: BSANDSA1KU
+<p></p>
 GitHub repository: https://github.com/ITU-BDSA2024-GROUP30/Chirp/tree/main
 
 \pagebreak
