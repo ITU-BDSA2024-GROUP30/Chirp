@@ -14,15 +14,15 @@ public interface IAuthorRepository
 	/// <summary>
 	/// Gets an Username from a given IdentityUser which is a author
 	/// </summary>
-	/// <param name="Username"></param>
-	/// <returns></returns>
+	/// <param name="Username"> The Username</param>
+	/// <returns>The Author </returns>
 	public Task<Author> GetAuthorFromUsername(string Username);
 	/// <summary>
 	/// checks for if author true or false follows another author
 	/// </summary>
 	/// <param name="LoggedInAuthorUsername"></param>
 	/// <param name="AuthorToFollowUsername"></param>
-	/// <returns></returns>
+	/// <returns> Boolean if true or false that author alrady follows</returns>
 	public Task<Boolean> IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername);
 	/// <summary>
 	/// Adds author to given author followerlist
