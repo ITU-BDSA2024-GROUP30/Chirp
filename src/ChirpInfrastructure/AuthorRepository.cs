@@ -5,20 +5,57 @@ using System.Data;
 
 namespace ChirpRepositories;
 
+/// <summary>
+/// Defines methods for handling authors
+/// </summary>
 public interface IAuthorRepository
 {
-	public void AddAuthorToDatabase();
-	public void LoginAuthor();
 	public Task DeleteAuthorFromDatabaseAsync(string UserName);
+	/// <summary>
+	/// Gets an Username from a given IdentityUser which is a author
+	/// </summary>
+	/// <param name="Username"></param>
+	/// <returns></returns>
 	public Task<Author> GetAuthorFromUsername(string Username);
+	/// <summary>
+	/// checks for if author true or false follows another author
+	/// </summary>
+	/// <param name="LoggedInAuthorUsername"></param>
+	/// <param name="AuthorToFollowUsername"></param>
+	/// <returns></returns>
 	public Task<Boolean> IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername);
+	/// <summary>
+	/// Adds author to given author followerlist
+	/// </summary>
+	/// <param name="loggedInAuthorUsername"></param>
+	/// <param name="authorToFollowUsername"></param>
+	/// <returns></returns>
 	public Task AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
+	/// <summary>
+	/// Removes author to given author followerlist
+	/// </summary>
+	/// <param name="loggedInAuthorUsername"></param>
+	/// <param name="authorToFollowUsername"></param>
+	/// <returns></returns> <summary>
+	///
+	/// </summary>
+	/// <param name="loggedInAuthorUsername"></param>
+	/// <param name="authorToFollowUsername"></param>
+	/// <returns></returns>
 	public Task RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
-
+	/// <summary>
+	/// Gets the followerlist for given Username, which is a specific author
+	/// </summary>
+	/// <param name="Username"></param>
+	/// <returns></returns>
 	public Task<List<string>> GetFollowlistAsync(string Username);
 
 }
 
+/// <summary>
+/// Used handling logic of author
+/// Includes methods for handling and accessing author data
+/// </summary>
 public class AuthorRepository : IAuthorRepository
 {
 	private readonly ChirpDBContext _context;
@@ -27,19 +64,7 @@ public class AuthorRepository : IAuthorRepository
 		_context = context;
 	}
 
-	//Below adds a new author to the database and logs their info for later login
-	public void AddAuthorToDatabase() { }
-
-	//Below method takes username/email and password and matches it with an
-	//author in the db
-	public void LoginAuthor() { }
-
-	//This method is used when an Author follows another Author,
-	//and their followlist needs to be updated.
-
-
-	//this method is used when an Author unfollows another Author
-
+	//this method is used when an Authors followlist needs to be updated
 	public async Task DeleteAuthorFromDatabaseAsync(string Username)
 	{
 		Author AuthorToDelete = await GetAuthorFromUsername(Username);
