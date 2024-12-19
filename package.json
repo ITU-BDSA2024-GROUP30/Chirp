@@ -1,0 +1,18 @@
+{
+  "name": "chirp",
+  "version": "1.0.0",
+  "description": "To see for yourself what 'Chirp' is, visit the final product here: https://bdsagroup30chirpremotedb.azurewebsites.net/",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.2"
+  }
+}

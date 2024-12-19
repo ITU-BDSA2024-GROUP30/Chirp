@@ -39,3 +39,12 @@ jobs:
 
     - name: Test Chirp.CrossTests
       run: dotnet test ./test/Chirp.CrossTests
+
+		- name: Tests Class1
+      run: dotnet test ./test/tests/Class1
+
+			- name: Tests
+			run: |
+				export GitHub_ClientId="${{ secrets.GITHUBCLIENTID_SECRET }}"
+				export GitHub_ClientSecret="${{ secrets.GITHUBCLIENTSECRET_SECRET }}"
+				dotnet test --filter FullyQualifiedName!~PlaywrightTests
