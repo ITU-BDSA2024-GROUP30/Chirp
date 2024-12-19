@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-
-
 namespace ChirpCore.Domain
 {
 	public class Cheep

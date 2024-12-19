@@ -1,9 +1,6 @@
-using ChirpCore.Domain;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
 using ChirpRepositories;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 
 namespace ChirpServices;
@@ -11,18 +8,15 @@ namespace ChirpServices;
 
 public interface ICheepService
 {
-
 	public List<CheepDTO> GetCheeps(int pageNumber);
 	public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int pageNumber);
 	public Task<List<CheepDTO>> GetCheepsFromOtherAuthorAsync(string author, int pageNumber);
-	//public Task<int> CreateCheepAsync(int userId, string userName, string text);
 	public Task<Boolean> ForgetCheepsAsync(string userName);
 }
 
 public class CheepService : ICheepService
 {
 	private readonly ICheepRepository _cheepRepository;
-	//private readonly IAuthorRepository _authorRepository;
 	private readonly ChirpDBContext _context;
 
 	public CheepService(ICheepRepository cheepRepository, ChirpDBContext context)
@@ -76,7 +70,8 @@ public class CheepService : ICheepService
 		return _cheeps;
 	}
 
-	public async Task<Boolean> ForgetCheepsAsync(string userName) {
+	public async Task<Boolean> ForgetCheepsAsync(string userName)
+	{
 		try
 		{
 			await _cheepRepository.ForgetCheepsFromAuthorAsync(userName);
@@ -85,7 +80,7 @@ public class CheepService : ICheepService
 		catch (Exception)
 		{
 			return false;
-		 }
+		}
 	}
 
 

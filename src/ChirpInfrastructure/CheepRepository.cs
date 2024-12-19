@@ -151,17 +151,17 @@ public class CheepRepository : ICheepRepository
 		.FirstOrDefaultAsync();
 	}
 
-	public async Task ForgetCheepsFromAuthorAsync(string userName) {
+	public async Task ForgetCheepsFromAuthorAsync(string userName)
+	{
 		Author LoggedInAuthor = await GetAuthorFromUsernameAsync(userName);
 		var CheepsToRemove = _context.Cheeps.Where(C => C.Author!.UserName == userName);
-		foreach (Cheep cheep in CheepsToRemove){
+		foreach (Cheep cheep in CheepsToRemove)
+		{
 			_context.Cheeps.Remove(cheep);
 		}
-		
-		//_context.RemoveRange(CheepsToRemove);
+
 		await _context.SaveChangesAsync(); //would save changes in database as well
 		return;
 	}
-
 
 }
