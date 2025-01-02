@@ -58,9 +58,10 @@ public class CheepRepository : ICheepRepository
 
 	public async Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string AuthorName, int pageNumber)
 	{
+		public async Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string AuthorName, int pageNumber)
+	{
 		Author AuthorToGetFrom = await GetAuthorFromUsernameAsync(AuthorName);
-		var ListOfListOfCheeps = new List<List<CheepDTO>>();
-		var ListOfCheeps = new List<CheepDTO>();
+		var ListOfCheepsToSort = new List<Cheep>();
 		foreach (Author author in AuthorToGetFrom.Follows)
 		{
 			if (string.IsNullOrEmpty(author?.UserName))
@@ -75,7 +76,14 @@ public class CheepRepository : ICheepRepository
 			var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
 						.Where(Cheep => Cheep.Author.Id == author.Id)
 						//orders by the domainmodel timestamp, which is datetime type
-						.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
+						;
+			var ListOfCheeps = query.ToList();
+			foreach (Cheep cheep in ListOfCheeps) {
+				ListOfCheepsToSort.Add(cheep);
+			}
+		}
+		var ResultList = ListOfCheepsToSort.OrderByDescending(Cheep => Cheep.TimeStamp)
+		.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
 							cheep.CheepId,
 							cheep.Author.UserName,
 							cheep.Text,
@@ -83,18 +91,9 @@ public class CheepRepository : ICheepRepository
 						))
 						.Skip((pageNumber - 1) * pageSize)
 						.Take(pageSize);
-			ListOfListOfCheeps.Add([.. query]);
-		}
-
-		foreach (List<CheepDTO> cheeplist in ListOfListOfCheeps)
-		{
-			foreach (CheepDTO cheep in cheeplist)
-			{
-				ListOfCheeps.Add(cheep);
-			}
-		}
-
-		return ListOfCheeps;
+		
+		return [.. ResultList];
+	}
 	}
 
 	public async Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber)
