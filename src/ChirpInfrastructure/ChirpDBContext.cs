@@ -19,6 +19,7 @@ public class ChirpDBContext : IdentityDbContext<Author>
 
 		modelBuilder.Entity<Author>().HasIndex(a => a.UserName).IsUnique();
 		modelBuilder.Entity<Author>().HasIndex(a => a.Email).IsUnique();
+	//Below method structure from ChatGpt
 		modelBuilder.Entity<Author>()
 						.HasMany(a => a.Follows)
 						.WithMany()
