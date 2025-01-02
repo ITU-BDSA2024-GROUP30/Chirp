@@ -1,34 +1,29 @@
-/*Check later, does this hold?
-Configure the ASP.NET DI container (dependency injection container) so that instances of
-CheepRepository are injected into your application wherever needed. That is, none of your views,
-services, etc. has a direct dependency onto CheepRepository.*/
 using ChirpCore.Domain;
 using ChirpCore.DTOs;
 using ChirpInfrastructure;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 
 namespace ChirpRepositories;
 
+/// <summary>
+/// Defines methods for handling cheeps
+/// </summary>
 public interface ICheepRepository
 {
-	/*Below commented method will be relevant later
- public Cheep CreateCheep();
- Below 2 methods will not be implemented. If developers
- wish to implement editing or deleting of Cheeps from an Author,
- this is where to add this functionality.
- public Cheep EditCheep();
- public void DeleteCheep();
- */
+	/// <summary>
+	/// Read Cheeps for a given page on publictimeline
+	/// </summary>
+	/// <param name="pageNumber"> The page number</param>
+	/// <returns>List of Cheep DTOs </returns>
 	public List<CheepDTO> ReadCheeps(int pageNumber);
 	public Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string author, int pageNumber);
 	public Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber);
 	public Task<Author> GetAuthorFromUsernameAsync(string? Username);
-	//public Task<Author?> GetAuthorByIdAsync(int userId);
 	Task<int> GenerateNextCheepIdAsync();
 	Task<int> AddCheepAsync(Cheep newCheep);
-
 	public Task ForgetCheepsFromAuthorAsync(string userName);
 }
 public class CheepRepository : ICheepRepository
@@ -43,19 +38,6 @@ public class CheepRepository : ICheepRepository
 		_context = context;
 		_AuthorRepository = AuthorRepository;
 	}
-
-	public async Task<int> GenerateNextCheepIdAsync()
-	{
-		return await _context.Cheeps.AnyAsync() ? await _context.Cheeps.MaxAsync(c => c.CheepId) + 1 : 1;
-	}
-
-	public async Task<int> AddCheepAsync(Cheep newCheep)
-	{
-		await _context.Cheeps.AddAsync(newCheep);
-		await _context.SaveChangesAsync();
-		return newCheep.CheepId;
-	}
-
 
 	public List<CheepDTO> ReadCheeps(int pageNumber)
 	{
@@ -72,6 +54,44 @@ public class CheepRepository : ICheepRepository
 			.Take(pageSize);
 
 		return query.ToList();
+	}
+
+	public async Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string AuthorName, int pageNumber)
+	{
+		Author AuthorToGetFrom = await GetAuthorFromUsernameAsync(AuthorName);
+		var ListOfCheepsToSort = new List<Cheep>();
+		foreach (Author author in AuthorToGetFrom.Follows)
+		{
+			if (string.IsNullOrEmpty(author?.UserName))
+			{
+				continue; // Skip this follower if UserName is null.
+			}
+			if (author.UserName == null)
+			{
+				throw new ArgumentNullException(author.UserName);
+			}
+			//query for getting every cheep
+			var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
+						.Where(Cheep => Cheep.Author.Id == author.Id)
+						//orders by the domainmodel timestamp, which is datetime type
+						;
+			var ListOfCheeps = query.ToList();
+			foreach (Cheep cheep in ListOfCheeps)
+			{
+				ListOfCheepsToSort.Add(cheep);
+			}
+		}
+		var ResultList = ListOfCheepsToSort.OrderByDescending(Cheep => Cheep.TimeStamp)
+		.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
+							cheep.CheepId,
+							cheep.Author.UserName,
+							cheep.Text,
+							cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
+						))
+						.Skip((pageNumber - 1) * pageSize)
+						.Take(pageSize);
+
+		return [.. ResultList];
 	}
 
 	public async Task<List<CheepDTO>> ReadCheepsFromAuthorAsync(string AuthorName, int PageNumber)
@@ -97,44 +117,6 @@ public class CheepRepository : ICheepRepository
 		var ListOfCheeps = await query.ToListAsync();
 		return ListOfCheeps;
 	}
-
-	public async Task<List<CheepDTO>> ReadCheepsFromFollowListAsync(string AuthorName, int pageNumber)
-	{
-		Author AuthorToGetFrom = await GetAuthorFromUsernameAsync(AuthorName);
-		var ListOfCheepsToSort = new List<Cheep>();
-		foreach (Author author in AuthorToGetFrom.Follows)
-		{
-			if (string.IsNullOrEmpty(author?.UserName))
-			{
-				continue; // Skip this follower if UserName is null.
-			}
-			if (author.UserName == null)
-			{
-				throw new ArgumentNullException(author.UserName);
-			}
-			//query for getting every cheep
-			var query = _context.Cheeps.OrderByDescending(Cheepmessage => Cheepmessage.TimeStamp)
-						.Where(Cheep => Cheep.Author.Id == author.Id)
-						//orders by the domainmodel timestamp, which is datetime type
-						;
-			var ListOfCheeps = query.ToList();
-			foreach (Cheep cheep in ListOfCheeps) {
-				ListOfCheepsToSort.Add(cheep);
-			}
-		}
-		var ResultList = ListOfCheepsToSort.OrderByDescending(Cheep => Cheep.TimeStamp)
-		.Select(cheep => new CheepDTO( // message = domain cheep. result = cheepDTO
-							cheep.CheepId,
-							cheep.Author.UserName,
-							cheep.Text,
-							cheep.TimeStamp.ToString("MM/dd/yy H:mm:ss")
-						))
-						.Skip((pageNumber - 1) * pageSize)
-						.Take(pageSize);
-		
-		return [.. ResultList];
-	}
-
 	public async Task<Author> GetAuthorFromUsernameAsync(string? Username)
 	{
 		if (Username == null)
@@ -147,17 +129,28 @@ public class CheepRepository : ICheepRepository
 		.FirstOrDefaultAsync();
 	}
 
-	public async Task ForgetCheepsFromAuthorAsync(string userName) {
+	public async Task<int> GenerateNextCheepIdAsync()
+	{
+		return await _context.Cheeps.AnyAsync() ? await _context.Cheeps.MaxAsync(c => c.CheepId) + 1 : 1;
+	}
+	public async Task<int> AddCheepAsync(Cheep newCheep)
+	{
+		await _context.Cheeps.AddAsync(newCheep);
+		await _context.SaveChangesAsync();
+		return newCheep.CheepId;
+	}
+
+	public async Task ForgetCheepsFromAuthorAsync(string userName)
+	{
 		Author LoggedInAuthor = await GetAuthorFromUsernameAsync(userName);
 		var CheepsToRemove = _context.Cheeps.Where(C => C.Author!.UserName == userName);
-		foreach (Cheep cheep in CheepsToRemove){
+		foreach (Cheep cheep in CheepsToRemove)
+		{
 			_context.Cheeps.Remove(cheep);
 		}
-		
-		//_context.RemoveRange(CheepsToRemove);
+
 		await _context.SaveChangesAsync(); //would save changes in database as well
 		return;
 	}
-
 
 }

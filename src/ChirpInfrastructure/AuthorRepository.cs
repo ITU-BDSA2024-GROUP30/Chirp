@@ -1,27 +1,61 @@
 using ChirpCore.Domain;
 using ChirpInfrastructure;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
-
 namespace ChirpRepositories;
 
+/// <summary>
+/// Defines methods for handling authors
+/// </summary>
 public interface IAuthorRepository
 {
-	public void AddAuthorToDatabase();
-	public void LoginAuthor();
 	public Task DeleteAuthorFromDatabaseAsync(string UserName);
+	/// <summary>
+	/// Gets an Username from a given IdentityUser which is a author
+	/// </summary>
+	/// <param name="Username"> The Username</param>
+	/// <returns>The Author </returns>
 	public Task<Author> GetAuthorFromUsername(string Username);
+	/// <summary>
+	/// checks for if author true or false follows another author
+	/// </summary>
+	/// <param name="LoggedInAuthorUsername"></param>
+	/// <param name="AuthorToFollowUsername"></param>
+	/// <returns> Boolean if true or false that author alrady follows</returns>
 	public Task<Boolean> IsFollowing(string LoggedInAuthorUsername, string AuthorToFollowUsername);
+	/// <summary>
+	/// Adds author to given author followerlist
+	/// </summary>
+	/// <param name="loggedInAuthorUsername"></param>
+	/// <param name="authorToFollowUsername"></param>
+	/// <returns></returns>
 	public Task AddAuthorToFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
+	/// <summary>
+	/// Removes author to given author followerlist
+	/// </summary>
+	/// <param name="loggedInAuthorUsername"></param>
+	/// <param name="authorToFollowUsername"></param>
+	/// <returns></returns> <summary>
+	///
+	/// </summary>
+	/// <param name="loggedInAuthorUsername"></param>
+	/// <param name="authorToFollowUsername"></param>
+	/// <returns></returns>
 	public Task RemoveAuthorFromFollowList(string loggedInAuthorUsername, string authorToFollowUsername);
-
+	/// <summary>
+	/// Gets the followerlist for given Username, which is a specific author
+	/// </summary>
+	/// <param name="Username"></param>
+	/// <returns></returns>
 	public Task<List<string>> GetFollowlistAsync(string Username);
 
-	//public Task RemoveAuthor(string Username);
 }
 
+/// <summary>
+/// Used handling logic of author
+/// Includes methods for handling and accessing author data
+/// </summary>
 public class AuthorRepository : IAuthorRepository
 {
 	private readonly ChirpDBContext _context;
@@ -30,19 +64,7 @@ public class AuthorRepository : IAuthorRepository
 		_context = context;
 	}
 
-	//Below adds a new author to the database and logs their info for later login
-	public void AddAuthorToDatabase() { }
-
-	//Below method takes username/email and password and matches it with an
-	//author in the db
-	public void LoginAuthor() { }
-
-	//This method is used when an Author follows another Author,
-	//and their followlist needs to be updated.
-
-
-	//this method is used when an Author unfollows another Author
-
+	//this method is used when an Authors followlist needs to be updated
 	public async Task DeleteAuthorFromDatabaseAsync(string Username)
 	{
 		Author AuthorToDelete = await GetAuthorFromUsername(Username);
@@ -50,7 +72,8 @@ public class AuthorRepository : IAuthorRepository
 
 		var query = _context.Authors.Where(A => A.Follows.Contains(AuthorToDelete));
 
-		foreach (Author author in query) {
+		foreach (Author author in query)
+		{
 			author.Follows.Remove(AuthorToDelete);
 		}
 
@@ -77,8 +100,6 @@ public class AuthorRepository : IAuthorRepository
 			throw new ArgumentNullException("Usernames null");
 		}
 
-		//Author LoggedInAuthor = await GetAuthorFromUsername(LoggedInAuthorUsername);
-		//Author AuthorToFollow = await GetAuthorFromUsername(AuthorToFollowUsername);
 
 		if (LoggedInAuthor.Follows.Contains(AuthorToFollow))
 		{
@@ -107,10 +128,12 @@ public class AuthorRepository : IAuthorRepository
 		await _context.SaveChangesAsync();
 	}
 
-	public async Task<List<string>> GetFollowlistAsync(string Username){
+	public async Task<List<string>> GetFollowlistAsync(string Username)
+	{
 		List<string> FollowlistUsernames = new List<string>();
 		Author Me = await GetAuthorFromUsername(Username);
-		foreach (Author author in Me.Follows){
+		foreach (Author author in Me.Follows)
+		{
 			FollowlistUsernames.Add(author.UserName);
 		}
 		return FollowlistUsernames;
